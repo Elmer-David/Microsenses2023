@@ -18,7 +18,7 @@ class CreatePersonalsTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('dni');
-            $table->binary('foto_perfil')->nullable();
+            $table->string('foto_perfil')->nullable();
             $table->string('direccion');
             $table->string('telefono');
             $table->string('email');
