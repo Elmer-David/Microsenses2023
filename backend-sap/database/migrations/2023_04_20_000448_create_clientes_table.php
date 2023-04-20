@@ -21,7 +21,7 @@ class CreateClientesTable extends Migration
             $table->string('email');
             $table->string('contraseña');
             $table->string('contraseña_confirmed');
-            $table->binary('foto_perfil')->nullable();
+            $table->string('foto_perfil')->nullable();
             $table->string('direccion');
             $table->string('dni');
             $table->string('cargo');

@@ -21,5 +21,5 @@ class Cliente extends Model
     // public function parqueos() {
     //     return $this->belongsTo(Parqueo::class,'id_parqueo');
     // }
-}
+}//Prueba
  

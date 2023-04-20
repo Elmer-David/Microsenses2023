@@ -35,7 +35,7 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        $personal = new Cliente($request->all());
+        $personal = new Personal($request->all());
         $personal->save();
         return $personal; 
     }
