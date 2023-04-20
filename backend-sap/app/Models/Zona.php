@@ -14,3 +14,4 @@ class Zona extends Model
         'nombre', 'nro_sitios', 'sitios', 'direccion', 'imagen', 'descripcion',
     ];
 }
+//cesar//
