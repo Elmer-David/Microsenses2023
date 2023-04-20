@@ -9,18 +9,30 @@ function RegistroH() {
 
   const handleNameChange = (e) => {
     const { value } = e.target;
-    setName(value.replace(/[^a-zA-Z]/g, '')); 
+    setName(value.replace(/[^a-zA-Z0-9ñÑ\s]/g, '').slice(0, 20));
+
   };
 
   const handleStartTimeChange = (e) => {
     setStartTime(e.target.value);
+    
   };
 
   const handleEndTimeChange = (e) => {
     setEndTime(e.target.value);
+    if (endTime < startTime) {
+      alert("No se puede guardar en Fin de turno una hora menor a Inicio de Turno");
+      return;
+    }
   };
 
+  
+
   const handleSave = () => {
+    if (endTime <= startTime) {
+      alert("No se puede guardar en Fin de turno una hora menor o igual a Inicio de Turno");
+      return;
+    }
     const newShift = { name, startTime, endTime };
     setShifts([...shifts, newShift]);
     setName('');
@@ -36,7 +48,7 @@ function RegistroH() {
 
   return (
     <Container>
-      <h1>Registro de Horario</h1>
+      <h1>Registro de horarios del parqueo</h1>
       <Form>
         <Form.Group controlId="formBasicName">
           <Form.Label>Nombre</Form.Label>
