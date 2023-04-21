@@ -14,16 +14,16 @@ const BarraNavegacion = () => {
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to='/FormularioRegistroCuenta'>registrar Datos Usuario</Link>
+          <Link className="nav-link active" aria-current="page" to='/FormularioRegistroCuenta'>Registrar Datos Usuario</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link"to='/FormularioRegistroPerso'>registrar Datos Del Personal</Link>
+          <Link className="nav-link"to='/FormularioRegistroPerso'>Registrar Datos Del Personal</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to='/FormularioRegistroCli'>registrar Datos Cliente</Link>
+          <Link className="nav-link" to='/FormularioRegistroCli'>Registrar Datos Cliente</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link " to='/RegistroVehiculo'>registrar Vehiculo</Link>
+          <Link className="nav-link " to='/RegistroVehiculo'>Registrar Vehiculo</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link " to='/RegistroZonasParqueo' >Registrar Zonas de Parqueo</Link>

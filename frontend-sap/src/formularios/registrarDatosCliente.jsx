@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
-
+import axios from 'axios';
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
@@ -47,14 +47,18 @@ const FormularioRegistroCli = () => {
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [CI, setCI] = useState('');
-  const [cargo, setCargo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
   const [correoElectronico, setCorreoElectronico] = useState('');
   const [direccion, setDireccion] = useState("");
 
+  const [cargo, setCargo] = useState("cargo");
+  const [sitio, setSitio] = useState("sitio");
+  const [estado, setEstado] = useState(1);
+  const [fotoString, setFotoString] = useState("imagen.jpg");
+
+
   const [errorNombre, setErrorNombre] = useState('');
-  const [errorCargo, setErrorCargo] = useState('');
   const [errorDepartamento, setErrorDepartamento] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -70,11 +74,6 @@ const FormularioRegistroCli = () => {
   const validarNombre = (valor) => {
     if (!regexSoloLetras.test(valor)) {
       return "Por favor, ingresa solo letras en el campo de nombre";
-    }
-  };
-  const validarCargo = (valor) => {
-    if (!regexSoloLetras.test(valor)) {
-      return "Por favor, ingresa solo letras en el campo de Cargo";
     }
   };
   const validarDepartamento = (valor) => {
@@ -116,22 +115,19 @@ const FormularioRegistroCli = () => {
     }
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
-    const errorCargo = validarCargo(cargo);
     const errorDepartamento = validarDepartamento(nombre);
     const errorApellido = validarApellido(apellido);
     const errorTelefono = validarTelefono(telefono);
-
     const errorCI = validarCI(CI);
     const errorContraseña = validarContraseña(contraseña);
     const errorConfirmarContraseña = validarConfirmarContraseña(confirmarContraseña);
     const errorCorreoElectronico = validarCorreoElectronico(correoElectronico);
 
     setErrorNombre(errorNombre);
-    setErrorCargo(errorCargo);
     setErrorDepartamento(errorDepartamento);
     setErrorApellido(errorApellido);
     setErrorTelefono(errorTelefono);
@@ -140,14 +136,30 @@ const FormularioRegistroCli = () => {
     setErrorConfirmarContraseña(errorConfirmarContraseña);
     setErrorCorreoElectronico(errorCorreoElectronico);
 
-    if (!errorNombre && !cargo && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
+    if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
+
+      await axios.post('http://localhost:8000/api/clientes', {
+      nombre: nombre,
+      apellido: apellido,
+      telefono: telefono,
+      email: correoElectronico,
+      contraseña: contraseña,
+      contraseña_confirmed: confirmarContraseña,
+      foto_perfil: fotoString,
+      direccion: direccion,
+      dni: CI,
+      cargo: cargo,
+      departamento: Departamento,
+      estado: estado,
+      sitio: sitio
+      })
+
       resetForm();
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
       console.log("Hay errores en el formulario:");
       console.log(errorNombre);
-      console.log(errorCargo);
       console.log(errorDepartamento);
       console.log(errorApellido);
       console.log(errorTelefono);
@@ -160,10 +172,10 @@ const FormularioRegistroCli = () => {
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
-      <h1>Registrar datos del cliente</h1>
+      <h1>Registrar Datos Del Cliente</h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
-    <Form onSubmit={onSubmit} >
+    <Form onSubmit={onSubmit}>
       <Form.Group controlId="nombre">
         <Form.Label>Nombre:</Form.Label>
         <Form.Control
@@ -182,7 +194,7 @@ const FormularioRegistroCli = () => {
         </Form.Group>
 
       <Form.Group controlId="apellido">
-        <Form.Label>apellido:</Form.Label>
+        <Form.Label>Apellido: </Form.Label>
         <Form.Control
           type="text"
           value={apellido}
@@ -246,24 +258,17 @@ const FormularioRegistroCli = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="Cargo">
-        <Form.Label>Cargo:</Form.Label>
-        <Form.Control
-          type="text"
-          value={cargo}
-          onChange={(event) => setCargo(event.target.value)}
-          isInvalid={errorCargo}
-          pattern="[a-zA-Z]+"
-          maxLength={30}
-          minLength={2}
-          required
-        />
-        <Form.Control.Feedback type="invalid">
-          {errorCargo}
-        </Form.Control.Feedback>
-        </Form.Group>
+        <Form.Group controlId="formBasicCargo">
+              <Form.Label>Cargo: </Form.Label>
+              <Form.Control as="select" defaultValue="Seleccione el cargo"  required >
+              <option>  </option>
+                <option>Docente</option>
+                <option>Administrativo</option>
+              </Form.Control>
+            </Form.Group>
 
-            <Button onClick={handleClick} variant="danger"  >cancelar </Button>
+
+            <Button onClick={handleClick} variant="danger"  >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                  
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>
@@ -299,7 +304,7 @@ const FormularioRegistroCli = () => {
 </Form.Group>
 
 <Form.Group controlId="confirmar-contraseña">
-  <Form.Label>Confirmar contraseña:</Form.Label>
+  <Form.Label>Confirmar Contraseña:</Form.Label>
   <Form.Control
     type="password"
     value={confirmarContraseña}
@@ -314,7 +319,7 @@ const FormularioRegistroCli = () => {
 </Form.Group>
 
 <Form.Group controlId="correo-electronico">
-  <Form.Label>Correo electrónico:</Form.Label>
+  <Form.Label>Correo Electrónico:</Form.Label>
   <Form.Control
     type="email"
     value={correoElectronico}
@@ -361,7 +366,7 @@ const FormularioRegistroCli = () => {
             </Form.Group>
 
 
-<Button type="submit">Enviar</Button>
+<Button variant="success" type="submit">Enviar</Button>
 </Form>
 </Col>
        </Row>

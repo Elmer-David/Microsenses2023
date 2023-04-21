@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button ,Modal} from "react-bootstrap";
-
+import axios from 'axios';
 
 
 const RegistroVehiculo = () => {
@@ -8,6 +8,8 @@ const RegistroVehiculo = () => {
   const [numPlaca, setNumPlaca] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [foto, setFoto] = useState("");
+  const [idCliente, setIdCliente] = useState(null);
+  const [fotoString, setFotoString] = useState("imagen.jpg");
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -48,8 +50,17 @@ const RegistroVehiculo = () => {
     setFoto('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await axios.post('http://localhost:8000/api/vehiculos', {
+      modelo: nombre,
+      foto: fotoString,
+      nro_placa: numPlaca,
+      descripcion: descripcion,
+      id_cliente: idCliente
+      })
+
     resetForm();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
   };
@@ -58,7 +69,7 @@ const RegistroVehiculo = () => {
     
     <div className="container d-flex align-items-center" style={{ height: "100vh" }}>
     <div className="col-lg-6 mx-auto">
-      <h1>Registrar vehículo</h1>
+      <h1>Registrar Vehículo</h1>
       <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className="mt-4">
             <Form.Label>Nombre y/o Modelo del vehiculo: </Form.Label>
@@ -102,7 +113,7 @@ const RegistroVehiculo = () => {
         </Form.Group>
 
         <Form.Group controlId="foto">
-          <Form.Label>Foto del vehiculo </Form.Label>
+          <Form.Label>Foto del Vehiculo </Form.Label>
           <Form.Control
             type="file"
             accept="image/*"
@@ -129,7 +140,7 @@ const RegistroVehiculo = () => {
               
                 
                 
-             <Button onClick={handleClick} variant="danger"   >cancelar </Button>
+             <Button onClick={handleClick} variant="danger"   >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                  
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>

@@ -27,15 +27,21 @@ function RegistroH() {
   
   const handleNameChange = (e) => {
     const { value } = e.target;
-    setName(value.replace(/[^a-zA-Z]/g, '')); 
+    setName(value.replace(/[^a-zA-Z0-9ñÑ\s]/g, '').slice(0, 20));
+
   };
 
   const handleStartTimeChange = (e) => {
     setStartTime(e.target.value);
+    
   };
 
   const handleEndTimeChange = (e) => {
     setEndTime(e.target.value);
+    if (endTime < startTime) {
+      alert("No se puede guardar en Fin de turno una hora menor a Inicio de Turno");
+      return;
+    }
   };
 
   const handleSave =async  () => {
@@ -78,12 +84,12 @@ function RegistroH() {
           <Form.Label>Fin de Turno</Form.Label>
           <Form.Control type="time" value={endTime} onChange={handleEndTimeChange} required />
         </Form.Group>
-        <Button variant="primary" type='submit' onClick={ handleSave}>    Guardar </Button>
   
 
-        <Button variant="secondary" type="reset">
+        <Button variant="danger" type="reset">
           Cancelar
         </Button>
+        <Button variant="success"type='submit' onClick={ handleSave}>    Guardar </Button>
     
 
       <h2>Horarios Registrados</h2>

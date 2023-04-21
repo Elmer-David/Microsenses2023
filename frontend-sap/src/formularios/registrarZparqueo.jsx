@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-
+import axios from 'axios';
 
 
 const RegistroZonasParqueo = () => {
@@ -15,13 +15,20 @@ const RegistroZonasParqueo = () => {
   const [descripcion, setDescripcion] = useState("");
   const [direccion, setDireccion] = useState("");
   const [foto, setFoto] = useState("");
+  const [sitios, setSitios] = useState("SitiosDisponibles");
+  const [fotoString, setFotoString] = useState("imagen.jpg");
+  const [numSitiosInteger, setNumSitiosInteger] = useState(0);
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
   };
 
   const handleNumSitiosChange = (event) => {
-    setNumSitios(event.target.value);
+    const input = event.target.value;
+    const value = parseInt(input);
+    if (!isNaN(value)) {
+      setNumSitios(value);
+    }
   };
 
   const handleDescripcionChange = (event) => {
@@ -58,8 +65,18 @@ const RegistroZonasParqueo = () => {
   
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await axios.post('http://localhost:8000/api/zonas', {
+      nombre: nombre,
+      nro_sitios:numSitios,
+      sitios: sitios,
+      direccion: direccion,
+      imagen: fotoString,
+      descripcion: descripcion
+    })
+
     resetForm();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
 
@@ -73,10 +90,10 @@ const RegistroZonasParqueo = () => {
       <h1>Registrar Zona de Parqueo</h1>
       <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className="mt-4">
-            <Form.Label>Nombre y/o Modelo del vehiculo: </Form.Label>
+            <Form.Label>Nombre Zona: </Form.Label>
             <Form.Control
             type="text"
-            placeholder="Ingresa el nombre del vehículo"
+            placeholder="Ingresa el nombre de la Zona"
             value={nombre}
             onChange={handleNombreChange}
             maxLength={100}
@@ -86,14 +103,14 @@ const RegistroZonasParqueo = () => {
         </Form.Group>
 
         <Form.Group controlId="numSitios">
-          <Form.Label>Número de placa: </Form.Label>
+          <Form.Label>Número de sitios: </Form.Label>
           <Form.Control
-            type="text"
+            type="numb"
             placeholder="Ingresa el número de sitio"
             value={numSitios}
             onChange={handleNumSitiosChange}
             maxLength={10}
-            minLength={6}
+            minLength={1}
             required
           />
         </Form.Group>
@@ -103,7 +120,7 @@ const RegistroZonasParqueo = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Ingresa una descripción del vehículo"
+            placeholder="Ingresa una direccion de la Zona"
             value={direccion}
             onChange={handleDireccionChange}
             maxLength={250}
@@ -119,7 +136,7 @@ const RegistroZonasParqueo = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Ingresa una descripción del vehículo"
+            placeholder="Ingresa una descripción de la Zona"
             value={descripcion}
             onChange={handleDescripcionChange}
             maxLength={250}
@@ -129,7 +146,7 @@ const RegistroZonasParqueo = () => {
         </Form.Group>
 
         <Form.Group controlId="foto">
-          <Form.Label>Foto del vehiculo </Form.Label>
+          <Form.Label>Foto del Vehiculo </Form.Label>
           <Form.Control
             type="file"
             accept="image/*"
@@ -155,7 +172,7 @@ const RegistroZonasParqueo = () => {
 
                  
 
-             <Button onClick={handleClick} variant="danger"  >cancelar </Button>
+             <Button onClick={handleClick} variant="danger"  >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                  
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>

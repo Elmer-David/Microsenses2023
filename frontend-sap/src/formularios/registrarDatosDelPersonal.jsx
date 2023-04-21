@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
-import axios from 'axios'
+import axios from 'axios';
 
-
+ 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
 const FormularioRegistroPerso = () => {
+
+
+      
+
+
+
 
 
 const [showModal, setShowModal] = useState(false);
@@ -29,6 +35,7 @@ function resetForm() {
   setErrorTelefono('');
   setErrorCI('');
   setErrorCorreoElectronico('');
+  setHorario('');
 }
 
   const [image, setImage] = useState(null);
@@ -44,20 +51,33 @@ function resetForm() {
 
 
   const [nombre, setNombre] = useState('');
-  const [contraseña, setContraseña] = useState(null);
-  const [confirmarContraseña, setConfirmarContraseña] = useState(null);
-  const [direccion, setDireccion] = useState(null);
+
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [CI, setCI] = useState('');
-
   const [correoElectronico, setCorreoElectronico] = useState('');
+
+  const [fotoString, setFotoString] = useState("imagen.jpg");
+  const [direccion, setDireccion] = useState("Direccion");
+  const [contraseña, setContraseña] = useState("contraseña");
+  const [confirmarContraseña, setConfirmarContraseña] = useState("confirmarcontraseña");
+  const [tipoUsuario, setTipoUsuario] = useState(0);
+  const [horario, setHorario] = useState('');
+
   const [errorNombre, setErrorNombre] = useState('');
+  const [errorHorario, setErrorHorario] = useState('');
+  
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
   const [errorCI, setErrorCI] = useState('');
 
   const [errorCorreoElectronico, setErrorCorreoElectronico] = useState('');
+
+
+  const validarHorario = (valor) => {
+   
+  };
+ 
 
   const validarNombre = (valor) => {
     if (!regexSoloLetras.test(valor)) {
@@ -88,26 +108,43 @@ function resetForm() {
     }
   };
 
- 
 
-  const onSubmit = (event) => {
+        
+
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
+    const errorHorario = validarHorario(horario);
     const errorApellido = validarApellido(apellido);
     const errorTelefono = validarTelefono(telefono);
     const errorCI = validarCI(CI);
     const errorCorreoElectronico = validarCorreoElectronico(correoElectronico);
 
     setErrorNombre(errorNombre);
+    setErrorHorario(errorHorario);
     setErrorApellido(errorApellido);
     setErrorTelefono(errorTelefono);
     setErrorCI(errorCI);
     setErrorCorreoElectronico(errorCorreoElectronico);
 
-    if (!errorNombre && !errorTelefono && !errorCI  && !errorCorreoElectronico && !errorApellido) {
- 
+    if (!errorNombre   && !errorTelefono && !errorCI  && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
+
+      await axios.post('http://localhost:8000/api/personals', {
+      nombre: nombre,
+      apellido: apellido,
+      dni: CI,
+      foto_perfil: fotoString,
+      direccion: direccion,
+      telefono: telefono,
+      email: correoElectronico,
+      contraseña: contraseña,
+      contraseña_confirmed: confirmarContraseña,
+      tipo_usuario: tipoUsuario,
+      id_horario: horario
+      })
+
       resetForm();
 
 
@@ -115,10 +152,11 @@ function resetForm() {
     } else {
       console.log("Hay errores en el formulario:");
       console.log(errorNombre);
+  
       console.log(errorApellido);
       console.log(errorTelefono);
       console.log(errorCI);
- 
+      console.log(errorHorario);
       console.log(errorCorreoElectronico);
     }
   };
@@ -126,12 +164,9 @@ function resetForm() {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
 
-  
-      <h1>Registrar datos del personal </h1>
+      <h1>Registrar Datos Del Personal </h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
-
-           
     <Form  onSubmit={onSubmit} id="myForm">
       <Form.Group controlId="nombre">
         <Form.Label>Nombre:</Form.Label>
@@ -151,7 +186,7 @@ function resetForm() {
         </Form.Group>
 
         <Form.Group controlId="apellido">
-        <Form.Label>apellido:</Form.Label>
+        <Form.Label>Apellido:</Form.Label>
         <Form.Control
           type="text"
           value={apellido}
@@ -193,7 +228,7 @@ function resetForm() {
 
        
 
-            <Button onClick={handleClick}>cancelar </Button>
+            <Button onClick={handleClick} variant="danger" > Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                  
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>
@@ -215,38 +250,55 @@ function resetForm() {
         <Col md={6}>
         <Form onSubmit={onSubmit}>
     
-      
-        <Form.Group controlId="CI">
-          <Form.Label>CI/DNI:</Form.Label>
-          <Form.Control
-            type="t"
-            value={CI}
-            onChange={(event) => setCI(event.target.value)}
-            isInvalid={errorCI}
-            pattern="[0-9]+"
-            maxLength={10}
-            minLength={6}
-            required
-          />
-          <Form.Control.Feedback type="invalid" >
-            {errorCI}
-          </Form.Control.Feedback>
-        </Form.Group>
+                    
+                      <Form.Group controlId="CI">
+                        <Form.Label>CI/DNI:</Form.Label>
+                        <Form.Control
+                          type=""
+                          value={CI}
+                          onChange={(event) => setCI(event.target.value)}
+                          isInvalid={errorCI}
+                          pattern="[0-9]+"
+                          maxLength={10}
+                          minLength={6}
+                          required
+                        />
+                        <Form.Control.Feedback type="invalid" >
+                          {errorCI}
+                        </Form.Control.Feedback>
+                      </Form.Group>
 
 
-<Form.Group controlId="correo-electronico">
-  <Form.Label>Correo electrónico:</Form.Label>
-  <Form.Control
-    type="email"
-    value={correoElectronico}
-    onChange={(event) => setCorreoElectronico(event.target.value)}
-    isInvalid={errorCorreoElectronico}
-    required
-  />
-  <Form.Control.Feedback type="invalid">
-    {errorCorreoElectronico}
-  </Form.Control.Feedback>
-</Form.Group>
+                  <Form.Group controlId="correo-electronico">
+                    <Form.Label>Correo electrónico:</Form.Label>
+                    <Form.Control
+                      type="email"
+                      value={correoElectronico}
+                      onChange={(event) => setCorreoElectronico(event.target.value)}
+                      isInvalid={errorCorreoElectronico}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errorCorreoElectronico}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                            
+            <Form.Group controlId="horario">
+              <Form.Label>Horario:</Form.Label>
+              <Form.Control
+                type=""
+                value={horario}
+                onChange={(event) => setHorario(parseInt(event.target.value))}
+                isInvalid={errorHorario}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {errorHorario}
+              </Form.Control.Feedback>
+            </Form.Group>
+                
+        
           <Form.Group controlId="formBasicFoto">            
           <Form.Label>Foto de Perfil</Form.Label>
               <Form.Control type="file" onChange={handleImageUpload} accept="image/*"   required />
@@ -261,7 +313,7 @@ function resetForm() {
             </Form.Group>
 
   
-            <Button type='submit'   variant="primary"  >Enviar </Button>
+            <Button  type="submit"   >Enviar </Button>
             
           
                   
