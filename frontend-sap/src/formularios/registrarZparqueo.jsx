@@ -62,6 +62,8 @@ const RegistroZonasParqueo = () => {
     event.preventDefault();
     resetForm();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
+
+    
   };
 
   return (

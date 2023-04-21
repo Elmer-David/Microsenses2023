@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+
 import { Form, Button, ListGroup, Container } from 'react-bootstrap';
+import axios from 'axios'
+import React, { useState, useEffect } from 'react';
 
 function RegistroH() {
   const [name, setName] = useState('');
@@ -7,6 +9,22 @@ function RegistroH() {
   const [endTime, setEndTime] = useState('');
   const [shifts, setShifts] = useState([]);
 
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/horarios')
+      .then(response => {
+        const newShifts = response.data.map(shift => ({
+          name: shift.nombre,
+          startTime: shift.inicio_turno,
+          endTime: shift.salida_turno
+        }));
+        setShifts(newShifts);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+  
   const handleNameChange = (e) => {
     const { value } = e.target;
     setName(value.replace(/[^a-zA-Z]/g, '')); 
@@ -20,15 +38,21 @@ function RegistroH() {
     setEndTime(e.target.value);
   };
 
-  const handleSave = () => {
+  const handleSave =async  () => {
+  
+    await axios.post('http://localhost:8000/api/horarios', {nombre: name, inicio_turno: startTime, salida_turno: endTime})
+
     const newShift = { name, startTime, endTime };
+    
     setShifts([...shifts, newShift]);
     setName('');
     setStartTime('');
     setEndTime('');
+   
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
+    await axios.delete(`http://localhost:8000/api/horarios/${shifts[index].id}`);
     const newShifts = [...shifts];
     newShifts.splice(index, 1);
     setShifts(newShifts);
@@ -37,7 +61,9 @@ function RegistroH() {
   return (
     <Container>
       <h1>Registro de Horario</h1>
-      <Form>
+
+
+      
         <Form.Group controlId="formBasicName">
           <Form.Label>Nombre</Form.Label>
           <Form.Control type="text" value={name} onChange={handleNameChange} required />
@@ -52,14 +78,13 @@ function RegistroH() {
           <Form.Label>Fin de Turno</Form.Label>
           <Form.Control type="time" value={endTime} onChange={handleEndTimeChange} required />
         </Form.Group>
+        <Button variant="primary" type='submit' onClick={ handleSave}>    Guardar </Button>
+  
 
-        <Button variant="primary" type="button" onClick={handleSave}>
-          Guardar
-        </Button>{' '}
         <Button variant="secondary" type="reset">
           Cancelar
         </Button>
-      </Form>
+    
 
       <h2>Horarios Registrados</h2>
       <ListGroup>

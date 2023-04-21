@@ -45,8 +45,7 @@ const RegistroVehiculo = () => {
     setNombre('');
     setNumPlaca('');
     setDescripcion('');
-
-    setFoto(null);
+    setFoto('');
   };
 
   const handleSubmit = (event) => {
@@ -86,6 +85,8 @@ const RegistroVehiculo = () => {
             required
           />
         </Form.Group>
+
+        
         <Form.Group controlId="descripcion">
           <Form.Label>Descripción: </Form.Label>
           <Form.Control

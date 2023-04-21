@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
+import axios from 'axios'
+
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
@@ -42,6 +44,9 @@ function resetForm() {
 
 
   const [nombre, setNombre] = useState('');
+  const [contraseña, setContraseña] = useState(null);
+  const [confirmarContraseña, setConfirmarContraseña] = useState(null);
+  const [direccion, setDireccion] = useState(null);
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [CI, setCI] = useState('');
@@ -83,6 +88,8 @@ function resetForm() {
     }
   };
 
+ 
+
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -99,6 +106,7 @@ function resetForm() {
     setErrorCorreoElectronico(errorCorreoElectronico);
 
     if (!errorNombre && !errorTelefono && !errorCI  && !errorCorreoElectronico && !errorApellido) {
+ 
       console.log("El formulario se envió correctamente");
       resetForm();
 
@@ -118,9 +126,12 @@ function resetForm() {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
 
+  
       <h1>Registrar datos del personal </h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
+
+           
     <Form  onSubmit={onSubmit} id="myForm">
       <Form.Group controlId="nombre">
         <Form.Label>Nombre:</Form.Label>
@@ -250,7 +261,7 @@ function resetForm() {
             </Form.Group>
 
   
-            <Button type="submit"   variant="primary"  >Enviar </Button>
+            <Button type='submit'   variant="primary"  >Enviar </Button>
             
           
                   

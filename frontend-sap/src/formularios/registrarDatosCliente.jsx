@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
 
+
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
@@ -46,12 +47,14 @@ const FormularioRegistroCli = () => {
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [CI, setCI] = useState('');
+  const [cargo, setCargo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
   const [correoElectronico, setCorreoElectronico] = useState('');
   const [direccion, setDireccion] = useState("");
 
   const [errorNombre, setErrorNombre] = useState('');
+  const [errorCargo, setErrorCargo] = useState('');
   const [errorDepartamento, setErrorDepartamento] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -67,6 +70,11 @@ const FormularioRegistroCli = () => {
   const validarNombre = (valor) => {
     if (!regexSoloLetras.test(valor)) {
       return "Por favor, ingresa solo letras en el campo de nombre";
+    }
+  };
+  const validarCargo = (valor) => {
+    if (!regexSoloLetras.test(valor)) {
+      return "Por favor, ingresa solo letras en el campo de Cargo";
     }
   };
   const validarDepartamento = (valor) => {
@@ -112,15 +120,18 @@ const FormularioRegistroCli = () => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
+    const errorCargo = validarCargo(cargo);
     const errorDepartamento = validarDepartamento(nombre);
     const errorApellido = validarApellido(apellido);
     const errorTelefono = validarTelefono(telefono);
+
     const errorCI = validarCI(CI);
     const errorContraseña = validarContraseña(contraseña);
     const errorConfirmarContraseña = validarConfirmarContraseña(confirmarContraseña);
     const errorCorreoElectronico = validarCorreoElectronico(correoElectronico);
 
     setErrorNombre(errorNombre);
+    setErrorCargo(errorCargo);
     setErrorDepartamento(errorDepartamento);
     setErrorApellido(errorApellido);
     setErrorTelefono(errorTelefono);
@@ -129,13 +140,14 @@ const FormularioRegistroCli = () => {
     setErrorConfirmarContraseña(errorConfirmarContraseña);
     setErrorCorreoElectronico(errorCorreoElectronico);
 
-    if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
+    if (!errorNombre && !cargo && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
       resetForm();
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
       console.log("Hay errores en el formulario:");
       console.log(errorNombre);
+      console.log(errorCargo);
       console.log(errorDepartamento);
       console.log(errorApellido);
       console.log(errorTelefono);
@@ -151,7 +163,7 @@ const FormularioRegistroCli = () => {
       <h1>Registrar datos del cliente</h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} >
       <Form.Group controlId="nombre">
         <Form.Label>Nombre:</Form.Label>
         <Form.Control
@@ -234,15 +246,22 @@ const FormularioRegistroCli = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formBasicCargo">
-              <Form.Label>Cargo: </Form.Label>
-              <Form.Control as="select" defaultValue="Seleccione el cargo"  required >
-              <option>  </option>
-                <option>Docente</option>
-                <option>Administrativo</option>
-              </Form.Control>
-            </Form.Group>
-
+        <Form.Group controlId="Cargo">
+        <Form.Label>Cargo:</Form.Label>
+        <Form.Control
+          type="text"
+          value={cargo}
+          onChange={(event) => setCargo(event.target.value)}
+          isInvalid={errorCargo}
+          pattern="[a-zA-Z]+"
+          maxLength={30}
+          minLength={2}
+          required
+        />
+        <Form.Control.Feedback type="invalid">
+          {errorCargo}
+        </Form.Control.Feedback>
+        </Form.Group>
 
             <Button onClick={handleClick} variant="danger"  >cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
