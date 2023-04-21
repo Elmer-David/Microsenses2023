@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row,Modal } from 'react-bootstrap';
+import axios from 'axios';
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
@@ -39,6 +40,14 @@ function resetForm() {
   const [contraseña, setContraseña] = useState('');
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
   const [correoElectronico, setCorreoElectronico] = useState('');
+
+  const [fotoString, setFotoString] = useState("Foto");
+  const [direccion, setDireccion] = useState("Direccion");
+  const [cargo, setCargo] = useState("Cargo");
+  const [departamento, setDepartamento] = useState("Departamento");
+  const [estado, setEstado] = useState(0);
+  const [sitio, setSitio] = useState("Sitio");
+
   const [errorNombre, setErrorNombre] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -86,7 +95,7 @@ function resetForm() {
     }
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
@@ -107,6 +116,23 @@ function resetForm() {
 
     if (!errorNombre && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
+
+      await axios.post('http://localhost:8000/api/clientes', {
+      nombre: nombre,
+      apellido: apellido,
+      telefono: telefono,
+      email: correoElectronico,
+      contraseña: contraseña,
+      contraseña_confirmed: confirmarContraseña,
+      foto_perfil: fotoString,
+      direccion: direccion,
+      dni: CI,
+      cargo: cargo,
+      departamento: departamento,
+      estado: estado,
+      sitio: sitio
+      })
+
       resetForm();
       // Aquí podrías enviar los datos del formulario al servidor
     } else {

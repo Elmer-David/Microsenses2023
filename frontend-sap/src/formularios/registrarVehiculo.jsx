@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button ,Modal} from "react-bootstrap";
-
+import axios from 'axios';
 
 
 const RegistroVehiculo = () => {
@@ -8,6 +8,8 @@ const RegistroVehiculo = () => {
   const [numPlaca, setNumPlaca] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [foto, setFoto] = useState("");
+  const [idCliente, setIdCliente] = useState(null);
+  const [fotoString, setFotoString] = useState("imagen.jpg");
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -49,8 +51,17 @@ const RegistroVehiculo = () => {
     setFoto(null);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await axios.post('http://localhost:8000/api/vehiculos', {
+      modelo: nombre,
+      foto: fotoString,
+      nro_placa: numPlaca,
+      descripcion: descripcion,
+      id_cliente: idCliente
+      })
+
     resetForm();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
   };

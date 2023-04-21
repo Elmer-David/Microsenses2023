@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
+import axios from 'axios';
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
@@ -45,8 +46,15 @@ function resetForm() {
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [CI, setCI] = useState('');
-
   const [correoElectronico, setCorreoElectronico] = useState('');
+
+  const [fotoString, setFotoString] = useState("imagen.jpg");
+  const [direccion, setDireccion] = useState("Direccion");
+  const [contraseña, setContraseña] = useState("contraseña");
+  const [confirmarContraseña, setConfirmarContraseña] = useState("confirmarcontraseña");
+  const [tipoUsuario, setTipoUsuario] = useState(0);
+  const [horario, setHorario] = useState(null);
+
   const [errorNombre, setErrorNombre] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
@@ -83,7 +91,7 @@ function resetForm() {
     }
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
@@ -100,6 +108,21 @@ function resetForm() {
 
     if (!errorNombre && !errorTelefono && !errorCI  && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
+
+      await axios.post('http://localhost:8000/api/personals', {
+      nombre: nombre,
+      apellido: apellido,
+      dni: CI,
+      foto_perfil: fotoString,
+      direccion: direccion,
+      telefono: telefono,
+      email: correoElectronico,
+      contraseña: contraseña,
+      contraseña_confirmed: confirmarContraseña,
+      tipo_usuario: tipoUsuario,
+      id_horario: horario
+      })
+
       resetForm();
 
 

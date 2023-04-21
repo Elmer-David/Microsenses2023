@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-
+import axios from 'axios';
 
 
 const RegistroZonasParqueo = () => {
@@ -15,6 +15,9 @@ const RegistroZonasParqueo = () => {
   const [descripcion, setDescripcion] = useState("");
   const [direccion, setDireccion] = useState("");
   const [foto, setFoto] = useState("");
+  const [sitios, setSitios] = useState("SitiosDisponibles");
+  const [fotoString, setFotoString] = useState("imagen.jpg");
+  const [numSitiosInteger, setNumSitiosInteger] = useState(0);
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -58,8 +61,18 @@ const RegistroZonasParqueo = () => {
   
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await axios.post('http://localhost:8000/api/zonas', {
+      nombre: nombre,
+      nro_sitios: numSitiosInteger,
+      sitios: sitios,
+      direccion: direccion,
+      imagen: fotoString,
+      descripcion: descripcion
+    })
+
     resetForm();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
   };
@@ -71,10 +84,10 @@ const RegistroZonasParqueo = () => {
       <h1>Registrar Zona de Parqueo</h1>
       <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className="mt-4">
-            <Form.Label>Nombre y/o Modelo del vehiculo: </Form.Label>
+            <Form.Label>Nombre Zona: </Form.Label>
             <Form.Control
             type="text"
-            placeholder="Ingresa el nombre del vehículo"
+            placeholder="Ingresa el nombre de la Zona"
             value={nombre}
             onChange={handleNombreChange}
             maxLength={100}
@@ -84,7 +97,7 @@ const RegistroZonasParqueo = () => {
         </Form.Group>
 
         <Form.Group controlId="numSitios">
-          <Form.Label>Número de placa: </Form.Label>
+          <Form.Label>Número de sitios: </Form.Label>
           <Form.Control
             type="text"
             placeholder="Ingresa el número de sitio"
@@ -101,7 +114,7 @@ const RegistroZonasParqueo = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Ingresa una descripción del vehículo"
+            placeholder="Ingresa una direccion de la Zona"
             value={direccion}
             onChange={handleDireccionChange}
             maxLength={250}
@@ -117,7 +130,7 @@ const RegistroZonasParqueo = () => {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Ingresa una descripción del vehículo"
+            placeholder="Ingresa una descripción de la Zona"
             value={descripcion}
             onChange={handleDescripcionChange}
             maxLength={250}
