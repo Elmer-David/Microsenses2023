@@ -58,7 +58,8 @@ function RegistroH() {
   };
 
   const handleDelete = async (index) => {
-    await axios.delete(`http://localhost:8000/api/horarios/${shifts[index].id}`);
+  
+    
     const newShifts = [...shifts];
     newShifts.splice(index, 1);
     setShifts(newShifts);
@@ -89,7 +90,7 @@ function RegistroH() {
         <Button variant="danger" type="reset">
           Cancelar
         </Button>
-        <Button variant="success"type='submit' onClick={ handleSave}>    Guardar </Button>
+        <Button variant="success"type='submit' onClick={ handleSave}>   Guardar </Button>
     
 
       <h2>Horarios Registrados</h2>

@@ -76,8 +76,9 @@ const RegistroZonasParqueo = () => {
       imagen: fotoString,
       descripcion: descripcion
     })
-
+  
     resetForm();
+  
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
 
     

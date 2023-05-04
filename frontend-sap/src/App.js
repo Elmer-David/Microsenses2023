@@ -11,28 +11,38 @@ import RegistroVehiculo from './formularios/registrarVehiculo';
 import FormularioRegistroPerso from './formularios/registrarDatosDelPersonal';
 import BarraNavegacion from './navegacion/barraNavegacion';
 import RegistroZonasParqueo from './formularios/registrarZparqueo';
+import LoginForm from './login';
+
+
+
+import ParqueoForm from './forlumarios2/registroPar';
+import RequestForm from './forlumarios2/estadoPar';
+
+
 
 function App() {
   return (
     <div className ="App">
+
+      <RequestForm/>
     
-     <BrowserRouter>
+                  {/*  <BrowserRouter>
 
-     <BarraNavegacion/>
-     <Routes>
-      
-     <Route path='/FormularioRegistroCuenta' element={<FormularioRegistroCuenta/>}/>
-     <Route path='/FormularioRegistroPerso' element={<FormularioRegistroPerso/>}/>
-     <Route path='/FormularioRegistroCli' element={<FormularioRegistroCli/>}/>
-     <Route path='/RegistroVehiculo' element={<RegistroVehiculo/>}/>
-     <Route path='/RegistroZonasParqueo' element={<RegistroZonasParqueo/>}/>
-     <Route path='/RegistroH' element={<RegistroH/>}/>
+                  <BarraNavegacion/>
+                  <Routes>
+                    
+                  <Route path='/FormularioRegistroCuenta' element={<FormularioRegistroCuenta/>}/>
+                  <Route path='/FormularioRegistroPerso' element={<FormularioRegistroPerso/>}/>
+                  <Route path='/FormularioRegistroCli' element={<FormularioRegistroCli/>}/>
+                  <Route path='/RegistroVehiculo' element={<RegistroVehiculo/>}/>
+                  <Route path='/RegistroZonasParqueo' element={<RegistroZonasParqueo/>}/>
+                  <Route path='/RegistroH' element={<RegistroH/>}/>
 
-     </Routes>
-     
-     
-     </BrowserRouter>
-   
+                  </Routes>
+                  
+                  
+                  </BrowserRouter>
+                  */}
     </div>
 
   );

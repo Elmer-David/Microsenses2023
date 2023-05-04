@@ -154,7 +154,7 @@ const FormularioRegistroCli = () => {
       estado: estado,
       sitio: sitio
       })
-
+      
       resetForm();
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
