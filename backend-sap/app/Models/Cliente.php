@@ -15,9 +15,9 @@ class Cliente extends Model
         'foto_perfil', 'direccion', 'dni', 'cargo', 'departamento' , 'estado', 'sitio',// 'id_parqueo',
     ];
 
-    public function vehiculos(){
-        return $this->hasMany(Vehiculo::class,'id');
-    }
+    // public function vehiculos(){
+    //     return $this->hasMany(Vehiculo::class,'id');
+    // }
     // public function parqueos() {
     //     return $this->belongsTo(Parqueo::class,'id_parqueo');
     // }

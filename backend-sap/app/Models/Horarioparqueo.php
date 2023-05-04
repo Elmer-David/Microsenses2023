@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Zona extends Model
+class Horarioparqueo extends Model
 {
     use HasFactory;
-    protected $table = 'zonas';
+    protected $table = 'horarioparqueos';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'nombre', 'nro_sitios', 'sitios', 'direccion', 'imagen', 'descripcion',
+        'hora_ini', 'hora_fin', 'dia_ini', 'dia_fin',
         'id_parqueo',
     ];
 
@@ -19,9 +19,4 @@ class Zona extends Model
         return $this->belongsTo(Parqueo::class,'id_parqueo');
     }
 
-    public function users(){
-        return $this->hasMany(User::class,'id');
-    }
-
 }
-//cesar//

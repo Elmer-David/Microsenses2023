@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateZonasTable extends Migration
+class CreateHorarioparqueosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateZonasTable extends Migration
      */
     public function up()
     {
-        Schema::create('zonas', function (Blueprint $table) {
+        Schema::create('horarioparqueos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->integer('nro_sitios');
-            $table->string('sitios');
-            $table->string('direccion');
-            $table->string('imagen')->nullable();
-            $table->string('descripcion');
+            $table->time('hora_ini')->nullable();
+            $table->time('hora_fin')->nullable();
+            $table->string('dia_ini');
+            $table->string('dia_fin');
             $table->timestamps();
 
             $table->foreignId('id_parqueo')
@@ -39,6 +37,6 @@ class CreateZonasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zonas');
+        Schema::dropIfExists('horarioparqueos');
     }
 }

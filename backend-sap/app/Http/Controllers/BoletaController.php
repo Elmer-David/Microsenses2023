@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Boleta;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class BoletaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return Cliente::all();
+        return Boleta::all();
     }
 
     /**
@@ -35,29 +35,29 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new Cliente($request->all());
-        $cliente->save();
-        return $cliente; //mostrar en consola
+        $boleta = new Boleta($request->all());
+        $boleta->save();
+        return $boleta; 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param  \App\Models\Boleta  $boleta
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Cliente::find($id);
+        return Boleta::find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param  \App\Models\Boleta  $boleta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(Boleta $boleta)
     {
         //
     }
@@ -66,27 +66,27 @@ class ClienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cliente  $cliente
+     * @param  \App\Models\Boleta  $boleta
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $cliente = Cliente::find($id);
-        if(!is_null($cliente)){
-        $cliente->update($request->all());
-        return $cliente;
-       } 
+        $boleta = Boleta::find($id);
+        if(!is_null($boleta)){
+        $boleta->update($request->all());
+        return $boleta;
+       }  
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param  \App\Models\Boleta  $boleta
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $cliente=Cliente::find($id);
-        $cliente->delete();
+        $boleta=Boleta::find($id);
+        $boleta->delete();
     }
 }

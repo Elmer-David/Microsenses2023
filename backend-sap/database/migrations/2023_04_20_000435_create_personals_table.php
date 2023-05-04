@@ -27,12 +27,12 @@ class CreatePersonalsTable extends Migration
             $table->integer('tipo_usuario')->default(0); //0 administrador, 1 operador, 2 guardia
             $table->timestamps();
 
-            $table->foreignId('id_horario')
-                   ->nullable()
-                   ->constrained('horarios')
-                   ->cascadeOnUpdate()
-                   ->nullOnDelete()
-                   ;
+            // $table->foreignId('id_horario')
+            //        ->nullable()
+            //        ->constrained('horarios')
+            //        ->cascadeOnUpdate()
+            //        ->nullOnDelete()
+            //        ;
         });
     }
 
