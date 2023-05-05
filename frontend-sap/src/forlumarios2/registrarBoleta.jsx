@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button , Modal} from 'react-bootstrap';
+import axios from 'axios'
 
 function BoletaForm() {
   const [formData, setFormData] = useState({
@@ -8,7 +9,7 @@ function BoletaForm() {
     date: '',
     image: null
   });
-
+  const URL_BOLETA = 'http://localhost:8000/api/boletas';
 
   const [showModal, setShowModal] = useState(false);
   const handleClick = () => {
@@ -26,8 +27,20 @@ function BoletaForm() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await axios.post(URL_BOLETA, 
+    {
+      mensualidad: 1,
+      monto: formData.amount,
+      nro_transaccion: formData.transactionNumber,
+      fecha_deposito: formData.date,
+      foto_comprobante: "imagen.jpg",
+      estado: 0,
+      id_user: null
+    })
+
     resetFormData();
 
     // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
