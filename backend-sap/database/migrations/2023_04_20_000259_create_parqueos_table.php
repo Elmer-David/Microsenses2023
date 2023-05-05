@@ -28,6 +28,7 @@ class CreateParqueosTable extends Migration
             $table->integer('descuento12meses');
             $table->decimal('multa')->nullable();
             $table->string('cuenta_banco');
+            $table->string('nombre_banco');
             $table->timestamps();
         });
     }
