@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
 
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
@@ -8,6 +9,8 @@ function RequestForm() {
   const [descuento , setDescuento] = useState('');
   const [multa , setMulta] = useState('');
   const [descuentoAño , setDescuentoAño] = useState('');
+
+  const URL_PARQUEO = 'http://localhost:8000/api/parqueos';
 
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
@@ -38,19 +41,37 @@ function RequestForm() {
   function resetForm() {
     setShowModal(false)
 
-    startDate('');
-    endDate('');
-    precio('');
-    descuento('');
-    multa('');
-    descuentoAño('');
+    setStartDate('');
+    setEndDate('');
+    setPrecio('');
+    setDescuento('');
+    setMulta('');
+    setDescuentoAño('');
   
   }  
 
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    await axios.post(URL_PARQUEO, 
+    {
+      nombre: "UMSS Parqueo",
+      descripcion: "Descripcion_umss",
+      imagen: "imagen.jpg",
+      fecha_ini_solicitud: startDate,
+      fecha_fin_solicitud: endDate,
+      fecha_ini_pago: null,
+      fecha_fin_pago: null,
+      precio_mensual: precio,
+      descuento3meses: descuento,
+      descuento6meses: 40,
+      descuento12meses: descuentoAño,
+      multa: multa,
+      cuenta_banco: "329829389238",
+      nombre_banco: "banco union"
+    })
 
     // do something with the start and end dates
     resetForm();
