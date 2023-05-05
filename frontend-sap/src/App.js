@@ -17,6 +17,8 @@ import LoginForm from './login';
 
 import ParqueoForm from './forlumarios2/registroPar';
 import RequestForm from './forlumarios2/estadoPar';
+import RegistroBoleta from './forlumarios2/registrarBoleta';
+import PagoEfectivo from './forlumarios2/pagoEfec';
 
 
 
@@ -24,9 +26,9 @@ function App() {
   return (
     <div className ="App">
 
-      <RequestForm/>
+      {/* <RequestForm/> */}
     
-                  {/*  <BrowserRouter>
+                   <BrowserRouter>
 
                   <BarraNavegacion/>
                   <Routes>
@@ -38,11 +40,17 @@ function App() {
                   <Route path='/RegistroZonasParqueo' element={<RegistroZonasParqueo/>}/>
                   <Route path='/RegistroH' element={<RegistroH/>}/>
 
+                  <Route path='/RegistroParqueo' element={<ParqueoForm/>}/>
+                  <Route path='/RegistroBoleta' element={<RegistroBoleta/>}/>
+                  <Route path='/RegistroEstadoParqueo' element={<RequestForm/>}/>
+                  <Route path='/PagoEfectivo' element={<PagoEfectivo/>}/>
+                  <Route path='/Login' element={<LoginForm/>}/>
+
                   </Routes>
                   
                   
                   </BrowserRouter>
-                  */}
+                 
     </div>
 
   );

@@ -83,12 +83,12 @@ function RequestForm() {
       <Form onSubmit={handleSubmit} className="mx-auto">
       <h1> Estado de la convocatoria </h1>
         <Form.Group controlId="startDate">
-          <Form.Label>Start Date:</Form.Label>
+          <Form.Label>Fecha Inicio:</Form.Label>
           <Form.Control type="date" value={startDate} onChange={handleStartDateChange}required />
         </Form.Group>
 
         <Form.Group controlId="endDate">
-          <Form.Label>End Date:</Form.Label>
+          <Form.Label>Fecha Fin:</Form.Label>
           <Form.Control type="date" value={endDate} onChange={handleEndDateChange}required />
         </Form.Group>
 

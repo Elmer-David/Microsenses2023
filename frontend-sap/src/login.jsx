@@ -9,6 +9,8 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const URL_USER ='http://localhost:8000/api/auth/login';
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -24,25 +26,40 @@ function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await axios.post('/api/login', {
-        username: username,
-        password: password,
-      });
+    await axios.post(URL_USER, {
+      email: username,
+      password: password
+    })
+    .then(response=>{
+      console.log(response.data);
+      handleErrorChange('Inicio de Sesion exitosa');
+    })
+    .catch(error=>{
+      console.log(error);
+      handleErrorChange('Email o Contraseña Incorrectos');
+    })
+    console.log(username);
+    console.log(password);
+    
+    // try {
+    //   const response = await axios.post('/api/login', {
+    //     username: username,
+    //     password: password,
+    //   });
 
-      console.log(response);
-    } catch (error) {
-      console.error(error);
+    //   console.log(response);
+    // } catch (error) {
+    //   console.error(error);
 
-      handleErrorChange('Invalid username or password.');
-    }
+    //   handleErrorChange('Invalid username or password.');
+    // }
   };
 
   return (
     <div className="form-container">
       <Form onSubmit={handleSubmit}>
         <FormGroup controlId="formUsername">
-          <FormLabel>Usuario</FormLabel>
+          <FormLabel>Email</FormLabel>
           <FormControl type="text" value={username} onChange={handleUsernameChange} />
         </FormGroup>
 

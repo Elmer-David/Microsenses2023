@@ -16,7 +16,7 @@ const BarraNavegacion = () => {
         <li className="nav-item">
           <Link className="nav-link active" aria-current="page" to='/FormularioRegistroCuenta'>Registrar Datos Usuario</Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link"to='/FormularioRegistroPerso'>Registrar Datos Del Personal</Link>
         </li>
         <li className="nav-item">
@@ -30,6 +30,22 @@ const BarraNavegacion = () => {
         </li>
         <li className="nav-item">
           <Link className="nav-link " to='/RegistroH' >Registrar de Horarios</Link>
+        </li> */}
+
+        <li className="nav-item">
+          <Link className="nav-link " to='/RegistroParqueo'>Registrar Horarios Atencion</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link " to='/RegistroBoleta' >Registrar Boleta</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link " to='/RegistroEstadoParqueo' >Registro Convocatoria</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link " to='/PagoEfectivo' >Registrar Pago Efectivo</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link " to='/Login' >Iniciar Sesion</Link>
         </li>
       </ul>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+import axios from 'axios';
 
 function ParqueoForm() {
   const [horasAbierto, setHorasAbierto] = useState({
@@ -20,6 +21,8 @@ function ParqueoForm() {
     { value: 'sabado', label: 'Sábado' },
     { value: 'domingo', label: 'Domingo' }
   ];
+
+  const URL_HORARIOPARQUEO ='http://localhost:8000/api/horarioparqueos';
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -48,7 +51,7 @@ function ParqueoForm() {
     
   }  
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
   
     // Verificar si el nuevo horario está dentro del rango de alguno de los horarios existentes
@@ -71,6 +74,7 @@ function ParqueoForm() {
       }
   
       return false;
+
     });
   
     if (conflicto) {
@@ -81,6 +85,15 @@ function ParqueoForm() {
     // Si no hay conflictos, agregar el nuevo horario a la lista
     setHorariosRegistrados([...horariosRegistrados, horasAbierto]);
   
+    await axios.post(URL_HORARIOPARQUEO, 
+      {
+        hora_ini: horasAbierto.horaAbre,
+        hora_fin: horasAbierto.horaCierra,
+        dia_ini: horasAbierto.diaAbre,
+        dia_fin: horasAbierto.diaCierra,
+        id_parqueo: null
+      })
+
     resetForm();
   };
   
