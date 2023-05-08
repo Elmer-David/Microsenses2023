@@ -17,7 +17,7 @@ class CreateBoletasTable extends Migration
             $table->id();
             $table->integer('mensualidad');
             $table->decimal('monto');
-            $table->string('nro_transaccion');
+            $table->string('nro_transaccion')->nullable();
             $table->date('fecha_deposito')->nullable();
             $table->string('foto_comprobante')->nullable();
             $table->integer('estado')->default(0); //0 pendiente, 1 aceptado, 2 rechazado, 3 manual

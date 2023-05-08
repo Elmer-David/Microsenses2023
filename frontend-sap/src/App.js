@@ -20,7 +20,12 @@ import RequestForm from './forlumarios2/estadoPar';
 import RegistroBoleta from './forlumarios2/registrarBoleta';
 import PagoEfectivo from './forlumarios2/pagoEfec';
 
-
+import MenuAdministrador from './components/MenuAdministrador';
+import MenuCliente from './components/MenuCliente';
+import MenuGuardia from './components/MenuGuardia';
+import MenuOperador from './components/MenuOperador';
+import MenuUComun from './components/MenuUComun';
+import { Link } from 'react-router-dom'
 
 function App() {
   return (
@@ -31,8 +36,8 @@ function App() {
                    <BrowserRouter>
 
                   <BarraNavegacion/>
+
                   <Routes>
-                    
                   <Route path='/FormularioRegistroCuenta' element={<FormularioRegistroCuenta/>}/>
                   <Route path='/FormularioRegistroPerso' element={<FormularioRegistroPerso/>}/>
                   <Route path='/FormularioRegistroCli' element={<FormularioRegistroCli/>}/>
@@ -45,6 +50,12 @@ function App() {
                   <Route path='/RegistroEstadoParqueo' element={<RequestForm/>}/>
                   <Route path='/PagoEfectivo' element={<PagoEfectivo/>}/>
                   <Route path='/Login' element={<LoginForm/>}/>
+
+                  <Route path='/MenuAdministrador' element={<MenuAdministrador/>}/>
+                  <Route path='/MenuCliente' element={<MenuCliente/>}/>
+                  <Route path='/MenuGuardia' element={<MenuGuardia/>}/>
+                  <Route path='/MenuOperador' element={<MenuOperador/>}/>
+                  <Route path='/MenuUComun' element={<MenuUComun/>}/>
 
                   </Routes>
                   

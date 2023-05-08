@@ -98,10 +98,22 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'apellido' => 'required',
+            'dni' => 'nullable',
+            'foto_perfil' => 'nullable',
+            'telefono' => 'required',
+            'direccion' => 'nullable',
             'email' => 'required',
             'password' => 'required',
             'password_confirmed' => 'nullable',
-            'tipo_usuario'=>'nullable',
+            'tipo_usuario'=>'required',
+            'cargo'=>'nullable',
+            'departamento'=>'nullable',
+            'sitio'=>'nullable',
+            'primer_ini_sesion'=>'nullable',
+            'solicitud_parqueo'=>'nullable',
+            'id_zona'=>'nullable',
+            'id_horario'=>'nullable',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
