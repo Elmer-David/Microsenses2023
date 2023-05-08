@@ -39,7 +39,7 @@ function MenuAdministrador() {
 
     return(
         <div>
-            <SidebarAdministrador/>
+           {/* <SidebarAdministrador/>*/}
 
         {/* <h2>Menu Administrador</h2>
         <h3>{nombre}</h3>

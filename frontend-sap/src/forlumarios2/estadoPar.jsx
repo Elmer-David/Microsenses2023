@@ -5,10 +5,10 @@ import axios from 'axios';
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [precio , setPrecio] = useState('');
-  const [descuento , setDescuento] = useState('');
-  const [multa , setMulta] = useState('');
-  const [descuentoAño , setDescuentoAño] = useState('');
+  const [precio , setPrecio] = useState(0);
+  const [descuento , setDescuento] = useState(0);
+  const [multa , setMulta] = useState(0);
+  const [descuentoAño , setDescuentoAño] = useState(0);
 
   const URL_PARQUEO = 'http://localhost:8000/api/parqueos';
 
