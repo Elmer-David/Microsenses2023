@@ -36,6 +36,7 @@ function SolicitudPago() {
           {boletas.map(boleta => (
             <li key={boleta.id}>
               <p>ID: {boleta.id}</p>
+              
               <p>numero de transaxioo: {boleta.nro_transaccion}</p>
               <p>meses a pagar : {boleta.mensualidad}</p>
               <p>monto total a pagar: {boleta.monto}</p>

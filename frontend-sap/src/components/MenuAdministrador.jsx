@@ -1,7 +1,19 @@
 import React from "react";
 import '../style/MenuAdministrador.css';
 import Cookies from 'universal-cookie';
-import SidebarAdministrador from "./SidebarAdministrador";
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import NavegacionAdministrador from "../navegacion/navegacionAdministrador";
+import FormularioRegistroPerso from "../formularios/registrarDatosDelPersonal";
+import RegistroZonasParqueo from "../formularios/registrarZparqueo";
+import RegistroH from "../formularios/registrarHorarios";
+import ParqueoForm from "../forlumarios2/registroPar";
+import RequestForm from "../forlumarios2/estadoPar";
+import PagoEfectivo from "../forlumarios2/pagoEfec";
+import MenuUComun from "./MenuUComun";
+
+
+
+
 
 const cookies = new Cookies();
 
@@ -37,15 +49,31 @@ function MenuAdministrador() {
       window.location.href='./';
     }
 
+
+
+
     return(
         <div>
-           {/* <SidebarAdministrador/>*/}
+        
+        <BrowserRouter>
 
-        {/* <h2>Menu Administrador</h2>
-        <h3>{nombre}</h3>
-        <h3>{email}</h3>
-        <h3>{password}</h3>
-    <h3>Tipo de Usuario: {tipo_usuario}</h3>*/}
+<NavegacionAdministrador/>
+
+<Routes>
+
+<Route path='/FormularioRegistroPerso' element={<FormularioRegistroPerso/>}/>
+<Route path='/RegistroZonasParqueo' element={<RegistroZonasParqueo/>}/>
+<Route path='/RegistroH' element={<RegistroH/>}/>
+<Route path='/RegistroParqueo' element={<ParqueoForm/>}/>
+<Route path='/RegistroEstadoParqueo' element={<RequestForm/>}/>
+<Route path='/PagoEfectivo' element={<PagoEfectivo/>}/>
+
+
+
+</Routes>
+
+
+</BrowserRouter>
 
         <button onClick={cerrarSesion}>Cerra Sesion</button>
         </div>

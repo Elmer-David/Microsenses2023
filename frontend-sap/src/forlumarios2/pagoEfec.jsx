@@ -54,7 +54,7 @@ function PagoEfec() {
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
   
       <Form onSubmit={handleSubmit}  className="mx-auto">
-        <h1>Registro Pago Efectivo</h1>
+        <h1> Pago Efectivo</h1>
 
 
 

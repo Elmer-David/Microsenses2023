@@ -81,7 +81,7 @@ function RequestForm() {
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
    {/*aqui se puede poner cosas para el lateral*/} 
       <Form onSubmit={handleSubmit} className="mx-auto">
-      <h1> Estado de la convocatoria </h1>
+      <h1> Formulario de la  convocatoria  </h1>
         <Form.Group controlId="startDate">
           <Form.Label>Fecha Inicio:</Form.Label>
           <Form.Control type="date" value={startDate} onChange={handleStartDateChange}required />

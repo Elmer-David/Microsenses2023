@@ -1,4 +1,3 @@
-
 import React from 'react-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,9 +30,10 @@ function App() {
   return (
     <div className ="App">
 
-      {/* <RequestForm/> */}
+   <LoginForm/> 
     
-                   <BrowserRouter>
+               
+      {/*     <BrowserRouter>
 
                   <BarraNavegacion/>
 
@@ -60,7 +60,7 @@ function App() {
                   </Routes>
                   
                   
-                  </BrowserRouter>
+                  </BrowserRouter>*/}
                  
     </div>
 
