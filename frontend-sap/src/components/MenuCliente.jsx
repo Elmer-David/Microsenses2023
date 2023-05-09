@@ -42,21 +42,13 @@ function Cliente() {
 
     return(
         <>
-                        <BrowserRouter>
+                    
 
                 <NavegacionCliente/>
 
-                <Routes>
               
- 
-                <Route path='/RegistroVehiculo' element={<RegistroVehiculo/>}/>
-                <Route path='/BoletaForm' element={<BoletaForm/>}/>
-                
-            
-                </Routes>
 
-
-                </BrowserRouter>
+          
 
         <button onClick={cerrarSesion}>Cerra Sesion</button>
         </>

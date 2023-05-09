@@ -25,17 +25,18 @@ import MenuGuardia from './components/MenuGuardia';
 import MenuOperador from './components/MenuOperador';
 import MenuUComun from './components/MenuUComun';
 import { Link } from 'react-router-dom'
+import BoletaForm from './forlumarios2/registrarBoleta';
 
 function App() {
   return (
     <div className ="App">
-
-   <LoginForm/> 
+   
+   
     
-               
-      {/*     <BrowserRouter>
+              
+       <BrowserRouter>
 
-                  <BarraNavegacion/>
+               
 
                   <Routes>
                   <Route path='/FormularioRegistroCuenta' element={<FormularioRegistroCuenta/>}/>
@@ -49,6 +50,7 @@ function App() {
                   <Route path='/RegistroBoleta' element={<RegistroBoleta/>}/>
                   <Route path='/RegistroEstadoParqueo' element={<RequestForm/>}/>
                   <Route path='/PagoEfectivo' element={<PagoEfectivo/>}/>
+                  <Route path='/BoletaForm' element={<BoletaForm/>}/>
                   <Route path='/Login' element={<LoginForm/>}/>
 
                   <Route path='/MenuAdministrador' element={<MenuAdministrador/>}/>
@@ -60,8 +62,8 @@ function App() {
                   </Routes>
                   
                   
-                  </BrowserRouter>*/}
-                 
+  </BrowserRouter>
+                
     </div>
 
   );

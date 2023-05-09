@@ -10,6 +10,7 @@ import ParqueoForm from "../forlumarios2/registroPar";
 import RequestForm from "../forlumarios2/estadoPar";
 import PagoEfectivo from "../forlumarios2/pagoEfec";
 import MenuUComun from "./MenuUComun";
+import BarraNavegacion from "../navegacion/barraNavegacion";
 
 
 
@@ -46,7 +47,7 @@ function MenuAdministrador() {
       cookies.remove('id_horario', {path: "/"});
 
       //redirecciona a App.js
-      window.location.href='./';
+      window.location.href='./login';
     }
 
 
@@ -55,25 +56,14 @@ function MenuAdministrador() {
     return(
         <div>
         
-        <BrowserRouter>
+     
 
-<NavegacionAdministrador/>
-
-<Routes>
-
-<Route path='/FormularioRegistroPerso' element={<FormularioRegistroPerso/>}/>
-<Route path='/RegistroZonasParqueo' element={<RegistroZonasParqueo/>}/>
-<Route path='/RegistroH' element={<RegistroH/>}/>
-<Route path='/RegistroParqueo' element={<ParqueoForm/>}/>
-<Route path='/RegistroEstadoParqueo' element={<RequestForm/>}/>
-<Route path='/PagoEfectivo' element={<PagoEfectivo/>}/>
+        <BarraNavegacion/>
+      
 
 
 
-</Routes>
 
-
-</BrowserRouter>
 
         <button onClick={cerrarSesion}>Cerra Sesion</button>
         </div>
