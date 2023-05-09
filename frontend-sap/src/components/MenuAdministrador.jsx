@@ -1,7 +1,20 @@
 import React from "react";
 import '../style/MenuAdministrador.css';
 import Cookies from 'universal-cookie';
-import SidebarAdministrador from "./SidebarAdministrador";
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import NavegacionAdministrador from "../navegacion/navegacionAdministrador";
+import FormularioRegistroPerso from "../formularios/registrarDatosDelPersonal";
+import RegistroZonasParqueo from "../formularios/registrarZparqueo";
+import RegistroH from "../formularios/registrarHorarios";
+import ParqueoForm from "../forlumarios2/registroPar";
+import RequestForm from "../forlumarios2/estadoPar";
+import PagoEfectivo from "../forlumarios2/pagoEfec";
+import MenuUComun from "./MenuUComun";
+import BarraNavegacion from "../navegacion/barraNavegacion";
+
+
+
+
 
 const cookies = new Cookies();
 
@@ -34,18 +47,23 @@ function MenuAdministrador() {
       cookies.remove('id_horario', {path: "/"});
 
       //redirecciona a App.js
-      window.location.href='./';
+      window.location.href='./login';
     }
+
+
+
 
     return(
         <div>
-            <SidebarAdministrador/>
+        
+     
 
-        {/* <h2>Menu Administrador</h2>
-        <h3>{nombre}</h3>
-        <h3>{email}</h3>
-        <h3>{password}</h3>
-    <h3>Tipo de Usuario: {tipo_usuario}</h3>*/}
+        <BarraNavegacion/>
+      
+
+
+
+
 
         <button onClick={cerrarSesion}>Cerra Sesion</button>
         </div>

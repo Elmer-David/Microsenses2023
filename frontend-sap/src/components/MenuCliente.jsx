@@ -1,5 +1,10 @@
 import React from "react";
 import Cookies from 'universal-cookie';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import NavegacionCliente from "../navegacion/navegacionCliente";
+import RegistroVehiculo from "../formularios/registrarVehiculo";
+import BoletaForm from "../forlumarios2/registrarBoleta";
+
 
 const cookies = new Cookies();
 
@@ -32,16 +37,18 @@ function Cliente() {
       cookies.remove('id_horario', {path: "/"});
 
       //redirecciona a App.js
-      window.location.href='./';
+      window.location.href='./LoginForm';
     }
 
     return(
         <>
-        <h2>Menu Cliente</h2>
-        <h3>{nombre}</h3>
-        <h3>{email}</h3>
-        <h3>{password}</h3>
-        <h3>Tipo de usuario: {tipo_usuario}</h3>
+                    
+
+                <NavegacionCliente/>
+
+              
+
+          
 
         <button onClick={cerrarSesion}>Cerra Sesion</button>
         </>

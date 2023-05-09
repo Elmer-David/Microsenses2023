@@ -5,10 +5,10 @@ import axios from 'axios';
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [precio , setPrecio] = useState('');
-  const [descuento , setDescuento] = useState('');
-  const [multa , setMulta] = useState('');
-  const [descuentoAño , setDescuentoAño] = useState('');
+  const [precio , setPrecio] = useState(0);
+  const [descuento , setDescuento] = useState(0);
+  const [multa , setMulta] = useState(0);
+  const [descuentoAño , setDescuentoAño] = useState(0);
 
   const URL_PARQUEO = 'http://localhost:8000/api/parqueos';
 
@@ -81,7 +81,7 @@ function RequestForm() {
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
    {/*aqui se puede poner cosas para el lateral*/} 
       <Form onSubmit={handleSubmit} className="mx-auto">
-      <h1> Estado de la convocatoria </h1>
+      <h1> Formulario de la  convocatoria  </h1>
         <Form.Group controlId="startDate">
           <Form.Label>Fecha Inicio:</Form.Label>
           <Form.Control type="date" value={startDate} onChange={handleStartDateChange}required />
