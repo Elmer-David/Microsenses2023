@@ -17,6 +17,10 @@ use App\Http\Controllers\CliBolController;
 use App\Http\Controllers\BolPenController;
 use App\Http\Controllers\BolAcepController;
 use App\Http\Controllers\BolRechController;
+use App\Http\Controllers\UserAdController;
+use App\Http\Controllers\OperadorController;
+use App\Http\Controllers\GuardiaController;
+use App\Http\Controllers\UserComunController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -58,3 +62,7 @@ Route::resource('clibols', CliBolController::class);
 Route::resource('bolpens', BolPenController::class);
 Route::resource('bolaceps', BolAcepController::class);
 Route::resource('bolrechs', BolRechController::class);
+Route::resource('userads', UserAdController::class);
+Route::resource('operadors', OperadorController::class);
+Route::resource('guardias', GuardiaController::class);
+Route::resource('usercomuns', UserComunController::class);
