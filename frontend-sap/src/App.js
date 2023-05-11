@@ -32,9 +32,11 @@ function App() {
     <div className ="App">
    
    
+           
+   <BoletaForm/>
     
               
-       <BrowserRouter>
+       {/*<BrowserRouter>
 
                
 
@@ -59,10 +61,10 @@ function App() {
                   <Route path='/MenuOperador' element={<MenuOperador/>}/>
                   <Route path='/MenuUComun' element={<MenuUComun/>}/>
 
-                  </Routes>
+  </Routes>
                   
                   
-  </BrowserRouter>
+  </BrowserRouter>*/}
                 
     </div>
 
