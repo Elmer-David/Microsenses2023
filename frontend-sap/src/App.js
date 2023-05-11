@@ -33,7 +33,7 @@ function App() {
    
    
            
-   <BoletaForm/>
+   <RequestForm/>
     
               
        {/*<BrowserRouter>
