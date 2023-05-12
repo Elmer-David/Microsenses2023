@@ -123,12 +123,29 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //Validación de datos
-        $data = $request->only('name', 'email', 'password', 'password_confirmed');
+        $data = $request->only('name', 'apellido', 'dni', 'foto_perfil', 
+        'telefono', 'direccion', 'email', 'password',
+        'password_confirmed', 'tipo_usuario', 'cargo', 'departamento',
+        'sitio', 'primer_ini_sesion', 'solicitud_parqueo', 'id_zona', 'id_horario'
+    );
         $validator = Validator::make($data, [
             'name' => 'required',
+            'apellido' => 'required',
+            'dni' => 'nullable',
+            'foto_perfil' => 'nullable',
+            'telefono' => 'required',
+            'direccion' => 'nullable',
             'email' => 'required',
             'password' => 'required',
-            'password_confirmed' => 'required',
+            'password_confirmed' => 'nullable',
+            'tipo_usuario'=>'required',
+            'cargo'=>'nullable',
+            'departamento'=>'nullable', 
+            'sitio'=>'nullable',
+            'primer_ini_sesion'=>'nullable',
+            'solicitud_parqueo'=>'nullable',
+            'id_zona'=>'nullable',
+            'id_horario'=>'nullable',
         ]);
         //Si falla la validación error.
         if ($validator->fails()) {
@@ -139,9 +156,22 @@ class UserController extends Controller
         //Actualizamos el producto.
         $user->update([
             'name' => $request->name,
+            'apellido' => $request->apellido,
+            'dni' => $request->dni,
+            'foto_perfil' => $request->foto_perfil,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'password_confirmed' => $request->password_confirmed,
+            'tipo_usuario'=>$request->tipo_usuario,
+            'cargo'=>$request->cargo,
+            'departamento'=>$request->departamento, 
+            'sitio'=>$request->sitio,
+            'primer_ini_sesion'=>$request->primer_ini_sesion,
+            'solicitud_parqueo'=>$request->solicitud_parqueo,
+            'id_zona'=>$request->id_zona,
+            'id_horario'=>$request->id_horario,
         ]);
         //Devolvemos los datos actualizados.
         return response()->json([

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Boleta;
 use Illuminate\Support\Facades\DB;
 
-class ClienteController extends Controller
+class BolRechController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,11 @@ class ClienteController extends Controller
     public function index()
     {
         return DB::table('users')
-        ->select('users.*')
-        ->where('users.tipo_usuario', 4) 
+        ->join('boletas', 'users.id', '=', 'boletas.id_user')
+        ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
+        ->where('boletas.estado', 2)
         ->get();
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -40,29 +40,27 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = new Cliente($request->all());
-        $cliente->save();
-        return $cliente; //mostrar en consola
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Cliente::find($id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
         //
     }
@@ -71,27 +69,22 @@ class ClienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cliente  $cliente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $cliente = Cliente::find($id);
-        if(!is_null($cliente)){
-        $cliente->update($request->all());
-        return $cliente;
-       } 
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cliente  $cliente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $cliente=Cliente::find($id);
-        $cliente->delete();
+        //
     }
 }

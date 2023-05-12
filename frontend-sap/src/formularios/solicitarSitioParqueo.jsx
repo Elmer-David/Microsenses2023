@@ -1,22 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
+import axios from 'axios'
 
 function SolicitarEspacio() {
   const [enviado, setEnviado] = useState(false);
   const [mostrarCancelModal, setMostrarCancelModal] = useState(false);
   const [showSolicitudEnviadaModal, setMostrarSolicitudEnviadaModal] = useState(false);
- 
-  const handleSolicitarClick = () => {
-    // Aquí iría el código para enviar la solicitud y actualizar la base de datos
-    const hayEspacio = true; // Ejemplo: asumimos que hay espacio en la base de datos
 
-    if (hayEspacio) {
-      setEnviado(true);
-      setMostrarSolicitudEnviadaModal(true);
-    } else {
-      // Si no hay espacio en la base de datos, mostramos un nodal de error
-      alert("No hay espacio en la base de datos");
+  useEffect(() => {
+    if (enviado) {
+      // Aquí hacemos la llamada para cambiar el valor de solicitud_parqueo a 1
+      axios.put(`http://localhost:8000/api/users/${12}`, 
+      { 
+        name: "Fabio",
+        apellido: "Mercedes",
+        dni: "31234332",
+        foto_perfil: null,
+        telefono: "71234567",
+        direccion: "Ecologica",
+        email: "usuarioprueba@gmail.com",
+        password: "usuarioprueba",
+        password_confirmed: "usuarioprueba",
+        tipo_usuario: 4,
+        cargo: null,
+        departamento: null,
+        sitio: null,
+        primer_ini_sesion: 0,
+        solicitud_parqueo: 1,
+        id_zona: null,
+        id_horario: null
+
+      })
+        .then(response => console.log(response))
+        .catch(error => console.error(error));
     }
+  }, [enviado]);
+
+  const handleSolicitarClick = () => {
+    setEnviado(true);
+    setMostrarSolicitudEnviadaModal(true);
+    
   };
 
   const handleCancelarClick = () => {
@@ -24,16 +47,24 @@ function SolicitarEspacio() {
   };
 
   const handleCancelarConfirm = () => {
-    setEnviado(false);
-    setMostrarCancelModal(false);
+    // Aquí hacemos la llamada para cambiar el valor de solicitud_parqueo a 0
+    axios.patch(`http://localhost:8000/api/users/${1}`, 
+    { solicitud_parqueo: 0 })
+      .then(response => {
+        setEnviado(false);
+        setMostrarCancelModal(false);
+      })
+      .catch(error => console.error(error));
   };
 
   const handleCancelarCancel = () => {
     setMostrarCancelModal(false);
   };
+
   const handleSolicitudEnviadaModal = () => {
     setMostrarSolicitudEnviadaModal(false);
   };
+
   return (
     <>
       <Button
@@ -42,8 +73,6 @@ function SolicitarEspacio() {
       >
         {enviado ? "Cancelar sitio de parqueo" : "Solicitar sitio de parqueo"}
       </Button>
-      
-    
 
       <Modal show={mostrarCancelModal} onHide={handleCancelarCancel}>
         <Modal.Header closeButton>
@@ -67,7 +96,7 @@ function SolicitarEspacio() {
           <Button variant="secondary" onClick={handleSolicitudEnviadaModal}>
             ok
           </Button>
-          </Modal.Footer>
+        </Modal.Footer>
       </Modal>
     </>
   );

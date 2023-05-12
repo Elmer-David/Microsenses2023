@@ -11,9 +11,16 @@ use App\Http\Controllers\ParqueoController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthClienteController;
 use App\Http\Controllers\BoletaController;
 use App\Http\Controllers\HorarioparqueoController;
+use App\Http\Controllers\CliBolController;
+use App\Http\Controllers\BolPenController;
+use App\Http\Controllers\BolAcepController;
+use App\Http\Controllers\BolRechController;
+use App\Http\Controllers\UserAdController;
+use App\Http\Controllers\OperadorController;
+use App\Http\Controllers\GuardiaController;
+use App\Http\Controllers\UserComunController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,3 +57,12 @@ Route::group([
     Route::post('register', 'App\Http\Controllers\AuthController@register');
     //Route::put('update', 'App\Http\Controllers\AuthController@update');
 });
+
+Route::resource('clibols', CliBolController::class);
+Route::resource('bolpens', BolPenController::class);
+Route::resource('bolaceps', BolAcepController::class);
+Route::resource('bolrechs', BolRechController::class);
+Route::resource('userads', UserAdController::class);
+Route::resource('operadors', OperadorController::class);
+Route::resource('guardias', GuardiaController::class);
+Route::resource('usercomuns', UserComunController::class);

@@ -108,7 +108,7 @@ class AuthController extends Controller
             'password_confirmed' => 'nullable',
             'tipo_usuario'=>'required',
             'cargo'=>'nullable',
-            'departamento'=>'nullable',
+            'departamento'=>'nullable', 
             'sitio'=>'nullable',
             'primer_ini_sesion'=>'nullable',
             'solicitud_parqueo'=>'nullable',

@@ -22,6 +22,7 @@ function BoletaForm() {
         let descuento12 = parseInt(data[0].descuento12meses);
   
         let costoTotal = precioMe * formData.mesesPagar;
+
         if (formData.mesesPagar > 3 && formData.mesesPagar < 12 ) {
           costoTotal -= descuento;
         } else if (formData.mesesPagar > 11) {
@@ -109,12 +110,13 @@ function BoletaForm() {
       <Form onSubmit={handleSubmit}  className="mx-auto">
         <h1>Registro de Boleta de Pago</h1>
         <Form.Group controlId="mesesPagar">
+          
             <Form.Label>Cantidad de meses a pagar</Form.Label>
             <Form.Control
               as="select"
               name="mesesPagar"
               value={formData.mesesPagar}
-              onChange={handleMesesPagarChange}
+              onChange={handleMesesPagarChange} 
             >
               <option value="">Selecciona una opción</option>
               <option value="1">1</option>
