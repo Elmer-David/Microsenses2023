@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button , Modal} from 'react-bootstrap';
 import axios from 'axios'
 
+
 function BoletaForm() {
   const [formData, setFormData] = useState({
     mesesPagar: '',
@@ -67,6 +68,7 @@ function BoletaForm() {
   };
 
   const handleSubmit = async (event) => {
+     // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
     event.preventDefault();
 
     await axios.post(URL_BOLETA, 
@@ -82,8 +84,7 @@ function BoletaForm() {
 
     resetFormData();
 
-    // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
-  };
+   };
 
   const renderImage = () => {
     if (formData.image) {

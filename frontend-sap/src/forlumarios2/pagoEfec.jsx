@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button , Modal} from 'react-bootstrap';
-import axios from 'axios'
 
-function PagoEfec() {
+
+function PagoEfectivo() {
   const [formData, setFormData] = useState({
-    mesesAPagar: '',
-    total: 0,
+    mesesPagar: '',
+    
+    costoMensualida: '',
+    fecha: '',
+    nombre: ''
+   
   });
-  const [nombres, setNombres] = useState();
-  const handleNombres = (event) => {
-    setNombres(event.target.value);
+
+  
+  useEffect(() => {
+    fetch('http://localhost:8000/api/parqueos')
+      .then(response => response.json())
+      .then(data => {
+        let precioMe = parseInt(data[0].precio_mensual);
+        let descuento = parseInt(data[0].descuento3meses);
+        let descuento12 = parseInt(data[0].descuento12meses);
+  
+        let costoTotal = precioMe * formData.mesesPagar;
+        if (formData.mesesPagar > 3 && formData.mesesPagar < 12 ) {
+          costoTotal -= descuento;
+        } else if (formData.mesesPagar > 11) {
+          costoTotal -= descuento12;
+        }
+  
+        setFormData(prevState => ({
+          ...prevState,
+          costoMensualida: costoTotal
+        }));
+      })
+      .catch(error => console.error(error));
+  }, [formData.mesesPagar]);
+  
+  const handleMesesPagarChange = event => {
+    const mesesPagar = event.target.value;
+    setFormData(prevState => ({
+      ...prevState,
+      mesesPagar
+    }));
   };
+
 
   const [showModal, setShowModal] = useState(false);
   const handleClick = () => {
@@ -21,63 +54,65 @@ function PagoEfec() {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.type === 'file' ? event.target.files[0] : event.target.value;
-
-    const total = name === 'mesesAPagar' ? parseInt(value) * 10 : formData.total;
+    
 
     setFormData({
       ...formData,
-      [name]: value,
-      total // 
+      [name]: value
     });
   };
-  
-  const handleSubmit =async (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
+    
 
-
-    const total = parseInt(formData.mesesAPagar) ;
-    console.log(total);
     resetFormData();
 
     // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
   };
 
+  
+
   const resetFormData = () => {
     setShowModal(false)
     setFormData({
-        mesesAPagar: '',
-        total: 0,
+      mesesPagar: 0,
+    
+      costoMensualida: 0,
+      fecha: '',
+      nombre :''
+      
     });
   };
+
   return (
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
   
       <Form onSubmit={handleSubmit}  className="mx-auto">
-        <h1> Pago Efectivo</h1>
+        <h1>Registro de Boleta de Pago</h1>
 
-
-
-        <Form.Group controlId="nombres" className="mt-4">
-            <Form.Label>Nombre del Cliente: </Form.Label>
-            <Form.Control
+        <Form.Group controlId="nombre">
+          <Form.Label>Nombre Completo</Form.Label>
+          <Form.Control
             type="text"
-    
-            value={nombres}
-            onChange={handleNombres}
-            maxLength={100}
-            minLength={2}
-            required
-        />
+            placeholder="nombre"
+            name="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+          />
         </Form.Group>
 
-                  <Form.Group controlId="mesesAPagar">
+
+
+
+        <Form.Group controlId="mesesPagar">
             <Form.Label>Cantidad de meses a pagar</Form.Label>
             <Form.Control
               as="select"
-              name="mesesAPagar"
-              value={formData.mesesAPagar}
-              onChange={handleChange}
+              name="mesesPagar"
+              value={formData.mesesPagar}
+              onChange={handleMesesPagarChange}
             >
               <option value="">Selecciona una opción</option>
               <option value="1">1</option>
@@ -96,22 +131,37 @@ function PagoEfec() {
              
             </Form.Control>
           </Form.Group>
-       
 
-        <Form.Group controlId="total">
-          <Form.Label>Monto</Form.Label>
+
+
+
+
+      
+
+        <Form.Group controlId="costoMensualida">
+          <Form.Label>total a pagar</Form.Label>
           <Form.Control
             type="number"
             placeholder="Ingresa el monto"
-            name="total"
-            value={formData.total}
+            name="costoMensualida"
+            value={formData.costoMensualida}
             onChange={handleChange}
           />
         </Form.Group>
 
-       
+        <Form.Group controlId="fecha">
+          <Form.Label>Fecha</Form.Label>
+          <Form.Control
+            type="date"
+            placeholder="Ingresa la fecha"
+            name="fecha"
+            value={formData.fecha}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-      
+
+       
 
         <div>
         
@@ -135,12 +185,10 @@ function PagoEfec() {
           <Button variant="primary" type="submit" className="mr-2">
             Enviar
           </Button>
-          
-
         </div>
       </Form>
     </div>
   );
 }
 
-export default PagoEfec;
+export default PagoEfectivo;
