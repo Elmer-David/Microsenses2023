@@ -129,7 +129,7 @@ function LoginForm(){
   return (
     <div className="container">
     <div className="text-container">
-      <h2>Convocartoria :</h2>
+      <h2>Convocatoria :</h2>
       {boletas.map((boleta) => (
         <p key={boleta.id}>
          
