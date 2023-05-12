@@ -10,7 +10,7 @@ function SolicitarEspacio() {
   useEffect(() => {
     if (enviado) {
       // Aquí hacemos la llamada para cambiar el valor de solicitud_parqueo a 1
-      axios.put(`http://localhost:8000/api/users/${12}`, 
+      axios.put(`http://localhost:8000/api/users/${1}`, 
       { 
         name: "Fabio",
         apellido: "Mercedes",

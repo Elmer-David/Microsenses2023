@@ -10,7 +10,9 @@ function SolicitudPago() {
   useEffect(() => {
     axios.get('http://localhost:8000/api/boletas')
       .then(response => {
-        setBoletas(response.data);
+        setBoletas(response.data.filter(boleta => boleta.estado === 0));
+        setAceptados(response.data.filter(boleta => boleta.estado === 1));
+        setRechazados(response.data.filter(boleta => boleta.estado === 2));
       })
       .catch(error => {
         console.error(error);
@@ -19,12 +21,34 @@ function SolicitudPago() {
 
   const handleAceptadoClick = (id) => {
     const boletaAceptada = boletas.find(boleta => boleta.id === id);
+
+    axios.put(`http://localhost:8000/api/boletas/${id}`, { estado: 1 })
+    .then(response => {
+      setAceptados([...aceptados, boletaAceptada]);
+      setBoletas(boletas.filter(boleta => boleta.id !== id));
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+
+
     setAceptados([...aceptados, boletaAceptada]);
     setBoletas(boletas.filter(boleta => boleta.id !== id));
   };
   
   const handleRechazoClick = (id) => {
-    const boletaRechazada = boletas.find(boleta => boleta.id === id);
+ const boletaRechazada = boletas.find(boleta => boleta.id === id);
+ axios.put(`http://localhost:8000/api/boletas/${id}`, { estado: 2 })
+    .then(response => {
+      setRechazados([...rechazados, boletaRechazada]);
+      setBoletas(boletas.filter(boleta => boleta.id !== id));
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+
     setRechazados([...rechazados, boletaRechazada]);
     setBoletas(boletas.filter(boleta => boleta.id !== id));
   };

@@ -1,5 +1,4 @@
 import React from 'react-dom';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
@@ -26,6 +25,11 @@ import MenuOperador from './components/MenuOperador';
 import MenuUComun from './components/MenuUComun';
 import { Link } from 'react-router-dom'
 import BoletaForm from './forlumarios2/registrarBoleta';
+import ListaUsuarios from './forlumarios2/lista de usuarios';
+import ListaParqueo from './forlumarios2/listaSolicitudesParqueo';
+import NavegacionAdministrador from './navegacion/navegacionAdministrador';
+import SolicitarEspacio from './formularios/solicitarSitioParqueo';
+import SolicitudPago from './forlumarios2/revicionSolicitudPago';
 
 function App() {
   return (
@@ -33,7 +37,7 @@ function App() {
    
    
            
-   <RequestForm/>
+   <LoginForm/>
     
               
        {/*<BrowserRouter>

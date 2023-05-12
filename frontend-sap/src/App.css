@@ -3,8 +3,13 @@
   padding: 0;
   text-decoration: none;
 }
-.container{
+.container {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 main{
   width: 100%;
@@ -49,4 +54,11 @@ main{
 }
 .icon, .link_text{
   font-size: 20px;
+}
+.text-container {
+  margin-right: 50px;
+}
+
+.form-container {
+  width: 300px;
 }
