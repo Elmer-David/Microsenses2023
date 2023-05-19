@@ -1,20 +1,9 @@
 import React from "react";
-import '../style/MenuAdministrador.css';
-import Cookies from 'universal-cookie';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import NavegacionAdministrador from "../navegacion/navegacionAdministrador";
-import FormularioRegistroPerso from "../formularios/registrarDatosDelPersonal";
-import RegistroZonasParqueo from "../formularios/registrarZparqueo";
-import RegistroH from "../formularios/registrarHorarios";
-import ParqueoForm from "../forlumarios2/registroPar";
-import RequestForm from "../forlumarios2/estadoPar";
-import PagoEfectivo from "../forlumarios2/pagoEfec";
-import MenuUComun from "./MenuUComun";
-import BarraNavegacion from "../navegacion/barraNavegacion";
+import SidebarAdministrador from './SidebarAdministrador';
+import '../style/MenuAdministrador.css';
 
-
-
-
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
@@ -54,19 +43,8 @@ function MenuAdministrador() {
 
 
     return(
-        <div>
-        
-     
-
-        <BarraNavegacion/>
-      
-
-
-
-
-
-        <button onClick={cerrarSesion}>Cerra Sesion</button>
-        </div>
+        // <></>
+        <NavegacionAdministrador/>
     );
 }
 export default MenuAdministrador

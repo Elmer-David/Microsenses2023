@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
@@ -11,7 +12,7 @@ function RequestForm() {
   const [multa , setMulta] = useState('');
   const [descuentoAño , setDescuentoAño] = useState('');
 
-  const URL_PARQUEO = 'http://localhost:8000/api/parqueos';
+  const URL_PARQUEO = 'http://localhost:8000/api/parqueos/';
 
  
 
@@ -105,34 +106,96 @@ function RequestForm() {
     setDescuento('');
     setMulta('');
     setDescuentoAño('');
-  
   }  
 
+  const notificacion = () => {
+    toast.success('Convocatoria Modificada con exito', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
+
+  
+  function cerraForm() {
+    window.location.href='./MenuAdministrador'
+  } 
+
+
+
+  
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    await axios.post(URL_PARQUEO, 
-    {
-      nombre: "UMSS Parqueo",
-      descripcion: "Descripcion_umss",
-      imagen: "imagen.jpg",
-      fecha_ini_solicitud: startDate,
-      fecha_fin_solicitud: endDate,
-      fecha_ini_pago: null,
-      fecha_fin_pago: null,
-      precio_mensual: precio,
-      descuento3meses: descuento,
-      descuento6meses: 40,
-      descuento12meses: descuentoAño,
-      multa: multa,
-      cuenta_banco: "329829389238",
-      nombre_banco: "banco union"
+    await axios.get(URL_PARQUEO)
+    .then(response=>{
+      if(response.data[0] != null){
+        axios.put(`${URL_PARQUEO}${response.data[0].id}`, 
+          {
+            nombre: "Nombre",
+            descripcion: "Descripcion",
+            imagen: "imagen.jpg",
+            fecha_ini_solicitud: startDate,
+            fecha_fin_solicitud: endDate,
+            fecha_ini_pago: null,
+            fecha_fin_pago: null,
+            precio_mensual: precio,
+            descuento3meses: descuento,
+            descuento6meses: 0,
+            descuento12meses: descuentoAño,
+            multa: multa,
+            cuenta_banco: "Cuenta banco",
+            nombre_banco: "Nombre banco"
+          })
+      }else{
+        axios.post(URL_PARQUEO, 
+          {
+            nombre: "Nombre",
+            descripcion: "Descripcion",
+            imagen: "imagen.jpg",
+            fecha_ini_solicitud: startDate,
+            fecha_fin_solicitud: endDate,
+            fecha_ini_pago: null,
+            fecha_fin_pago: null,
+            precio_mensual: precio,
+            descuento3meses: descuento,
+            descuento6meses: 0,
+            descuento12meses: descuentoAño,
+            multa: multa,
+            cuenta_banco: "Cuenta banco",
+            nombre_banco: "Nombre banco"
+          })
+      }
     })
+
+    
+    // await axios.post(URL_PARQUEO, 
+    // {
+    //   nombre: "Nombre",
+    //   descripcion: "Descripcion",
+    //   imagen: "imagen.jpg",
+    //   fecha_ini_solicitud: startDate,
+    //   fecha_fin_solicitud: endDate,
+    //   fecha_ini_pago: null,
+    //   fecha_fin_pago: null,
+    //   precio_mensual: precio,
+    //   descuento3meses: descuento,
+    //   descuento6meses: 0,
+    //   descuento12meses: descuentoAño,
+    //   multa: multa,
+    //   cuenta_banco: "Cuenta banco",
+    //   nombre_banco: "Nombre banco"
+    // })
 
     // do something with the start and end dates
     resetForm();
+    notificacion();
   };
 
   return (
@@ -179,7 +242,7 @@ function RequestForm() {
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
                       no
                     </Button>
-                    <Button variant="primary" onClick={ resetForm} >
+                    <Button variant="primary" onClick={ cerraForm} >
                       
                       si
                     </Button>
@@ -192,6 +255,7 @@ function RequestForm() {
           Confirmar
         </Button>
       </Form>
+      <ToastContainer />
     </div>
   );
 }

@@ -14,22 +14,21 @@ const SidebarAdministrador = ({children}) => {
             icon:<FaUserAlt/>
         },
         {
-            path:"/RegistroZonasParqueo",
-            name:"Registrar Zonas Parqueo",
+            path:"/RegistroZonaParqueo",
+            name:"Registrar Zona de Parqueo",
             icon:<FaThList/>
         },
         {
-            path:"/RegistroH",
+            path:"/RegistroHorario",
             name:"Registrar Horario",
             icon:<FaThList/>
         }
     ]
 
     return (
-        <div className="container">
-            <div style={{width: isOpen ? "300px" : "50px"}} className="sidebar">
+            <div className= "sidebar" style={{width: isOpen ? "300px" : "50px"}}>
                 <div className="top_section">
-                    <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
+                    <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Administrador</h1>
                     <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bar">
                         <FaBars onClick={toggle}/>
                     </div>
@@ -42,9 +41,8 @@ const SidebarAdministrador = ({children}) => {
                         </NavLink>
                     ))
                 }
+                <main>{children}</main>
             </div>
-            <main>{children}</main>
-        </div>
     );
 };
 

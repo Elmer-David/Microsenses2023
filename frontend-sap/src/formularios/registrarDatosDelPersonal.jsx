@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
 import axios from 'axios';
-
+import configData from '../config/config.json';
  
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
@@ -63,6 +63,8 @@ function resetForm() {
   const [confirmarContraseña, setConfirmarContraseña] = useState("confirmarcontraseña");
   const [tipoUsuario, setTipoUsuario] = useState(0);
   const [horario, setHorario] = useState('');
+
+  const User_Api_Url = configData.USER_API_URL;
 
   const [errorNombre, setErrorNombre] = useState('');
   const [errorHorario, setErrorHorario] = useState('');
@@ -131,18 +133,24 @@ function resetForm() {
     if (!errorNombre   && !errorTelefono && !errorCI  && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
 
-      await axios.post('http://localhost:8000/api/personals', {
-      nombre: nombre,
-      apellido: apellido,
-      dni: CI,
-      foto_perfil: fotoString,
-      direccion: direccion,
-      telefono: telefono,
-      email: correoElectronico,
-      contraseña: contraseña,
-      contraseña_confirmed: confirmarContraseña,
-      tipo_usuario: tipoUsuario,
-      id_horario: horario
+      await axios.post(User_Api_Url, {
+        name: nombre,
+        apellido: apellido,
+        dni: CI,
+        foto_perfil: fotoString,
+        telefono: telefono,
+        direccion: direccion,
+        email: correoElectronico,
+        password: contraseña,
+        password_confirmed: confirmarContraseña,
+        tipo_usuario: 1,
+        cargo: null,
+        departamento: null,
+        sitio: null,
+        primer_ini_sesion: 0,
+        solicitud_parqueo: 0,
+        id_zona: null,
+        id_horario: null
       })
 
       resetForm();

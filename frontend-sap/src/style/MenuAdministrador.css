@@ -16,6 +16,9 @@ main{
     height: 100vh;
     width: 300px;
     transition: all 0.5s;
+    /* position: fixed;
+    top: 0;
+    left: 0; */
 }
 .top_section{
     display: flex;
@@ -25,9 +28,9 @@ main{
 .logo{
     font-size: 30px;
 }
-.bars{
+.bar{
     display: flex;
-    font-size: 25px;
+    font-size: 24px;
     margin-left: 50px;
 }
 .link{

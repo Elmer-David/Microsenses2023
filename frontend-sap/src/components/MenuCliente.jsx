@@ -50,7 +50,7 @@ function Cliente() {
 
           
 
-        <button onClick={cerrarSesion}>Cerra Sesion</button>
+        {/* <button onClick={cerrarSesion}>Cerra Sesion</button> */}
         </>
     );
 }

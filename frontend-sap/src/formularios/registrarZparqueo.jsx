@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import axios from 'axios';
-
+import SidebarAdministrador from "../components/SidebarAdministrador";
+//import '../style/RegistrarZonaParqueo.css';
 
 const RegistroZonasParqueo = () => {
   
@@ -85,10 +86,13 @@ const RegistroZonasParqueo = () => {
   };
 
   return (
-    
-    <div className="container d-flex align-items-center" style={{ height: "100vh" }}>
-    <div className="col-lg-6 mx-auto">
-      <h1>Registrar Zona de Parqueo</h1>
+    <>
+    {/* <div className="side"> 
+      <SidebarAdministrador/> 
+    </div> */}
+    <div className="container d-flex align-items-center" style={{ height: "100vh", marginLeft:"10px" }}>
+      <div className="col-lg-6 mx-auto">
+      <h1 className="titulo">Registrar Zona de Parqueo</h1>
       <Form onSubmit={handleSubmit}>
       <Form.Group controlId="nombre" className="mt-4">
             <Form.Label>Nombre Zona: </Form.Label>
@@ -197,6 +201,7 @@ const RegistroZonasParqueo = () => {
       </Form>
     </div>
     </div>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row,Modal } from 'react-bootstrap';
 import axios from 'axios';
+import configData from '../config/config.json';
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
@@ -41,12 +42,7 @@ function resetForm() {
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
   const [correoElectronico, setCorreoElectronico] = useState('');
 
-  const [fotoString, setFotoString] = useState("Foto");
-  const [direccion, setDireccion] = useState("Direccion");
-  const [cargo, setCargo] = useState("Cargo");
-  const [departamento, setDepartamento] = useState("Departamento");
-  const [estado, setEstado] = useState(0);
-  const [sitio, setSitio] = useState("Sitio");
+  const User_Api_Url = configData.USER_API_URL;
 
   const [errorNombre, setErrorNombre] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
@@ -117,23 +113,29 @@ function resetForm() {
     if (!errorNombre && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
 
-      await axios.post('http://localhost:8000/api/clientes', {
-      nombre: nombre,
-      apellido: apellido,
-      telefono: telefono,
-      email: correoElectronico,
-      contraseña: contraseña,
-      contraseña_confirmed: confirmarContraseña,
-      foto_perfil: fotoString,
-      direccion: direccion,
-      dni: CI,
-      cargo: cargo,
-      departamento: departamento,
-      estado: estado,
-      sitio: sitio
+      await axios.post(User_Api_Url, {
+
+        name: nombre,
+        apellido: apellido,
+        dni: CI,
+        foto_perfil: null,
+        telefono: telefono,
+        direccion: null,
+        email: correoElectronico,
+        password: contraseña,
+        password_confirmed: confirmarContraseña,
+        tipo_usuario: 3,
+        cargo: null,
+        departamento: null,
+        sitio: null,
+        primer_ini_sesion: 1,
+        solicitud_parqueo: 0,
+        id_zona: null,
+        id_horario: null
       })
 
       resetForm();
+      window.location.href='./Login';
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
       console.log("Hay errores en el formulario:");
