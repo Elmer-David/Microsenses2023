@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button , Modal} from 'react-bootstrap';
+import '../style/FormularioGlobal.css';
+
 
 
 function PagoEfectivo() {
@@ -165,7 +167,7 @@ function PagoEfectivo() {
 
         <div>
         
-        <Button onClick={handleClick}  variant="danger" >cancelar </Button>
+        <Button className="secondary" onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>Confirmar acción</Modal.Title>
@@ -182,7 +184,7 @@ function PagoEfectivo() {
                   </Modal.Footer>
                </Modal>
 
-          <Button variant="primary" type="submit" className="mr-2">
+          <Button variant="primary" type="submit" className="primary">
             Enviar
           </Button>
         </div>

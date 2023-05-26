@@ -21,6 +21,7 @@ use App\Http\Controllers\UserAdController;
 use App\Http\Controllers\OperadorController;
 use App\Http\Controllers\GuardiaController;
 use App\Http\Controllers\UserComunController;
+use App\Http\Controllers\MensajeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,6 +46,7 @@ Route::resource('horarios', HorarioController::class);
 Route::resource('users', UserController::class);
 Route::resource('horarioparqueos', HorarioparqueoController::class);
 Route::resource('boletas', BoletaController::class);
+Route::resource('mensajes', MensajeController::class);
 
 Route::group([
     'middleware' => 'api',

@@ -128,7 +128,7 @@ function LoginForm(){
 
   return (
     <div className="container">
-    <div className="text-container">
+    {/* <div className="text-container">
       <h2>Convocatoria :</h2>
       {boletas.map((boleta) => (
         <p key={boleta.id}>
@@ -151,7 +151,7 @@ function LoginForm(){
 
         </p>
       ))}
-    </div>
+    </div> */}
   
     <div className="form-container">
       <Form onSubmit={handleSubmit}>

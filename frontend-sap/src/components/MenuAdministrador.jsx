@@ -2,6 +2,9 @@ import React from "react";
 import NavegacionAdministrador from "../navegacion/navegacionAdministrador";
 import SidebarAdministrador from './SidebarAdministrador';
 import '../style/MenuAdministrador.css';
+import { Route, Routes} from 'react-router-dom';
+import RegistroZonasParqueo from "../formularios/registrarZparqueo";
+
 
 import Cookies from 'universal-cookie';
 
@@ -43,8 +46,14 @@ function MenuAdministrador() {
 
 
     return(
-        // <></>
-        <NavegacionAdministrador/>
+        <>
+        <SidebarAdministrador/>
+        
+        <Routes>
+            <Route path='/RegistroZonaParqueo' element={<RegistroZonasParqueo/>}/>
+
+        </Routes>
+        </>
     );
 }
 export default MenuAdministrador

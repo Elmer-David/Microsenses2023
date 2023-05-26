@@ -42,6 +42,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Boleta::class,'id');
     }
 
+    public function mensajes(){
+        return $this->hasMany(Mensaje::class,'id');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
