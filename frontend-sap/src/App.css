@@ -3,6 +3,10 @@
   padding: 0;
   text-decoration: none;
 }
+body {
+  background-color: #d8dde1; /* Color celeste suave */
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -10,6 +14,19 @@
   align-items: center;
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+h1, h2, h3, h4{
+  font-family: Impact, sans-serif; /* Fuente Impact */
+  -webkit-text-stroke: 1px rgb(246, 246, 252); /* Contorno de color azul */
+  -webkit-text-fill-color: rgb(8, 8, 100); /* Relleno transparente */
+  text-shadow: 6px 6px 6px #ae9797; /* Contorno de color blanco */
+}
+ h2, h3, h4, h5, h6, input, select, textarea, label {
+  font-family: Copperplate, sans-serif; /* Fuente Copperplate */
+  /*-webkit-text-stroke: 1px rgb(3, 3, 11); /* Contorno de color azul */
+  -webkit-text-fill-color: rgb(23, 44, 66); /* Relleno transparente */
+  text-shadow: 4px 4px 4px #5a4492bd; /* Contorno de color blanco */
 }
 main{
   width: 100%;

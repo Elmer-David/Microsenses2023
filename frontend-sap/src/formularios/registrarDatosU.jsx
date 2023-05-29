@@ -3,12 +3,12 @@ import { Form, Button, Col, Row,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import configData from '../config/config.json';
 
-const regexSoloLetras = /^[a-zA-Z]+$/;
+
+
+const regexSoloLetras = /^[a-zA-Z ]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
 const FormularioRegistroCuenta = () => {
-
- 
   const [showModal, setShowModal] = useState(false);
 const handleClick = () => {
   
@@ -53,6 +53,7 @@ function resetForm() {
   const [errorCorreoElectronico, setErrorCorreoElectronico] = useState('');
 
   const validarNombre = (valor) => {
+
     if (!regexSoloLetras.test(valor)) {
       return "Por favor, ingresa solo letras en el campo de nombre";
     }
@@ -151,7 +152,7 @@ function resetForm() {
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
-      <h1>Registrar Cuenta </h1>
+      <h1>Registrar cuenta </h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
     <Form onSubmit={onSubmit}>
@@ -160,11 +161,12 @@ function resetForm() {
         <Form.Control
           type="text"
           value={nombre}
-          onChange={(event) => setNombre(event.target.value)}
-          isInvalid={errorNombre}
-          pattern="[a-zA-Z]+"
+          
+          pattern= "[a-zA-Z ]*$"
           maxLength={30}
           minLength={2}
+          onChange={(event) => setNombre(event.target.value)}
+          isInvalid={errorNombre}
           required
         />
         <Form.Control.Feedback type="invalid">
@@ -179,7 +181,7 @@ function resetForm() {
           value={apellido}
           onChange={(event) => setApellido(event.target.value)}
           isInvalid={errorApellido}
-          pattern="[a-zA-Z]+"
+          pattern="[a-zA-Z ]+"
           maxLength={30}
           minLength={2}
           required
@@ -190,7 +192,7 @@ function resetForm() {
         </Form.Group>
 
         <Form.Group controlId="telefono">
-          <Form.Label>Teléfono:</Form.Label>
+          <Form.Label>Celular:</Form.Label>
           <Form.Control
             type="tel"
             value={telefono}
@@ -223,7 +225,7 @@ function resetForm() {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Button onClick={handleClick}  variant="danger" >cancelar </Button>
+        <Button onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>Confirmar acción</Modal.Title>
@@ -280,6 +282,8 @@ function resetForm() {
   <Form.Control
     type="email"
     value={correoElectronico}
+    maxLength={60}
+    minLength={10}
     onChange={(event) => setCorreoElectronico(event.target.value)}
     isInvalid={errorCorreoElectronico}
     required
