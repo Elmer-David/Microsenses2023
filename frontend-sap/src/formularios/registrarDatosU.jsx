@@ -233,11 +233,11 @@ function resetForm() {
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
-                      no
+                      No
                     </Button>
                     <Button variant="primary" onClick={ resetForm} >
                       
-                      si
+                      Si
                     </Button>
                   </Modal.Footer>
                </Modal>

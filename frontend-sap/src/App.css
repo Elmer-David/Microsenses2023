@@ -4,7 +4,7 @@
   text-decoration: none;
 }
 body {
-  background-color: #d8dde1; /* Color celeste suave */
+  background-color: #eaf1f7; /* Color celeste suave */
 }
 
 .container {
@@ -16,22 +16,26 @@ body {
   margin-bottom: 50px;
 }
 
-h1, h2, h3, h4{
+h1{
   font-family: Impact, sans-serif; /* Fuente Impact */
   -webkit-text-stroke: 1px rgb(246, 246, 252); /* Contorno de color azul */
   -webkit-text-fill-color: rgb(8, 8, 100); /* Relleno transparente */
   text-shadow: 6px 6px 6px #ae9797; /* Contorno de color blanco */
 }
- h2, h3, h4, h5, h6, input, select, textarea, label {
+ h2, input, select, textarea, label {
   font-family: Copperplate, sans-serif; /* Fuente Copperplate */
   /*-webkit-text-stroke: 1px rgb(3, 3, 11); /* Contorno de color azul */
-  -webkit-text-fill-color: rgb(23, 44, 66); /* Relleno transparente */
-  text-shadow: 4px 4px 4px #5a4492bd; /* Contorno de color blanco */
+  /*-webkit-text-fill-color: rgb(23, 44, 66); /* Relleno transparente */
+  text-shadow: 4px 4px 4px #0a031bbd; /* Contorno de color blanco */
 }
 main{
   width: 100%;
   padding: 20px;
 }
+.navbar333 {
+  background-color: rgb(31, 20, 80);
+}
+
 .sidebar{
   background: navy;
   color: #fff;
@@ -44,9 +48,16 @@ main{
   display: flex;
   align-items: center;
   padding: 20px 15px;
+  background-color: #0c0c28; /* Color azul oscuro */
 }
 .logo{
   font-size: 30px;
+}
+.form-control {
+  background-color: rgb(113, 170, 173) !important;
+  border: 3px solid rgb(207, 199, 199) !important;
+  -webkit-text-fill-color: rgb(232, 232, 247); 
+  text-shadow: none !important; /* Remover la sombra de texto */
 }
 .bars{
   display: flex;
