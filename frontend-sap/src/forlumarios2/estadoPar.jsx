@@ -11,7 +11,9 @@ function RequestForm() {
   const [descuento , setDescuento] = useState('');
   const [multa , setMulta] = useState('');
   const [descuentoAño , setDescuentoAño] = useState('');
-
+  const [nombre, setNombre] = useState('');
+  const [numeroCuenta, setNumeroCuenta] = useState('');
+  const [nombreParqueo, setNombreParqueo] = useState('');
   const URL_PARQUEO = 'http://localhost:8000/api/parqueos/';
 
  
@@ -26,6 +28,17 @@ function RequestForm() {
       setStartDate(event.target.value);
     }
   };
+  const handleNombreChange = (event) => {
+    setNombre(event.target.value);
+  };
+  const handleNombreParqueoChange = (event) => {
+    setNombreParqueo(event.target.value);
+  };
+  const handleNumeroCuentaChange = (event) => {
+    setNumeroCuenta(event.target.value);
+  };
+
+
   
 
   const handleEndDateChange = (event) => {
@@ -138,7 +151,7 @@ function RequestForm() {
       if(response.data[0] != null){
         axios.put(`${URL_PARQUEO}${response.data[0].id}`, 
           {
-            nombre: "Nombre",
+            nombre: nombreParqueo,
             descripcion: "Descripcion",
             imagen: "imagen.jpg",
             fecha_ini_solicitud: startDate,
@@ -150,13 +163,13 @@ function RequestForm() {
             descuento6meses: 0,
             descuento12meses: descuentoAño,
             multa: multa,
-            cuenta_banco: "Cuenta banco",
-            nombre_banco: "Nombre banco"
+            cuenta_banco: numeroCuenta,
+            nombre_banco: nombre
           })
       }else{
         axios.post(URL_PARQUEO, 
           {
-            nombre: "Nombre",
+            nombre: nombreParqueo,
             descripcion: "Descripcion",
             imagen: "imagen.jpg",
             fecha_ini_solicitud: startDate,
@@ -168,8 +181,8 @@ function RequestForm() {
             descuento6meses: 0,
             descuento12meses: descuentoAño,
             multa: multa,
-            cuenta_banco: "Cuenta banco",
-            nombre_banco: "Nombre banco"
+            cuenta_banco: numeroCuenta,
+            nombre_banco: nombre
           })
       }
     })
@@ -199,10 +212,41 @@ function RequestForm() {
   };
 
   return (
-    <div className="d-flex align-items-center" style={{ height: '100vh' }}>
+    <div className="d-flex align-items-center" style={{ height: 'auto' }}>
    {/*aqui se puede poner cosas para el lateral*/} 
       <Form onSubmit={handleSubmit} className="mx-auto">
       <h1> Formulario de la  convocatoria  </h1>
+
+      <Form.Group controlId="nombre" className="mt-4">
+            <Form.Label>Nombre del Banco: </Form.Label>
+            <Form.Control
+            type="text"
+            placeholder="Ingresa el nombre del Banco"
+            value={nombre}
+            onChange={handleNombreChange}
+            maxLength={100}
+            minLength={2}
+            required
+        />
+        </Form.Group>
+        <Form.Group controlId="nombreParqueo" className="mt-4">
+            <Form.Label>Nombre del Parqueo: </Form.Label>
+            <Form.Control
+            type="text"
+            placeholder="Ingresa el nombre del Parqueo "
+            value={nombre}
+            onChange={handleNombreParqueoChange}
+            maxLength={100}
+            minLength={2}
+            required
+        />
+        </Form.Group>
+
+       < Form.Group controlId="numeroCuenta">
+          <Form.Label> Numero de Cuenta:</Form.Label>
+          <Form.Control type="number" value={numeroCuenta}  placeholder="Ingresa el numero de cuenta" onChange={handleNumeroCuentaChange}  required/>
+        </Form.Group>
+
         <Form.Group controlId="startDate">
           <Form.Label>Fecha Inicio:</Form.Label>
           <Form.Control type="date" value={startDate} onChange={handleStartDateChange}required />
