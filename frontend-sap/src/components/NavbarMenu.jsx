@@ -7,9 +7,10 @@ import axios from 'axios';
 
 function NavBarMenu() {
   return (
-    <Navbar className='navbar333' style={{ backgroundColor: 'rgb(8, 8, 100)' }} expand="lg">
+    <Navbar className='navbar333' style={{ backgroundColor: 'rgb(192, 192, 192)' }} expand="lg">
+      {/* style={{ backgroundColor: 'rgb(8, 8, 100)' }} */}
       <Container>
-        <Navbar.Brand href="/">Parqueo FCyT</Navbar.Brand>
+        <Navbar.Brand  href="/">Parqueo FCyT </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

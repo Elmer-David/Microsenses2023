@@ -81,7 +81,7 @@ function RegistroH() {
       });
   } 
   return (
-    <Container>
+    <div>
       <h1>Registro de Horario</h1>
 
 
@@ -121,7 +121,7 @@ function RegistroH() {
       </ListGroup>
       <ToastContainer />
 
-    </Container>
+    </div>
   );
 }
 

@@ -146,46 +146,47 @@ function RequestForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.get(URL_PARQUEO)
-    .then(response=>{
-      if(response.data[0] != null){
-        axios.put(`${URL_PARQUEO}${response.data[0].id}`, 
-          {
-            nombre: nombreParqueo,
-            descripcion: "Descripcion",
-            imagen: "imagen.jpg",
-            fecha_ini_solicitud: startDate,
-            fecha_fin_solicitud: endDate,
-            fecha_ini_pago: null,
-            fecha_fin_pago: null,
-            precio_mensual: precio,
-            descuento3meses: descuento,
-            descuento6meses: 0,
-            descuento12meses: descuentoAño,
-            multa: multa,
-            cuenta_banco: numeroCuenta,
-            nombre_banco: nombre
-          })
-      }else{
-        axios.post(URL_PARQUEO, 
-          {
-            nombre: nombreParqueo,
-            descripcion: "Descripcion",
-            imagen: "imagen.jpg",
-            fecha_ini_solicitud: startDate,
-            fecha_fin_solicitud: endDate,
-            fecha_ini_pago: null,
-            fecha_fin_pago: null,
-            precio_mensual: precio,
-            descuento3meses: descuento,
-            descuento6meses: 0,
-            descuento12meses: descuentoAño,
-            multa: multa,
-            cuenta_banco: numeroCuenta,
-            nombre_banco: nombre
-          })
-      }
-    })
+    axios.post(URL_PARQUEO, 
+      {
+        nombre: nombreParqueo,
+        descripcion: "Descripcion",
+        imagen: "imagen.jpg",
+        fecha_ini_solicitud: startDate,
+        fecha_fin_solicitud: endDate,
+        fecha_ini_pago: null,
+        fecha_fin_pago: null,
+        precio_mensual: precio,
+        descuento3meses: descuento,
+        descuento6meses: 0,
+        descuento12meses: descuentoAño,
+        multa: multa,
+        cuenta_banco: numeroCuenta,
+        nombre_banco: nombre
+      })
+    // await axios.get(URL_PARQUEO)
+    // .then(response=>{
+    //   if(response.data[0] != null){
+    //     axios.put(`${URL_PARQUEO}${response.data[0].id}`, 
+    //       {
+    //         nombre: nombreParqueo,
+    //         descripcion: "Descripcion",
+    //         imagen: "imagen.jpg",
+    //         fecha_ini_solicitud: startDate,
+    //         fecha_fin_solicitud: endDate,
+    //         fecha_ini_pago: null,
+    //         fecha_fin_pago: null,
+    //         precio_mensual: precio,
+    //         descuento3meses: descuento,
+    //         descuento6meses: 0,
+    //         descuento12meses: descuentoAño,
+    //         multa: multa,
+    //         cuenta_banco: numeroCuenta,
+    //         nombre_banco: nombre
+    //       })
+    //   }else{
+        
+    //   }
+    // })
 
     
     // await axios.post(URL_PARQUEO, 
@@ -234,7 +235,7 @@ function RequestForm() {
             <Form.Control
             type="text"
             placeholder="Ingresa el nombre del Parqueo "
-            value={nombre}
+            value={nombreParqueo}
             onChange={handleNombreParqueoChange}
             maxLength={100}
             minLength={2}

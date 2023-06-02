@@ -29,7 +29,7 @@ function BoletaForm() {
         let precioMe = parseInt(data[0].precio_mensual);
         let descuento = parseInt(data[0].descuento3meses);
         let descuento12 = parseInt(data[0].descuento12meses);
-  
+
         let costoTotal = precioMe * formData.mesesPagar;
 
         if (formData.mesesPagar > 3 && formData.mesesPagar < 12 ) {
@@ -68,15 +68,29 @@ function BoletaForm() {
 
   const handleChange = (event) => {
     const name = event.target.name;
-    const value = event.target.type === 'file' ? event.target.files[0] : event.target.value;
-    
-
+    let value = event.target.type === 'file' ? event.target.files[0] : event.target.value;
+  
+    if (name === 'numeroTransaccion') {
+      // Eliminar cualquier carácter que no sea un dígito
+      value = value.replace(/\D/g, '');
+  
+      // Limitar la longitud del número de transacción entre 6 y 10 dígitos
+      value = value.slice(0, 10);
+    }
+    if (name === 'fecha') {
+      const currentDate = new Date().toISOString().split('T')[0];
+      if (value > currentDate) {
+        // Si la fecha seleccionada es posterior a la fecha actual,
+        // se establece la fecha actual como valor
+        value = currentDate;
+      }
+    }
     setFormData({
       ...formData,
       [name]: value
     });
   };
-
+  
   const handleSubmit = async (event) => {
      // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
     event.preventDefault();
@@ -210,7 +224,7 @@ function BoletaForm() {
 
         <div>
         
-        <Button onClick={handleClick}  variant="danger" >cancelar </Button>
+        <Button onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>Confirmar acción</Modal.Title>
