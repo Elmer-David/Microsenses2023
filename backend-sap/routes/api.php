@@ -22,6 +22,14 @@ use App\Http\Controllers\OperadorController;
 use App\Http\Controllers\GuardiaController;
 use App\Http\Controllers\UserComunController;
 use App\Http\Controllers\MensajeController;
+use App\Http\Controllers\VehiCliController;
+use App\Http\Controllers\MensClienteController;
+use App\Http\Controllers\MisBolCliController;
+use App\Http\Controllers\BolManualController;
+use App\Http\Controllers\MensOperadorController;
+use App\Http\Controllers\MensGuardiaController;
+use App\Http\Controllers\MensGlobalController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,3 +76,11 @@ Route::resource('userads', UserAdController::class);
 Route::resource('operadors', OperadorController::class);
 Route::resource('guardias', GuardiaController::class);
 Route::resource('usercomuns', UserComunController::class);
+Route::resource('vehiclis', VehiCliController::class);
+Route::resource('mensclientes', MensClienteController::class);
+Route::resource('misbolclis', MisBolCliController::class);
+Route::resource('bolmanuals', BolManualController::class);
+Route::resource('mensoperadors', MensOperadorController::class);
+Route::resource('mensguardias', MensGuardiaController::class);
+Route::resource('mensglobals', MensGlobalController::class);
+

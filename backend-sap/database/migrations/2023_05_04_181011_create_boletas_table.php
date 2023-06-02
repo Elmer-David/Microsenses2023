@@ -21,6 +21,7 @@ class CreateBoletasTable extends Migration
             $table->date('fecha_deposito')->nullable();
             $table->string('foto_comprobante')->nullable();
             $table->integer('estado')->default(0); //0 pendiente, 1 aceptado, 2 rechazado, 3 manual
+            $table->integer('nro_factura')->nullable();
             $table->timestamps();
 
             $table->foreignId('id_user')

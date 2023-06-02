@@ -11,7 +11,7 @@ class Mensaje extends Model
     protected $table = 'mensajes';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'mensaje', 'id_receptor', 'global', 'estado',
+        'asunto', 'mensaje', 'id_receptor', 'global', 'estado', 
         'id_user',
     ];
 

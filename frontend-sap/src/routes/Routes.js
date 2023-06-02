@@ -39,54 +39,14 @@ import InfoConvocatoria from '../components/InfoConvocatoria';
 import TablaUser from '../components/TablaUser';
 import TablaBoleta from '../components/TablaBoleta';
 import TablaVehiculo from '../components/TablaVehiculo';
-//const cookies = new Cookies();
-
+import MensajeA from '../components/Mensaje';
+import TablaMensaje from '../components/TablaMensaje';
+import TablaMiBoleta from '../components/TablaMiBoleta';
+import TablaBoletaManual from '../components/TablaBoletaManual';
+import TablaMensajeOperador from '../components/TablaMensajeOperador';
+import TablaMensajeGuardia from '../components/TablaMensajeGuardia';
 
 const Rutas=()=> {
-  // const barra = BarraNavegacion;
-  // //useState
-  // const usu=4;
-  // //cookies.get('tipo_usuario');
-  
-  // const [tipou, setTipou] = useState(null);
-  // cookies.set('tipo_usuario', 10, {path: "/"});
-  // //const cookiesusu = cookies.get("tipo_usuario");
-  // const cu = cookies.get('tipo_usuario');
-  // const [cookiesusu, setCookiesusu] = useState(10);
-  // console.log(cu);  
-  // console.log("name:"+ cu);
-
-
-  // function Tipobarra(props){
-  //   switch (props.contenido){
-  //     case 10:
-  //       return  <SidebarAdministrador/>;
-  //       break;
-  //     case 0 :
-  //       return  <SidebarAdministrador/>;
-  //       break;
-  //     case 1 :  
-  //       window.location.href='./MenuOperador';
-  //       break;
-  //     case 2 :
-  //       window.location.href='./MenuGuardia';
-  //       break; 
-  //     case 3 :
-  //       window.location.href='./MenuUComun';
-  //       break;
-  //     case 4 :
-  //       return  <BarraNavegacion/>;
-  //       break;    
-  //     default :
-  //       //window.location.href='./';
-  //       break; 
-  //   }
-  // }
-
-  // useEffect(()=>{
-  //   //Tipobarra(tipou);
-  //   <Tipobarra contenido={cookiesusu} />
-  // }, [cookiesusu]);
 
   return (
     //<div className="container"> 
@@ -112,21 +72,27 @@ const Rutas=()=> {
         <Route path='/MenuAdministrador/TablaUser' element={<><NavBarOffAdministrador/><TablaUser/></>}/>
         <Route path='/MenuAdministrador/TablaBoleta' element={<><NavBarOffAdministrador/><TablaBoleta/></>}/>
         <Route path='/MenuAdministrador/TablaVehiculo' element={<><NavBarOffAdministrador/><TablaVehiculo/></>}/>
+        <Route path='/MenuAdministrador/Mensaje' element={<><NavBarOffAdministrador/><MensajeA/></>}/>
 
         <Route path='/MenuCliente' element={<NavBarOffCliente/>}/>
         <Route path='/RegistroVehiculo' element={<><NavBarOffCliente/><RegistroVehiculo/></>}/>
         <Route path='/RegistroBoleta' element={<><NavBarOffCliente/><FormularioRegistroBoleta/></>}/>
+        <Route path='/MenuCliente/TablaMensaje' element={<><NavBarOffCliente/><TablaMensaje/></>}/>
+        <Route path='/MenuCliente/TablaMiBoleta' element={<><NavBarOffCliente/><TablaMiBoleta/></>}/>
 
         <Route path='/MenuOperador' element={<NavBarOffOperador/>}/>
         <Route path='/RegistroBoletaManual' element={<><NavBarOffOperador/><RegistroBoletaManual/></>}/>
         <Route path='/MenuOperador/RegistroPersonal' element={<><NavBarOffOperador/><FormularioRegistroPersonal/></>}/>
         <Route path='/SolicitudBoleta' element={<><NavBarOffOperador/><SolicitudBoleta/></>}/>
+        <Route path='/MenuOperador/TablaManual' element={<><NavBarOffOperador/><TablaBoletaManual/></>}/>
+        <Route path='/MenuOperador/TablaMensajeOperador' element={<><NavBarOffOperador/><TablaMensajeOperador/></>}/>
 
         <Route path='/MenuGuardia' element={<NavBarOffGuardia/>}/>
+        <Route path='/MenuGuardia/TablaMensajeGuardia' element={<><NavBarOffGuardia/><TablaMensajeGuardia/></>}/>
 
         <Route path='/MenuUComun' element={<NavBarOffUsuarioComun/>}/>
         <Route path='/SolicitarSitioParqueo' element={<><NavBarOffUsuarioComun/><SolicitarSitioParqueo/></>}/>
-
+        <Route path='/MenuUComun/Convocatoria' element={<><NavBarOffUsuarioComun/><InfoConvocatoria/></>}/>
 
       </Routes>    
       </>       

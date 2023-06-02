@@ -66,6 +66,7 @@ function NavBarOffAdministrador() {
                   <Nav.Link href="/RegistroZonaParqueo">Registrar Zona de Parqueo</Nav.Link>
                   <Nav.Link href="/MenuAdministrador/RegistroPersonal">Registrar Personal</Nav.Link>
                   <Nav.Link href="/RegistroHorario">Registrar Horario del Personal</Nav.Link>
+                  <Nav.Link href="/MenuAdministrador/Mensaje">Enviar Mensaje</Nav.Link>
                   
                   <NavDropdown
                     title="Listas/Tablas"

@@ -61,6 +61,8 @@ function NavBarOffGuardia() {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
 
+                  <Nav.Link href="/MenuGuardia/TablaMensajeGuardia">Mensajes Recibidos</Nav.Link>
+
                   {/* <Nav.Link href="/RegistroConvocatoria">Registrar Convocatoria</Nav.Link>
                   <Nav.Link href="/MenuAdministrador/RegistroHorarioParqueo">Registrar Horario de Parqueo</Nav.Link>
                   <Nav.Link href="/RegistroZonaParqueo">Registrar Zona de Parqueo</Nav.Link>

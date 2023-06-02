@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Boleta;
 use Illuminate\Support\Facades\DB;
 
-class CliBolController extends Controller
+class MisBolCliController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,7 @@ class CliBolController extends Controller
      */
     public function index()
     {
-        return DB::table('users')
-        ->join('boletas', 'users.id', '=', 'boletas.id_user')
-        ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
-        ->whereBetween('boletas.estado', [0, 2]) 
-        ->get();
+        //
     }
 
     /**
@@ -55,7 +49,8 @@ class CliBolController extends Controller
         return DB::table('users')
         ->join('boletas', 'users.id', '=', 'boletas.id_user')
         ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
-        ->where('boletas.id', $id) 
+        ->where('users.id', $id)
+        ->where('boletas.estado', 1)
         ->get();
     }
 

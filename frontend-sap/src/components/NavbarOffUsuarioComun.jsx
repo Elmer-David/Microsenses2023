@@ -62,7 +62,7 @@ function NavBarOffUsuarioComun() {
                 <Nav className="justify-content-end flex-grow-1 pe-3">
 
                   <Nav.Link href="/SolicitarSitioParqueo">Solicitar sitio de parqueo</Nav.Link>
-                  <Nav.Link href="#convocatoria">Ver Convocatoria</Nav.Link>
+                  <Nav.Link href="/MenuUComun/Convocatoria">Ver Convocatoria</Nav.Link>
 
                   
                   {/* <NavDropdown

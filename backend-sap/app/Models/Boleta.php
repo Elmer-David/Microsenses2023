@@ -12,7 +12,7 @@ class Boleta extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'mensualidad', 'monto', 'nro_transaccion', 'fecha_deposito', 'foto_comprobante',
-        'estado',
+        'estado', 'nro_factura', 
         'id_user',
     ];
 

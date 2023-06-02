@@ -64,11 +64,14 @@ function NavBarOffOperador() {
                   <Nav.Link href="/RegistroBoletaManual">Registrar Pago de Boleta</Nav.Link>
                   <Nav.Link href="/MenuOperador/RegistroPersonal">Registrar Personal</Nav.Link>
                   <Nav.Link href="/SolicitudBoleta">Revisar Solicitudes de Boletas</Nav.Link>
+                  <Nav.Link href="/MenuOperador/TablaMensajeOperador">Mensajes Recibidos</Nav.Link>
                   
                   <NavDropdown
                     title="Listas/Tablas"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
+                    <NavDropdown.Item href="/MenuOperador/TablaManual">Lista de Boletas Registradas Manualmente</NavDropdown.Item>
+                    <NavDropdown.Divider />
                     <NavDropdown.Item href="#ListaUsuario">Lista de Usuarios</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#ListaBoleta">Lista de Boletas</NavDropdown.Item>

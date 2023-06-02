@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Boleta;
 use Illuminate\Support\Facades\DB;
 
-class CliBolController extends Controller
+class MensGuardiaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,9 @@ class CliBolController extends Controller
     public function index()
     {
         return DB::table('users')
-        ->join('boletas', 'users.id', '=', 'boletas.id_user')
-        ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
-        ->whereBetween('boletas.estado', [0, 2]) 
+        ->join('mensajes', 'users.id', '=', 'mensajes.id_user')
+        ->select('mensajes.*', 'users.name', 'users.apellido', 'users.tipo_usuario')
+        ->where('mensajes.global', 3) 
         ->get();
     }
 
@@ -52,11 +50,7 @@ class CliBolController extends Controller
      */
     public function show($id)
     {
-        return DB::table('users')
-        ->join('boletas', 'users.id', '=', 'boletas.id_user')
-        ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
-        ->where('boletas.id', $id) 
-        ->get();
+        //
     }
 
     /**
