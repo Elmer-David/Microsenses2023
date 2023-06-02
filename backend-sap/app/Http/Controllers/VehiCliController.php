@@ -49,7 +49,9 @@ class VehiCliController extends Controller
      */
     public function show($id)
     {
-        //
+        return DB::table('vehiculos')
+        ->where('vehiculos.id_user', $id) 
+        ->get();
     }
 
     /**

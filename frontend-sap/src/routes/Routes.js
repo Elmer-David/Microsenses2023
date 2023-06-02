@@ -36,7 +36,6 @@ import NavBarOffOperador from '../components/NavbarOffOperador';
 import NavBarOffGuardia from '../components/NavbarOffGuardia';
 import NavBarOffUsuarioComun from '../components/NavbarOffUsuarioComun';
 import InfoConvocatoria from '../components/InfoConvocatoria';
-import TablaUser from '../components/TablaUser';
 import TablaBoleta from '../components/TablaBoleta';
 import TablaVehiculo from '../components/TablaVehiculo';
 import MensajeA from '../components/Mensaje';
@@ -47,6 +46,16 @@ import TablaMensajeOperador from '../components/TablaMensajeOperador';
 import TablaMensajeGuardia from '../components/TablaMensajeGuardia';
 import AsignarSitiosParqueo from '../formularios/aignarSitiosParqueo';
 import ActuliazarDatos from '../formularios/actualizarDatosCliente';
+import TablaConvocatoria from '../components/TablaConvocatoria';
+import TablaHorarioParqueo from '../components/TablaHorarioParqueo';
+import TablaZona from '../components/TablaZona';
+import TablaUser from '../components/TablaUser';
+import TablaUserCliente from '../components/TablaUserCliente';
+import TablaUserOperador from '../components/TablaUserOperador';
+import TablaUserGuardia from '../components/TablaUserGuardia';
+import TablaHorarioPersonal from '../components/TablaHorarioPersonal'; 
+import TablaUserGuardiaSE from '../components/TablaUserGuardiaSE';
+import TablaMiVehiculo from '../components/TablaMiVehIculo';
 
 const Rutas=()=> {
 
@@ -71,10 +80,17 @@ const Rutas=()=> {
         <Route path='/RegistroZonaParqueo' element={<><NavBarOffAdministrador/><RegistroZonaParqueo/></>}/>
         <Route path='/MenuAdministrador/RegistroPersonal' element={<><NavBarOffAdministrador/><FormularioRegistroPersonal/></>}/>
         <Route path='/RegistroHorario' element={<><NavBarOffAdministrador/><RegistroHorario/></>}/>
-        <Route path='/MenuAdministrador/TablaUser' element={<><NavBarOffAdministrador/><TablaUser/></>}/>
         <Route path='/MenuAdministrador/TablaBoleta' element={<><NavBarOffAdministrador/><TablaBoleta/></>}/>
         <Route path='/MenuAdministrador/TablaVehiculo' element={<><NavBarOffAdministrador/><TablaVehiculo/></>}/>
         <Route path='/MenuAdministrador/Mensaje' element={<><NavBarOffAdministrador/><MensajeA/></>}/>
+        <Route path='/MenuAdministrador/TablaConvocatoria' element={<><NavBarOffAdministrador/><TablaConvocatoria/></>}/>
+        <Route path='/MenuAdministrador/TablaHorarioParqueo' element={<><NavBarOffAdministrador/><TablaHorarioParqueo/></>}/>
+        <Route path='/MenuAdministrador/TablaZona' element={<><NavBarOffAdministrador/><TablaZona/></>}/>
+        <Route path='/MenuAdministrador/TablaUserSimple' element={<><NavBarOffAdministrador/><TablaUser/></>}/>
+        <Route path='/MenuAdministrador/TablaUserCliente' element={<><NavBarOffAdministrador/><TablaUserCliente/></>}/>
+        <Route path='/MenuAdministrador/TablaUserOperador' element={<><NavBarOffAdministrador/><TablaUserOperador/></>}/>
+        <Route path='/MenuAdministrador/TablaUserGuardia' element={<><NavBarOffAdministrador/><TablaUserGuardia/></>}/>
+        <Route path='/MenuAdministrador/TablaHorarioPersonal' element={<><NavBarOffAdministrador/><TablaHorarioPersonal/></>}/>
 
         <Route path='/MenuCliente' element={<NavBarOffCliente/>}/>
         <Route path='/RegistroVehiculo' element={<><NavBarOffCliente/><RegistroVehiculo/></>}/>
@@ -82,6 +98,9 @@ const Rutas=()=> {
         <Route path='/MenuCliente/TablaMensaje' element={<><NavBarOffCliente/><TablaMensaje/></>}/> 
         <Route path='/MenuCliente/TablaMiBoleta' element={<><NavBarOffCliente/><TablaMiBoleta/></>}/>
         <Route path='/MenuCliente/ActualiarDatos' element={<><NavBarOffCliente/><ActuliazarDatos/></>}/>
+        <Route path='/MenuCliente/TablaUserGuardia' element={<><NavBarOffCliente/><TablaUserGuardiaSE/></>}/>
+        <Route path='/MenuCliente/Mensaje' element={<><NavBarOffCliente/><MensajeA/></>}/>
+        <Route path='/MenuCliente/TablaMiVehiculo' element={<><NavBarOffCliente/><TablaMiVehiculo/></>}/>
 
         <Route path='/MenuOperador' element={<NavBarOffOperador/>}/>
         <Route path='/RegistroBoletaManual' element={<><NavBarOffOperador/><RegistroBoletaManual/></>}/>
@@ -90,6 +109,10 @@ const Rutas=()=> {
         <Route path='/MenuOperador/TablaManual' element={<><NavBarOffOperador/><TablaBoletaManual/></>}/>
         <Route path='/MenuOperador/TablaMensajeOperador' element={<><NavBarOffOperador/><TablaMensajeOperador/></>}/>
         <Route path='/MenuOperador/AsignarSitio' element={<><NavBarOffOperador/><AsignarSitiosParqueo/></>}/>
+        <Route path='/MenuOperador/Mensaje' element={<><NavBarOffOperador/><MensajeA/></>}/>
+        <Route path='/MenuOperador/TablaUserSimple' element={<><NavBarOffOperador/><TablaUser/></>}/>
+        <Route path='/MenuOperador/TablaUserCliente' element={<><NavBarOffOperador/><TablaUserCliente/></>}/>
+        <Route path='/MenuOperador/TablaUserGuardia' element={<><NavBarOffOperador/><TablaUserGuardiaSE/></>}/>
 
         <Route path='/MenuGuardia' element={<NavBarOffGuardia/>}/>
         <Route path='/MenuGuardia/TablaMensajeGuardia' element={<><NavBarOffGuardia/><TablaMensajeGuardia/></>}/>

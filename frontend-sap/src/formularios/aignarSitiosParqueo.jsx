@@ -32,13 +32,16 @@ function AsignarSitiosParqueo() {
         console.error(error);
       });
 
-    axios.get('http://localhost:8000/api/zonas')
+      axios.get('http://localhost:8000/api/zonas')
       .then(response => {
-        const zonesData = response.data.map(zona => ({
-          id: zona.id,
-          nombre: zona.nombre,
-          sitios: zona.sitios.split(',').map(sitio => sitio.trim())
-        }));
+        const zonesData = response.data
+          .map(zona => ({
+            id: zona.id,
+            nombre: zona.nombre,
+            sitios: zona.sitios ? zona.sitios.split(',').map(sitio => sitio.trim()) : null
+          }))
+          .filter(zona => zona.sitios !== null);
+    
         setZones(zonesData);
       })
       .catch(error => {

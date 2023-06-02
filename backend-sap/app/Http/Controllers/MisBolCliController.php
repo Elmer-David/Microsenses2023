@@ -50,7 +50,7 @@ class MisBolCliController extends Controller
         ->join('boletas', 'users.id', '=', 'boletas.id_user')
         ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
         ->where('users.id', $id)
-        ->where('boletas.estado', 1)
+        // ->where('boletas.estado', 1)
         ->get();
     }
 

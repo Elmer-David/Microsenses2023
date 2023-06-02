@@ -72,11 +72,30 @@ function NavBarOffAdministrador() {
                     title="Listas/Tablas"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="/MenuAdministrador/TablaUser">Lista de Usuarios</NavDropdown.Item>
+                    <NavDropdown.Item href="/MenuAdministrador/TablaConvocatoria">Lista de Convocatorias</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaZona">Lista de Zonas de Parqueo</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaHorarioParqueo">Lista de Horarios del Parqueo</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaHorarioPersonal">Lista de Horarios del Personal</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuAdministrador/TablaBoleta">Lista de Boletas</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuAdministrador/TablaVehiculo">Lista de Vehiculos</NavDropdown.Item>
+
+                  </NavDropdown>
+                  <NavDropdown
+                    title="Listas de Usuarios del Sistema"
+                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  >
+                    <NavDropdown.Item href="/MenuAdministrador/TablaUserSimple">Lista de Usuarios Simples</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaUserCliente">Lista de Clientes</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaUserOperador">Lista de Operadores</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaUserGuardia">Lista de Guardias</NavDropdown.Item>
 
                   </NavDropdown>
 

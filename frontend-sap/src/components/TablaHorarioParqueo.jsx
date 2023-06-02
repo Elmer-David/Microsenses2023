@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import configData from '../config/config.json'
 
-const API_URL_USERS = configData.SOLOUCOMUN_API_URL;
-const CAPI_URL_USERS = configData.CUSER_API_URL;
+const API_URL_USERS = configData.HORARIOPARQUEO_API_URL;
 
-const TablaUser = () => {
+const TablaHorarioParqueo = () => {
     const [users, setUsers] = useState( [] );
 
     useEffect(()=>{
@@ -18,7 +17,7 @@ const TablaUser = () => {
     }
   
     const deleteUser=async(id)=>{
-        const url=`${CAPI_URL_USERS}/${id}`;
+        const url=`${API_URL_USERS}/${id}`;
         await axios.delete(url)
         getAllUser()
     }
@@ -28,26 +27,24 @@ const TablaUser = () => {
     <div>
         <div className='d-grid gap-2'>
         </div>
-        <h3 style={{textAlign: "center"}}>Lista de Usuarios Simples:</h3>
+        <h3 style={{textAlign: "center"}}>Lista de Convocatorias:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
                 <tr>
-                <th>NOMBRE</th>
-                <th>APELLIDO</th>
-                <th>DNI</th>
-                <th>TELEFONO</th>
-                <th>CORREO ELECTRONICO</th>
+                <th>DIA DE APERTURA</th>
+                <th>DIA DE CIERRE</th>
+                <th>HORA DE APERTURA</th>
+                <th>HORA DE CIERRE</th>
                 <th>ELIMINAR</th>
                 </tr>
             </thead>
             <tbody>
                 {users.map ((user)=>(
                     <tr key={user.id}>
-                        <td>{user.name}</td>
-                        <td>{user.apellido}</td>
-                        <td>{user.dni}</td>
-                        <td>{user.telefono}</td>
-                        <td>{user.email}</td>
+                        <td>{user.dia_ini}</td>
+                        <td>{user.dia_fin}</td>
+                        <td>{user.hora_ini}</td>
+                        <td>{user.hora_fin}</td>
 
                         <td>
                             <button onClick={()=>deleteUser(user.id)} className='btn btn-danger'>Eliminar</button>
@@ -63,4 +60,4 @@ const TablaUser = () => {
   )
 }
 
-export default TablaUser
+export default TablaHorarioParqueo

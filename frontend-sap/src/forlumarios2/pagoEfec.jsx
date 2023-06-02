@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button , Modal} from 'react-bootstrap';
 import '../style/FormularioGlobal.css';
+import configData from '../config/config.json'
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-
+const CLIENTES_API_URL = configData.SOLOCLIENTE_API_URL;
+const BOLETAS_API_URL = configData.BOLETAS_API_URL;
 
 function PagoEfectivo() {
   const [formData, setFormData] = useState({
@@ -14,6 +19,27 @@ function PagoEfectivo() {
    
   });
 
+  const [clientes, setClientes] = useState( [] );
+  const [idAc, setIdAc] = useState('');
+
+  useEffect(()=>{
+    getAllClientes()
+  }, [])
+
+  const getAllClientes=async()=>{
+    const response = await axios.get(CLIENTES_API_URL)
+    setClientes(response.data)
+  }
+
+  const handleReceptorChange = (event) => {
+    setIdAc(event.target.value);
+  };
+
+  const min = 111111111;
+  const max = 999999999;
+  const nfactura = Math.floor(Math.random()*(max-min+1)+min);
+  const tiempoTranscurrido = Date.now();
+  const hoy = new Date(tiempoTranscurrido);
   
   useEffect(() => {
     fetch('http://localhost:8000/api/parqueos')
@@ -67,9 +93,19 @@ function PagoEfectivo() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    
-
+    await axios.post(BOLETAS_API_URL, 
+      {
+        mensualidad: formData.mesesPagar,
+        monto: formData.costoMensualida,
+        nro_transaccion: null,
+        fecha_deposito: hoy,
+        foto_comprobante: null,
+        estado: 3,
+        nro_factura: nfactura,
+        id_user: idAc
+      }) 
     resetFormData();
+    notificacion();
 
     // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
   };
@@ -88,13 +124,26 @@ function PagoEfectivo() {
     });
   };
 
+  const notificacion = () => {
+    toast.success('Pago Registrada con Exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
+
   return (
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
   
       <Form onSubmit={handleSubmit}  className="mx-auto">
         <h1>Registro de Boleta de Pago</h1>
 
-        <Form.Group controlId="nombre">
+        {/*<Form.Group controlId="nombre">
           <Form.Label>Nombre Completo</Form.Label>
           <Form.Control
             type="text"
@@ -103,9 +152,20 @@ function PagoEfectivo() {
             value={formData.nombre}
             onChange={handleChange}
           />
-        </Form.Group>
-
-
+        </Form.Group>*/}
+        <Form.Group className="mb-3">
+        <Form.Label style={{marginTop: "50px"}} >Cliente:</Form.Label>
+        <Form.Select onChange={handleReceptorChange}>
+        <option value="">Seleccione un Cliente</option>
+        {clientes.map ((cliente)=>(
+          <option
+            value={cliente.id}  
+          >
+            {`${cliente.name} ${cliente.apellido}`}
+          </option>
+        ))}
+        </Form.Select>
+      </Form.Group>
 
 
         <Form.Group controlId="mesesPagar">
@@ -141,17 +201,18 @@ function PagoEfectivo() {
       
 
         <Form.Group controlId="costoMensualida">
-          <Form.Label>total a pagar</Form.Label>
+          <Form.Label>Total a pagar</Form.Label>
           <Form.Control
             type="number"
             placeholder="Ingresa el monto"
             name="costoMensualida"
             value={formData.costoMensualida}
             onChange={handleChange}
+            disabled
           />
         </Form.Group>
 
-        <Form.Group controlId="fecha">
+         {/*<Form.Group controlId="fecha">
           <Form.Label>Fecha</Form.Label>
           <Form.Control
             type="date"
@@ -160,7 +221,7 @@ function PagoEfectivo() {
             value={formData.fecha}
             onChange={handleChange}
           />
-        </Form.Group>
+        </Form.Group>*/}
 
 
        
@@ -189,6 +250,8 @@ function PagoEfectivo() {
           </Button>
         </div>
       </Form>
+      <ToastContainer />
+
     </div>
   );
 }

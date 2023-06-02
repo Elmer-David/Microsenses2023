@@ -15,13 +15,13 @@ function ParqueoForm() {
 
   const diasSemana = [
     { value: '', label: 'Selecciona un día' },
-    { value: 'lunes', label: 'Lunes' },
-    { value: 'martes', label: 'Martes' },
-    { value: 'miercoles', label: 'Miércoles' },
-    { value: 'jueves', label: 'Jueves' },
-    { value: 'viernes', label: 'Viernes' },
-    { value: 'sabado', label: 'Sábado' },
-    { value: 'domingo', label: 'Domingo' }
+    { value: 'Lunes', label: 'Lunes' },
+    { value: 'Martes', label: 'Martes' },
+    { value: 'Miercoles', label: 'Miércoles' },
+    { value: 'Jueves', label: 'Jueves' },
+    { value: 'Viernes', label: 'Viernes' },
+    { value: 'Sabado', label: 'Sábado' },
+    { value: 'Domingo', label: 'Domingo' }
   ];
 
   const URL_HORARIOPARQUEO ='http://localhost:8000/api/horarioparqueos';

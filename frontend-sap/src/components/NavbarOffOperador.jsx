@@ -65,6 +65,7 @@ function NavBarOffOperador() {
                   <Nav.Link href="/RegistroBoletaManual">Registrar Pago de Boleta</Nav.Link>
                   <Nav.Link href="/MenuOperador/RegistroPersonal">Registrar Personal</Nav.Link>
                   <Nav.Link href="/SolicitudBoleta">Revisar Solicitudes de Boletas</Nav.Link>
+                  <Nav.Link href="/MenuOperador/Mensaje">Enviar Mensaje</Nav.Link>
                   <Nav.Link href="/MenuOperador/TablaMensajeOperador">Mensajes Recibidos</Nav.Link>
                   
                   <NavDropdown
@@ -73,11 +74,11 @@ function NavBarOffOperador() {
                   >
                     <NavDropdown.Item href="/MenuOperador/TablaManual">Lista de Boletas Registradas Manualmente</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#ListaUsuario">Lista de Usuarios</NavDropdown.Item>
+                    <NavDropdown.Item href="/MenuOperador/TablaUserSimple">Lista de Usuarios Simples</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#ListaBoleta">Lista de Boletas</NavDropdown.Item>
+                    <NavDropdown.Item href="/MenuOperador/TablaUserCliente">Lista de Clientes</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#ListaGuardias">Lista de Guardias</NavDropdown.Item>
+                    <NavDropdown.Item href="/MenuOperador/TablaUserGuardia">Lista de Guardias</NavDropdown.Item>
 
                   </NavDropdown>
 

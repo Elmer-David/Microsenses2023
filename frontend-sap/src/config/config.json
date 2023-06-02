@@ -1,5 +1,6 @@
 {
     "USER_API_URL": "http://localhost:8000/api/auth/register",
+    "CUSER_API_URL": "http://localhost:8000/api/users",
     "VEHICULOS_API_URL": "http://localhost:8000/api/vehiculos",
     "VEHICLIS_API_URL": "http://localhost:8000/api/vehiclis",
     "MENSAJES_API_URL": "http://localhost:8000/api/mensajes",
@@ -10,5 +11,13 @@
     "MISBOLCLI_API_URL": "http://localhost:8000/api/misbolclis",
     "BOLETAS_API_URL": "http://localhost:8000/api/boletas",
     "BOLETACLIENTE_API_URL": "http://localhost:8000/api/clibols",
-    "BOLETAMANUAL_API_URL": "http://localhost:8000/api/bolmanuals"
+    "BOLETAMANUAL_API_URL": "http://localhost:8000/api/bolmanuals",
+    "CONVOCATORIA_API_URL": "http://localhost:8000/api/parqueos",
+    "HORARIOPARQUEO_API_URL": "http://localhost:8000/api/horarioparqueos",
+    "ZONAS_API_URL": "http://localhost:8000/api/zonas",
+    "SOLOUCOMUN_API_URL": "http://localhost:8000/api/usercomuns",
+    "SOLOCLIENTE_API_URL": "http://localhost:8000/api/clientes",
+    "SOLOOPERADOR_API_URL": "http://localhost:8000/api/operadors",
+    "SOLOGUARDIA_API_URL": "http://localhost:8000/api/guardias",
+    "HORARIOPERSONAL_API_URL": "http://localhost:8000/api/horarios"
 }

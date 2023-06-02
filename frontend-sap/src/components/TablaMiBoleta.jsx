@@ -34,6 +34,27 @@ const TablaMiBoleta = () => {
         setMiboleta(response.data[0]);
     }
 
+    function tipoboleta(props){
+        var usu = props;
+        var resul = '';
+        switch (usu){
+        case 0 :
+            resul = "PENDIENTE"
+             return resul;
+        case 1 :
+            resul = "ACEPTADA"
+            return resul;
+        case 2 :
+            resul = "RECHAZADA"
+            return resul;
+        case 3 :
+            resul = "BOLETA MANUAL"
+            return resul;  
+        default :
+            resul = "NO DEFINIDO"
+            return resul;
+      }
+    }
   return (
     <div>
     <div>
@@ -50,6 +71,7 @@ const TablaMiBoleta = () => {
                 <th>NOMBRE</th>
                 <th>APELLIDO</th>
                 <th>CORREO ELECTRONICO</th>
+                <th>ESTADO</th>
                 <th>FACTURA</th>
                 <th>PDF</th>
                 </tr>
@@ -64,8 +86,10 @@ const TablaMiBoleta = () => {
                         <td>{boleta.name}</td>
                         <td>{boleta.apellido}</td>
                         <td>{boleta.email}</td>
+                        <td>{tipoboleta(boleta.estado)}</td>
 
-                        <td>
+                        {boleta.estado == 1 ?
+                            <><td>
                             <button onClick={()=>{
                                 verFactura(boleta.id);
                                 setVerComprobante(true);
@@ -81,6 +105,9 @@ const TablaMiBoleta = () => {
                                 setVerPdf(true);
                                 }} className='btn btn-danger'>Descargar Factura</button>
                         </td>
+                        </>
+                        : null
+                        }
 
                     </tr>
                 ))}

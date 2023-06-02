@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import configData from '../config/config.json'
 
-const API_URL_USERS = configData.SOLOUCOMUN_API_URL;
-const CAPI_URL_USERS = configData.CUSER_API_URL;
+const API_URL_USERS = configData.SOLOGUARDIA_API_URL;
+// const CAPI_URL_USERS = configData.CUSER_API_URL;
 
-const TablaUser = () => {
+const TablaUserGuardiaSE = () => {
     const [users, setUsers] = useState( [] );
 
     useEffect(()=>{
@@ -17,18 +17,18 @@ const TablaUser = () => {
         setUsers(response.data)
     }
   
-    const deleteUser=async(id)=>{
-        const url=`${CAPI_URL_USERS}/${id}`;
-        await axios.delete(url)
-        getAllUser()
-    }
+    // const deleteUser=async(id)=>{
+    //     const url=`${CAPI_URL_USERS}/${id}`;
+    //     await axios.delete(url)
+    //     getAllUser()
+    // }
 
   return (
     <div>
     <div>
         <div className='d-grid gap-2'>
         </div>
-        <h3 style={{textAlign: "center"}}>Lista de Usuarios Simples:</h3>
+        <h3 style={{textAlign: "center"}}>Lista de Guardias:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
                 <tr>
@@ -37,7 +37,6 @@ const TablaUser = () => {
                 <th>DNI</th>
                 <th>TELEFONO</th>
                 <th>CORREO ELECTRONICO</th>
-                <th>ELIMINAR</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,9 +48,6 @@ const TablaUser = () => {
                         <td>{user.telefono}</td>
                         <td>{user.email}</td>
 
-                        <td>
-                            <button onClick={()=>deleteUser(user.id)} className='btn btn-danger'>Eliminar</button>
-                        </td>
 
                     </tr>
                 ))}
@@ -63,4 +59,4 @@ const TablaUser = () => {
   )
 }
 
-export default TablaUser
+export default TablaUserGuardiaSE

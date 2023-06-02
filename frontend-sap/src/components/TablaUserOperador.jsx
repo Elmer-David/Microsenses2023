@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import configData from '../config/config.json'
 
-const API_URL_USERS = configData.SOLOUCOMUN_API_URL;
+const API_URL_USERS = configData.SOLOOPERADOR_API_URL;
 const CAPI_URL_USERS = configData.CUSER_API_URL;
 
-const TablaUser = () => {
+const TablaUserOperador = () => {
     const [users, setUsers] = useState( [] );
 
     useEffect(()=>{
@@ -28,7 +28,7 @@ const TablaUser = () => {
     <div>
         <div className='d-grid gap-2'>
         </div>
-        <h3 style={{textAlign: "center"}}>Lista de Usuarios Simples:</h3>
+        <h3 style={{textAlign: "center"}}>Lista de Operadores:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
                 <tr>
@@ -63,4 +63,4 @@ const TablaUser = () => {
   )
 }
 
-export default TablaUser
+export default TablaUserOperador
