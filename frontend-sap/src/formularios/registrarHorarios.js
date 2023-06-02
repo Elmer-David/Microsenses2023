@@ -2,6 +2,8 @@
 import { Form, Button, ListGroup, Container } from 'react-bootstrap';
 import axios from 'axios'
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegistroH() {
   const [name, setName] = useState('');
@@ -47,6 +49,7 @@ function RegistroH() {
   const handleSave =async  () => {
   
     await axios.post('http://localhost:8000/api/horarios', {nombre: name, inicio_turno: startTime, salida_turno: endTime})
+    notificacion();
 
     const newShift = { name, startTime, endTime };
     
@@ -65,6 +68,18 @@ function RegistroH() {
     setShifts(newShifts);
   };
 
+  const notificacion = () => {
+    toast.success('Horario Registrado con exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
   return (
     <Container>
       <h1>Registro de Horario</h1>
@@ -104,6 +119,8 @@ function RegistroH() {
           </ListGroup.Item>
         ))}
       </ListGroup>
+      <ToastContainer />
+
     </Container>
   );
 }

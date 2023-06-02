@@ -17,7 +17,7 @@ class CreateZonasTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->integer('nro_sitios');
-            $table->string('sitios');
+            $table->string('sitios')->nullable();
             $table->string('direccion');
             $table->string('imagen')->nullable();
             $table->string('descripcion');

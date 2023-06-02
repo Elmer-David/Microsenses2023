@@ -61,6 +61,7 @@ function NavBarOffOperador() {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
 
+                  <Nav.Link href="/MenuOperador/AsignarSitio">Asignar Sitio</Nav.Link>
                   <Nav.Link href="/RegistroBoletaManual">Registrar Pago de Boleta</Nav.Link>
                   <Nav.Link href="/MenuOperador/RegistroPersonal">Registrar Personal</Nav.Link>
                   <Nav.Link href="/SolicitudBoleta">Revisar Solicitudes de Boletas</Nav.Link>

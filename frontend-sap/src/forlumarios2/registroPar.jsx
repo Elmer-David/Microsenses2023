@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ParqueoForm() {
   const [horasAbierto, setHorasAbierto] = useState({
@@ -95,8 +97,21 @@ function ParqueoForm() {
       })
 
     resetForm();
+    notificacion();
   };
   
+  const notificacion = () => {
+    toast.success('Horario Registrado con exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
   return (
       < >
        <div className="d-flex align-items-center" style={{ height: '100vh' }}>
@@ -160,6 +175,7 @@ function ParqueoForm() {
             </ul>
 
     </Form>
+    <ToastContainer />
               
             </div>
             </>

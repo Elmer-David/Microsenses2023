@@ -3,6 +3,8 @@ import { Form, Button, Modal } from "react-bootstrap";
 import axios from 'axios';
 import SidebarAdministrador from "../components/SidebarAdministrador";
 //import '../style/RegistrarZonaParqueo.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegistroZonasParqueo = () => {
   
@@ -84,11 +86,21 @@ const RegistroZonasParqueo = () => {
     })
   
     resetForm();
-  
-    
-
+    notificacion();
     
   };
+  const notificacion = () => {
+    toast.success('Zona Registrada con exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
 
   return (
     <>
@@ -154,7 +166,7 @@ const RegistroZonasParqueo = () => {
         </Form.Group>
 
         <Form.Group controlId="foto">
-          <Form.Label>Foto del Vehiculo </Form.Label>
+          <Form.Label>Foto de la Zona </Form.Label>
           <Form.Control
             type="file"
             accept="image/*"
@@ -165,7 +177,7 @@ const RegistroZonasParqueo = () => {
 
         {foto && (
           <Form.Group>
-            <Form.Label>Foto del Vehiculo:</Form.Label>
+            <Form.Label>Foto de la Zona:</Form.Label>
             <br />
             <img
               src={foto}
@@ -202,6 +214,7 @@ const RegistroZonasParqueo = () => {
                   </Button>
                 </div>
       </Form>
+      <ToastContainer />
     </div>
     </div>
     </>

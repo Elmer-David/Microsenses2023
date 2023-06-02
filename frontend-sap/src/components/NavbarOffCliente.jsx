@@ -65,6 +65,7 @@ function NavBarOffCliente() {
                   <Nav.Link href="/RegistroBoleta">Registrar Boleta de pago</Nav.Link>
                   <Nav.Link href="/MenuCliente/TablaMensaje">Mensajes Recibidos</Nav.Link>
                   <Nav.Link href="/MenuCliente/TablaMiBoleta">Mis Boletas</Nav.Link>
+                  <Nav.Link href="/MenuCliente/ActualiarDatos">Actualizar mis Datos</Nav.Link>
                   
                   <NavDropdown
                     title="Listas/Tablas"

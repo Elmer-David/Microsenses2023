@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import configData from '../config/config.json';
+import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const cookies = new Cookies();
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
-const FormularioRegistroPerso = () => {
+const ActuliazarDatos = () => {
 
   const [image, setImage] = useState(null);
 
@@ -30,7 +32,7 @@ const FormularioRegistroPerso = () => {
     setShowModal(false)
     
     setNombre('');
-   
+    setDepartamento('');
     setApellido('');
     setTelefono('');
     setCI('');
@@ -39,26 +41,29 @@ const FormularioRegistroPerso = () => {
     setCorreoElectronico('');
     setDireccion('');
     setImage(null);
-   
-    setHorarioTrabajo('');
     setCargo('');
-
+    setDepartamento('');
    
 
   }
 
+  const miId = cookies.get('id');
+  const nombrea = cookies.get('name');
+  const apellidoa = cookies.get('apellido');
+  const telefonoa = cookies.get('telefono');
+  const dnia = cookies.get('dni');
+  const direcciona = cookies.get('direccion');
+  const cargoa = cookies.get('cargo');
+  const emaila = cookies.get('email');
+  const departamentoa = cookies.get('departamento');
+  const sitioa= cookies.get('sitio');
+  const primer_ini_sesiona= cookies.get('primer_ini_sesion');
+  const solicitud_parqueoa= cookies.get('solicitud_parqueo');
+  const id_zonaa= cookies.get('id_zona');
+  const id_horarioa= cookies.get('id_horario');
 
-  const [horarioTrabajo, setHorarioTrabajo] = useState('');
-  const [horariosTrabajo, setHorariosTrabajo] = useState([]);
-
-
-
-
-  const User_Api_Url = configData.USER_API_URL;
-
-  const [tipoUsuario, setTipoUsuario] = useState(0);
   const [nombre, setNombre] = useState('');
-  
+  const [Departamento, setDepartamento] = useState('');
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [CI, setCI] = useState('');
@@ -74,7 +79,7 @@ const FormularioRegistroPerso = () => {
 
 
   const [errorNombre, setErrorNombre] = useState('');
-
+  const [errorDepartamento, setErrorDepartamento] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
   const [errorCI, setErrorCI] = useState('');
@@ -134,7 +139,7 @@ const FormularioRegistroPerso = () => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
-  
+    const errorDepartamento = validarDepartamento(nombre);
     const errorApellido = validarApellido(apellido);
     const errorTelefono = validarTelefono(telefono);
     const errorCI = validarCI(CI);
@@ -143,7 +148,7 @@ const FormularioRegistroPerso = () => {
     const errorCorreoElectronico = validarCorreoElectronico(correoElectronico);
 
     setErrorNombre(errorNombre);
-
+    setErrorDepartamento(errorDepartamento);
     setErrorApellido(errorApellido);
     setErrorTelefono(errorTelefono);
     setErrorCI(errorCI);
@@ -151,39 +156,38 @@ const FormularioRegistroPerso = () => {
     setErrorConfirmarContraseña(errorConfirmarContraseña);
     setErrorCorreoElectronico(errorCorreoElectronico);
 
-    if (!errorNombre && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
-      console.log("El formulario se envió correctamente");
+    if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
+      console.log("El formulario se envió correctamente",Departamento, cargo);
 
-      await axios.post(User_Api_Url,{
+      await axios.put(`http://localhost:8000/api/users/${miId}`, {
     
       name: nombre,
       apellido: apellido,
       dni: CI,
       foto_perfil: null,
       telefono: telefono,
-      direccion: null,
+      direccion: direccion,
       email: correoElectronico,
       password: contraseña,
       password_confirmed: confirmarContraseña,
-      tipo_usuario: tipoUsuario,
+      tipo_usuario: 3,
       cargo: cargo,
-      departamento: null,
-      sitio: null,
-      primer_ini_sesion: 1,
-      solicitud_parqueo: 0,
-      id_zona: null,
-      id_horario: horarioTrabajo
+      departamento: Departamento,
+      sitio: sitioa,
+      primer_ini_sesion: primer_ini_sesiona,
+      solicitud_parqueo: solicitud_parqueoa,
+      id_zona: id_zonaa,
+      id_horario: id_horarioa
       } 
       
       )
       
       resetForm();
-      notificacion();
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
       console.log("Hay errores en el formulario:");
       console.log(errorNombre);
-     
+      console.log(errorDepartamento);
       console.log(errorApellido);
       console.log(errorTelefono);
       console.log(errorCI);
@@ -192,39 +196,10 @@ const FormularioRegistroPerso = () => {
       console.log(errorCorreoElectronico);
     }
   };
-  useEffect(() => {
-    const fetchHorariosTrabajo = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/horarios');
-        const horariosData = response.data.map((horario) => ({
-          ...horario,
-          horaInicio: horario.horaInicio, // Reemplaza "horaInicio" con el nombre de la propiedad en tu objeto de horario de trabajo
-          horaFin: horario.horaFin, // Reemplaza "horaFin" con el nombre de la propiedad en tu objeto de horario de trabajo
-        }));
-        setHorariosTrabajo(horariosData);
-      } catch (error) {
-        console.error('Error al obtener los horarios de trabajo:', error);
-      }
-    };
 
-    fetchHorariosTrabajo();
-  }, []);
-
-  const notificacion = () => {
-    toast.success('Registro Exitoso del Personal', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-  } 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
-      <h1>Registrar Datos Del Personal</h1>
+      <h1>Actulizar mis Datos</h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
     <Form onSubmit={onSubmit}>
@@ -239,6 +214,7 @@ const FormularioRegistroPerso = () => {
           maxLength={30}
           minLength={2}
           required
+          placeholder= {nombrea}
         />
         <Form.Control.Feedback type="invalid">
           {errorNombre}
@@ -256,6 +232,7 @@ const FormularioRegistroPerso = () => {
           maxLength={30}
           minLength={2}
           required
+          placeholder= {apellidoa}
         />
         <Form.Control.Feedback type="invalid">
           {errorApellido}
@@ -273,6 +250,7 @@ const FormularioRegistroPerso = () => {
             maxLength={8}
             minLength={2}
             required
+            placeholder= {telefonoa}
           />
           <Form.Control.Feedback type="invalid" >
             {errorTelefono}
@@ -290,6 +268,7 @@ const FormularioRegistroPerso = () => {
             maxLength={10}
             minLength={6}
             required
+            placeholder= {dnia}
           />
           <Form.Control.Feedback type="invalid" >
             {errorCI}
@@ -297,47 +276,27 @@ const FormularioRegistroPerso = () => {
         </Form.Group>
 
          <Form.Group controlId="direccion">
-          <Form.Label>Direcion: </Form.Label>
+          <Form.Label>Direccion: </Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Ingresa una descripción del vehículo"
             value={direccion}
             onChange={handleDireccionChange}
             maxLength={250}
             minLength={2}
             required
+            placeholder= {direcciona}
           />
         </Form.Group>
-{/* Espacio entre la sección de "Foto de Perfil" y "Selecciona un horario de trabajo" */}
-<div style={{ marginBottom: '20px' }}></div>
 
-<Form.Group>
-  <Form.Label>Cargo:</Form.Label>
-  <Form.Control
-    as="select"
-    value={cargo}
-    onChange={(event) => {
-      const selectedCargo = event.target.value;
-      setCargo(selectedCargo);
-      let tipoUsuarioValue = 0;
-
-      if (selectedCargo === "Operador") {
-        tipoUsuarioValue = 1;
-      } else if (selectedCargo === "Guardia") {
-        tipoUsuarioValue = 2;
-      }
-
-      setTipoUsuario(tipoUsuarioValue);
-    }}
-    required
-  >
-    <option value="">Seleccione cargo</option>
-    <option value="Operador">Operador</option>
-    <option value="Guardia">Guardia</option>
-    {/* Otras opciones de cargo */}
-  </Form.Control>
-</Form.Group>
+        <Form.Group controlId="formBasicCargo">
+              <Form.Label>Cargo: </Form.Label>
+              <Form.Control as="select" defaultValue="Seleccione el cargo"  value={cargo}  required  onChange={(event) => setCargo(event.target.value)}>
+              <option value="">{cargoa}</option>
+    <option value="docente">docente</option>
+    <option value="Adminisrativo" >administrativo</option>
+              </Form.Control>
+            </Form.Group>
 
 
             <Button onClick={handleClick} variant="danger"  >Cancelar </Button>
@@ -369,6 +328,7 @@ const FormularioRegistroPerso = () => {
             isInvalid={errorContraseña}
             minLength={8}
             required
+            
         />
   <Form.Control.Feedback type="invalid">
     {errorContraseña}
@@ -398,54 +358,42 @@ const FormularioRegistroPerso = () => {
     onChange={(event) => setCorreoElectronico(event.target.value)}
     isInvalid={errorCorreoElectronico}
     required
+    placeholder= {emaila}
+
   />
   <Form.Control.Feedback type="invalid">
     {errorCorreoElectronico}
   </Form.Control.Feedback>
 </Form.Group>
 
-
-
-
-<Form.Group controlId="formBasicFoto">
-  <Form.Label>Foto de Perfil</Form.Label>
-  <Form.Control type="file" onChange={handleImageUpload} accept="image/*" required />
-  {image && (
-    <div>
-      <img src={image} alt="Foto del cliente" width="300" height="300" />
-    </div>
-  )}
-  <Form.Text className="text-muted"></Form.Text>
-</Form.Group>
-
-{/* Espacio entre la sección de "Foto de Perfil" y "Selecciona un horario de trabajo" */}
-<div style={{ marginBottom: '20px' }}></div>
-
-<Form.Group>
-  <Form.Label>Horario de Trabajo:</Form.Label>
-  <Form.Control
-    as="select"
-    value={horarioTrabajo}
-    onChange={(event) => setHorarioTrabajo(event.target.value)}
-    required
-  >
-    <option value="">Selecciona un horario de trabajo</option>
-    {horariosTrabajo.map((horario) => (
-      <option key={horario.id} value={horario.id}>
-        {horario.nombre} ({horario.inicio_turno} - {horario.salida_turno})
-      </option>
-    ))}
+<Form.Group controlId="Departamento">
+  <Form.Label> Departamento: </Form.Label>
+  <Form.Control as="select" defaultValue="Seleccione el departamento" value={Departamento} required onChange={(event) => setDepartamento(event.target.value)}>
+  <option value="">{departamentoa}</option>
+    <option value="Sistemas">Sistemas</option>
+    <option value="Informatica">Informatica</option>
   </Form.Control>
 </Form.Group>
 
 
-<Button variant="success" type="submit">Enviar</Button>
+          <Form.Group controlId="formBasicFoto">            
+          <Form.Label>Foto de Perfil</Form.Label>
+              <Form.Control type="file" onChange={handleImageUpload} accept="image/*"   required />
+              {image && (
+                <div>
+                  <img src={image} alt="Foto del cliente" width="300" height="300" />
+                </div>
+              )}
+            
+            </Form.Group>
+
+
+<Button variant="success" type="submit">Actualizar</Button>
 </Form>
 </Col>
        </Row>
-       <ToastContainer />
        </div>
  );
 };
 
-export default FormularioRegistroPerso;
+export default ActuliazarDatos;

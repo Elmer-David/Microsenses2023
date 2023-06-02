@@ -45,6 +45,8 @@ import TablaMiBoleta from '../components/TablaMiBoleta';
 import TablaBoletaManual from '../components/TablaBoletaManual';
 import TablaMensajeOperador from '../components/TablaMensajeOperador';
 import TablaMensajeGuardia from '../components/TablaMensajeGuardia';
+import AsignarSitiosParqueo from '../formularios/aignarSitiosParqueo';
+import ActuliazarDatos from '../formularios/actualizarDatosCliente';
 
 const Rutas=()=> {
 
@@ -77,8 +79,9 @@ const Rutas=()=> {
         <Route path='/MenuCliente' element={<NavBarOffCliente/>}/>
         <Route path='/RegistroVehiculo' element={<><NavBarOffCliente/><RegistroVehiculo/></>}/>
         <Route path='/RegistroBoleta' element={<><NavBarOffCliente/><FormularioRegistroBoleta/></>}/>
-        <Route path='/MenuCliente/TablaMensaje' element={<><NavBarOffCliente/><TablaMensaje/></>}/>
+        <Route path='/MenuCliente/TablaMensaje' element={<><NavBarOffCliente/><TablaMensaje/></>}/> 
         <Route path='/MenuCliente/TablaMiBoleta' element={<><NavBarOffCliente/><TablaMiBoleta/></>}/>
+        <Route path='/MenuCliente/ActualiarDatos' element={<><NavBarOffCliente/><ActuliazarDatos/></>}/>
 
         <Route path='/MenuOperador' element={<NavBarOffOperador/>}/>
         <Route path='/RegistroBoletaManual' element={<><NavBarOffOperador/><RegistroBoletaManual/></>}/>
@@ -86,6 +89,7 @@ const Rutas=()=> {
         <Route path='/SolicitudBoleta' element={<><NavBarOffOperador/><SolicitudBoleta/></>}/>
         <Route path='/MenuOperador/TablaManual' element={<><NavBarOffOperador/><TablaBoletaManual/></>}/>
         <Route path='/MenuOperador/TablaMensajeOperador' element={<><NavBarOffOperador/><TablaMensajeOperador/></>}/>
+        <Route path='/MenuOperador/AsignarSitio' element={<><NavBarOffOperador/><AsignarSitiosParqueo/></>}/>
 
         <Route path='/MenuGuardia' element={<NavBarOffGuardia/>}/>
         <Route path='/MenuGuardia/TablaMensajeGuardia' element={<><NavBarOffGuardia/><TablaMensajeGuardia/></>}/>

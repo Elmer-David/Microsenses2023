@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button , Modal} from 'react-bootstrap';
 import axios from 'axios'
+import Cookies from 'universal-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const cookies = new Cookies();
 
 
 function BoletaForm() {
@@ -11,8 +16,12 @@ function BoletaForm() {
     fecha: '',
     imagen: null
   });
-
+  const iduser = cookies.get('id');
   
+  const min = 111111111;
+  const max = 999999999;
+  const nfactura = Math.floor(Math.random()*(max-min+1)+min);
+
   useEffect(() => {
     fetch('http://localhost:8000/api/parqueos')
       .then(response => response.json())
@@ -80,10 +89,12 @@ function BoletaForm() {
       fecha_deposito: formData.fecha,
       foto_comprobante: "imagen.jpg",
       estado: 0,
-      id_user: null
+      nro_factura: nfactura,
+      id_user: iduser
     })
 
     resetFormData();
+    notificacion();
 
    };
 
@@ -103,6 +114,18 @@ function BoletaForm() {
       imagen: null
     });
   };
+  const notificacion = () => {
+    toast.success('Boleta Registrada con Exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
 
   return (
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
@@ -152,13 +175,14 @@ function BoletaForm() {
         </Form.Group>
 
         <Form.Group controlId="costoMensualida">
-          <Form.Label>total a pagar</Form.Label>
+          <Form.Label>Total a pagar</Form.Label>
           <Form.Control
             type="number"
             placeholder="Ingresa el monto"
             name="costoMensualida"
             value={formData.costoMensualida}
             onChange={handleChange}
+            disabled
           />
         </Form.Group>
 
@@ -208,6 +232,8 @@ function BoletaForm() {
           </Button>
         </div>
       </Form>
+      <ToastContainer />
+
     </div>
   );
 }

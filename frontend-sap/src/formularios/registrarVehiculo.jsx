@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button ,Modal} from "react-bootstrap";
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const cookies = new Cookies();
 
 
 const RegistroVehiculo = () => {
@@ -8,8 +13,9 @@ const RegistroVehiculo = () => {
   const [numPlaca, setNumPlaca] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [foto, setFoto] = useState("");
-  const [idCliente, setIdCliente] = useState(null);
   const [fotoString, setFotoString] = useState("imagen.jpg");
+
+  const iduser = cookies.get('id');
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -58,12 +64,25 @@ const RegistroVehiculo = () => {
       foto: fotoString,
       nro_placa: numPlaca,
       descripcion: descripcion,
-      id_cliente: idCliente
+      id_user: iduser
       })
 
     resetForm();
+    notificacion();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
   };
+  const notificacion = () => {
+    toast.success('Vehiculo Registrado con exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
 
   return (
     
@@ -162,6 +181,7 @@ const RegistroVehiculo = () => {
                   </Button>
                 </div>
       </Form>
+      <ToastContainer />
     </div>
     </div>
   );

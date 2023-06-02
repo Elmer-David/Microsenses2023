@@ -111,7 +111,7 @@ function RequestForm() {
   const notificacion = () => {
     toast.success('Convocatoria Modificada con exito', {
       position: "top-center",
-      autoClose: 5000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
