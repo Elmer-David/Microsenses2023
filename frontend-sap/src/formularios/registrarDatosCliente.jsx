@@ -36,6 +36,8 @@ const FormularioRegistroCli = () => {
     setCorreoElectronico('');
     setDireccion('');
     setImage(null);
+    setCargo('');
+    setDepartamento('');
    
 
   }
@@ -52,7 +54,7 @@ const FormularioRegistroCli = () => {
   const [correoElectronico, setCorreoElectronico] = useState('');
   const [direccion, setDireccion] = useState("");
 
-  const [cargo, setCargo] = useState("cargo");
+  const [cargo, setCargo] = useState("");
   const [sitio, setSitio] = useState("sitio");
   const [estado, setEstado] = useState(1);
   const [fotoString, setFotoString] = useState("imagen.jpg");
@@ -137,23 +139,30 @@ const FormularioRegistroCli = () => {
     setErrorCorreoElectronico(errorCorreoElectronico);
 
     if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
-      console.log("El formulario se envió correctamente");
+      console.log("El formulario se envió correctamente",Departamento, cargo);
 
-      await axios.post('http://localhost:8000/api/clientes', {
-      nombre: nombre,
+      await axios.post('http://localhost:8000/api/auth/register', {
+    
+      name: nombre,
       apellido: apellido,
-      telefono: telefono,
-      email: correoElectronico,
-      contraseña: contraseña,
-      contraseña_confirmed: confirmarContraseña,
-      foto_perfil: fotoString,
-      direccion: direccion,
       dni: CI,
+      foto_perfil: null,
+      telefono: telefono,
+      direccion: direccion,
+      email: correoElectronico,
+      password: contraseña,
+      password_confirmed: confirmarContraseña,
+      tipo_usuario: 3,
       cargo: cargo,
       departamento: Departamento,
-      estado: estado,
-      sitio: sitio
-      })
+      sitio: null,
+      primer_ini_sesion: 1,
+      solicitud_parqueo: 1,
+      id_zona: null,
+      id_horario: null
+      } 
+      
+      )
       
       resetForm();
       // Aquí podrías enviar los datos del formulario al servidor
@@ -260,10 +269,10 @@ const FormularioRegistroCli = () => {
 
         <Form.Group controlId="formBasicCargo">
               <Form.Label>Cargo: </Form.Label>
-              <Form.Control as="select" defaultValue="Seleccione el cargo"  required >
-              <option>  </option>
-                <option>Docente</option>
-                <option>Administrativo</option>
+              <Form.Control as="select" defaultValue="Seleccione el cargo"  value={cargo}  required  onChange={(event) => setCargo(event.target.value)}>
+              <option value="">Seleccione cargo</option>
+    <option value="docente">docente</option>
+    <option value="Adminisrativo">administrativo</option>
               </Form.Control>
             </Form.Group>
 
@@ -332,24 +341,14 @@ const FormularioRegistroCli = () => {
   </Form.Control.Feedback>
 </Form.Group>
 
-
-
-      <Form.Group controlId="Departameto">
-        <Form.Label>Departameto:</Form.Label>
-        <Form.Control
-          type="text"
-          value={Departamento}
-          onChange={(event) => setDepartamento(event.target.value)}
-          isInvalid={errorDepartamento}
-          pattern="[a-zA-Z]+"
-          maxLength={30}
-          minLength={2}
-          required
-        />
-        <Form.Control.Feedback type="invalid">
-          {errorNombre}
-        </Form.Control.Feedback>
-        </Form.Group>
+<Form.Group controlId="Departamento">
+  <Form.Label> Departamento: </Form.Label>
+  <Form.Control as="select" defaultValue="Seleccione el departamento" value={Departamento} required onChange={(event) => setDepartamento(event.target.value)}>
+  <option value="">Seleccione Departamento</option>
+    <option value="Sistemas">Sistemas</option>
+    <option value="Informatica">Informatica</option>
+  </Form.Control>
+</Form.Group>
 
 
           <Form.Group controlId="formBasicFoto">            
@@ -360,9 +359,7 @@ const FormularioRegistroCli = () => {
                   <img src={image} alt="Foto del cliente" width="300" height="300" />
                 </div>
               )}
-              <Form.Text className="text-muted">
-               foto
-              </Form.Text>
+            
             </Form.Group>
 
 

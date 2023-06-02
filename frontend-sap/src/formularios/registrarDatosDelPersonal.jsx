@@ -2,41 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import configData from '../config/config.json';
- 
+
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
 const FormularioRegistroPerso = () => {
-
-
-      
-
-
-
-
-
-const [showModal, setShowModal] = useState(false);
-const handleClick = () => {
-  
-  setShowModal(true);
-};
-
-function resetForm() {
-  setShowModal(false)
-  
-  setNombre('');
-  setApellido('');
-  setTelefono('');
-  setCI('');
-  setImage(null);
-  setCorreoElectronico('');
-  setErrorNombre('');
-  setErrorApellido('');
-  setErrorTelefono('');
-  setErrorCI('');
-  setErrorCorreoElectronico('');
-  setHorario('');
-}
 
   const [image, setImage] = useState(null);
 
@@ -49,41 +19,79 @@ function resetForm() {
     reader.readAsDataURL(file);
   };
 
+  const [showModal, setShowModal] = useState(false);
+  const handleClick = () => {
+    
+    setShowModal(true);
+  };
+  function resetForm() {
+    setShowModal(false)
+    
+    setNombre('');
+   
+    setApellido('');
+    setTelefono('');
+    setCI('');
+    setContraseña('');
+    setConfirmarContraseña('');
+    setCorreoElectronico('');
+    setDireccion('');
+    setImage(null);
+   
+    setHorarioTrabajo('');
+    setCargo('');
 
-  const [nombre, setNombre] = useState('');
+   
 
-  const [apellido, setApellido] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [CI, setCI] = useState('');
-  const [correoElectronico, setCorreoElectronico] = useState('');
+  }
 
-  const [fotoString, setFotoString] = useState("imagen.jpg");
-  const [direccion, setDireccion] = useState("Direccion");
-  const [contraseña, setContraseña] = useState("contraseña");
-  const [confirmarContraseña, setConfirmarContraseña] = useState("confirmarcontraseña");
-  const [tipoUsuario, setTipoUsuario] = useState(0);
-  const [horario, setHorario] = useState('');
+
+  const [horarioTrabajo, setHorarioTrabajo] = useState('');
+  const [horariosTrabajo, setHorariosTrabajo] = useState([]);
+
+
+
 
   const User_Api_Url = configData.USER_API_URL;
 
-  const [errorNombre, setErrorNombre] = useState('');
-  const [errorHorario, setErrorHorario] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState(0);
+  const [nombre, setNombre] = useState('');
   
+  const [apellido, setApellido] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [CI, setCI] = useState('');
+  const [contraseña, setContraseña] = useState('');
+  const [confirmarContraseña, setConfirmarContraseña] = useState('');
+  const [correoElectronico, setCorreoElectronico] = useState('');
+  const [direccion, setDireccion] = useState("");
+
+  const [cargo, setCargo] = useState("");
+  const [sitio, setSitio] = useState("sitio");
+  const [estado, setEstado] = useState(1);
+  const [fotoString, setFotoString] = useState("imagen.jpg");
+
+
+  const [errorNombre, setErrorNombre] = useState('');
+
   const [errorApellido, setErrorApellido] = useState('');
   const [errorTelefono, setErrorTelefono] = useState('');
   const [errorCI, setErrorCI] = useState('');
-
+  const [errorContraseña, setErrorContraseña] = useState('');
+  const [errorConfirmarContraseña, setErrorConfirmarContraseña] = useState('');
   const [errorCorreoElectronico, setErrorCorreoElectronico] = useState('');
 
 
-  const validarHorario = (valor) => {
-   
+  const handleDireccionChange = (event) => {
+    setDireccion(event.target.value);
   };
- 
-
   const validarNombre = (valor) => {
     if (!regexSoloLetras.test(valor)) {
       return "Por favor, ingresa solo letras en el campo de nombre";
+    }
+  };
+  const validarDepartamento = (valor) => {
+    if (!regexSoloLetras.test(valor)) {
+      return "Por favor, ingresa solo letras en el campo de Departamento";
     }
   };
   const validarApellido = (valor) => {
@@ -102,7 +110,17 @@ function resetForm() {
       return "Por favor, ingresa solo números en el campo de teléfono";
     }
   };
- 
+  const validarContraseña = (valor) => {
+    if (valor.length < 8) {
+      return "La contraseña debe tener al menos 8 caracteres";
+    }
+  };
+
+  const validarConfirmarContraseña = (valor) => {
+    if (valor !== contraseña) {
+      return "Las contraseñas no coinciden";
+    }
+  };
 
   const validarCorreoElectronico = (valor) => {
     if (!valor.includes('@gmail.com')) {
@@ -110,72 +128,91 @@ function resetForm() {
     }
   };
 
-
-        
-
   const onSubmit = async (event) => {
     event.preventDefault();
 
     const errorNombre = validarNombre(nombre);
-    const errorHorario = validarHorario(horario);
+  
     const errorApellido = validarApellido(apellido);
     const errorTelefono = validarTelefono(telefono);
     const errorCI = validarCI(CI);
+    const errorContraseña = validarContraseña(contraseña);
+    const errorConfirmarContraseña = validarConfirmarContraseña(confirmarContraseña);
     const errorCorreoElectronico = validarCorreoElectronico(correoElectronico);
 
     setErrorNombre(errorNombre);
-    setErrorHorario(errorHorario);
+
     setErrorApellido(errorApellido);
     setErrorTelefono(errorTelefono);
     setErrorCI(errorCI);
+    setErrorContraseña(errorContraseña);
+    setErrorConfirmarContraseña(errorConfirmarContraseña);
     setErrorCorreoElectronico(errorCorreoElectronico);
 
-    if (!errorNombre   && !errorTelefono && !errorCI  && !errorCorreoElectronico && !errorApellido) {
+    if (!errorNombre && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
 
-      await axios.post(User_Api_Url, {
-        name: nombre,
-        apellido: apellido,
-        dni: CI,
-        foto_perfil: fotoString,
-        telefono: telefono,
-        direccion: direccion,
-        email: correoElectronico,
-        password: contraseña,
-        password_confirmed: confirmarContraseña,
-        tipo_usuario: 1,
-        cargo: null,
-        departamento: null,
-        sitio: null,
-        primer_ini_sesion: 0,
-        solicitud_parqueo: 0,
-        id_zona: null,
-        id_horario: null
-      })
-
+      await axios.post(User_Api_Url,{
+    
+      name: nombre,
+      apellido: apellido,
+      dni: CI,
+      foto_perfil: null,
+      telefono: telefono,
+      direccion: null,
+      email: correoElectronico,
+      password: contraseña,
+      password_confirmed: confirmarContraseña,
+      tipo_usuario: tipoUsuario,
+      cargo: cargo,
+      departamento: null,
+      sitio: null,
+      primer_ini_sesion: 1,
+      solicitud_parqueo: 0,
+      id_zona: null,
+      id_horario: horarioTrabajo
+      } 
+      
+      )
+      
       resetForm();
-
-
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
       console.log("Hay errores en el formulario:");
       console.log(errorNombre);
-  
+     
       console.log(errorApellido);
       console.log(errorTelefono);
       console.log(errorCI);
-      console.log(errorHorario);
+      console.log(errorContraseña);
+      console.log(errorConfirmarContraseña);
       console.log(errorCorreoElectronico);
     }
   };
+  useEffect(() => {
+    const fetchHorariosTrabajo = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/horarios');
+        const horariosData = response.data.map((horario) => ({
+          ...horario,
+          horaInicio: horario.horaInicio, // Reemplaza "horaInicio" con el nombre de la propiedad en tu objeto de horario de trabajo
+          horaFin: horario.horaFin, // Reemplaza "horaFin" con el nombre de la propiedad en tu objeto de horario de trabajo
+        }));
+        setHorariosTrabajo(horariosData);
+      } catch (error) {
+        console.error('Error al obtener los horarios de trabajo:', error);
+      }
+    };
+
+    fetchHorariosTrabajo();
+  }, []);
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
-
-      <h1>Registrar Datos Del Personal </h1>
+      <h1>Registrar Datos Del Personal</h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
-    <Form  onSubmit={onSubmit} id="myForm">
+    <Form onSubmit={onSubmit}>
       <Form.Group controlId="nombre">
         <Form.Label>Nombre:</Form.Label>
         <Form.Control
@@ -193,8 +230,8 @@ function resetForm() {
         </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="apellido">
-        <Form.Label>Apellido:</Form.Label>
+      <Form.Group controlId="apellido">
+        <Form.Label>Apellido: </Form.Label>
         <Form.Control
           type="text"
           value={apellido}
@@ -227,16 +264,68 @@ function resetForm() {
           </Form.Control.Feedback>
         </Form.Group>
               
+        <Form.Group controlId="CI">
+          <Form.Label>CI/DNI:</Form.Label>
+          <Form.Control
+            type="t"
+            value={CI}
+            onChange={(event) => setCI(event.target.value)}
+            isInvalid={errorCI}
+            pattern="[0-9]+"
+            maxLength={10}
+            minLength={6}
+            required
+          />
+          <Form.Control.Feedback type="invalid" >
+            {errorCI}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-        <Form.Group controlId="formBasicDireccion">
-              <Form.Label>Dirección</Form.Label>
-              <Form.Control type="text" placeholder="Ingrese la dirección"  as="textarea"
-            rows={3} required/>
-            </Form.Group>
+         <Form.Group controlId="direccion">
+          <Form.Label>Direcion: </Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            placeholder="Ingresa una descripción del vehículo"
+            value={direccion}
+            onChange={handleDireccionChange}
+            maxLength={250}
+            minLength={2}
+            required
+          />
+        </Form.Group>
+{/* Espacio entre la sección de "Foto de Perfil" y "Selecciona un horario de trabajo" */}
+<div style={{ marginBottom: '20px' }}></div>
 
-       
+<Form.Group>
+  <Form.Label>Cargo:</Form.Label>
+  <Form.Control
+    as="select"
+    value={cargo}
+    onChange={(event) => {
+      const selectedCargo = event.target.value;
+      setCargo(selectedCargo);
+      let tipoUsuarioValue = 0;
 
-            <Button onClick={handleClick} variant="danger" > Cancelar </Button>
+      if (selectedCargo === "Operador") {
+        tipoUsuarioValue = 1;
+      } else if (selectedCargo === "Guardia") {
+        tipoUsuarioValue = 2;
+      }
+
+      setTipoUsuario(tipoUsuarioValue);
+    }}
+    required
+  >
+    <option value="">Seleccione cargo</option>
+    <option value="Operador">Operador</option>
+    <option value="Guardia">Guardia</option>
+    {/* Otras opciones de cargo */}
+  </Form.Control>
+</Form.Group>
+
+
+            <Button onClick={handleClick} variant="danger"  >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                  
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>
@@ -244,7 +333,7 @@ function resetForm() {
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
                       no
                     </Button>
-                    <Button variant="primary" onClick={ resetForm} >
+                    <Button variant="primary" onClick={ resetForm}  type="reset"   >
                       
                       si
                     </Button>
@@ -252,85 +341,93 @@ function resetForm() {
                </Modal>
 
 
-
     </Form>
     </Col>
         <Col md={6}>
         <Form onSubmit={onSubmit}>
-    
-                    
-                      <Form.Group controlId="CI">
-                        <Form.Label>CI/DNI:</Form.Label>
-                        <Form.Control
-                          type=""
-                          value={CI}
-                          onChange={(event) => setCI(event.target.value)}
-                          isInvalid={errorCI}
-                          pattern="[0-9]+"
-                          maxLength={10}
-                          minLength={6}
-                          required
-                        />
-                        <Form.Control.Feedback type="invalid" >
-                          {errorCI}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+        <Form.Group controlId="contraseña">
+        <Form.Label>Contraseña:</Form.Label>
+        <Form.Control
+            type="password"
+            value={contraseña}
+            onChange={(event) => setContraseña(event.target.value)}
+            isInvalid={errorContraseña}
+            minLength={8}
+            required
+        />
+  <Form.Control.Feedback type="invalid">
+    {errorContraseña}
+  </Form.Control.Feedback>
+</Form.Group>
+
+<Form.Group controlId="confirmar-contraseña">
+  <Form.Label>Confirmar Contraseña:</Form.Label>
+  <Form.Control
+    type="password"
+    value={confirmarContraseña}
+    onChange={(event) => setConfirmarContraseña(event.target.value)}
+    isInvalid={errorConfirmarContraseña}
+    minLength={8}
+    required
+  />
+  <Form.Control.Feedback type="invalid">
+    {errorConfirmarContraseña}
+  </Form.Control.Feedback>
+</Form.Group>
+
+<Form.Group controlId="correo-electronico">
+  <Form.Label>Correo Electrónico:</Form.Label>
+  <Form.Control
+    type="email"
+    value={correoElectronico}
+    onChange={(event) => setCorreoElectronico(event.target.value)}
+    isInvalid={errorCorreoElectronico}
+    required
+  />
+  <Form.Control.Feedback type="invalid">
+    {errorCorreoElectronico}
+  </Form.Control.Feedback>
+</Form.Group>
 
 
-                  <Form.Group controlId="correo-electronico">
-                    <Form.Label>Correo electrónico:</Form.Label>
-                    <Form.Control
-                      type="email"
-                      value={correoElectronico}
-                      onChange={(event) => setCorreoElectronico(event.target.value)}
-                      isInvalid={errorCorreoElectronico}
-                      required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errorCorreoElectronico}
-                    </Form.Control.Feedback>
-                  </Form.Group>
 
-                            
-            <Form.Group controlId="horario">
-              <Form.Label>Horario:</Form.Label>
-              <Form.Control
-                type=""
-                value={horario}
-                onChange={(event) => setHorario(parseInt(event.target.value))}
-                isInvalid={errorHorario}
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                {errorHorario}
-              </Form.Control.Feedback>
-            </Form.Group>
-                
-        
-          <Form.Group controlId="formBasicFoto">            
-          <Form.Label>Foto de Perfil</Form.Label>
-              <Form.Control type="file" onChange={handleImageUpload} accept="image/*"   required />
-              {image && (
-                <div>
-                  <img src={image} alt="Foto del cliente" width="300" height="300" />
-                </div>
-              )}
-              <Form.Text className="text-muted">
-               foto
-              </Form.Text>
-            </Form.Group>
 
-  
-            <Button  type="submit"   >Enviar </Button>
-            
-          
-                  
-                            
-        </Form>
-        </Col>
-            </Row>
+<Form.Group controlId="formBasicFoto">
+  <Form.Label>Foto de Perfil</Form.Label>
+  <Form.Control type="file" onChange={handleImageUpload} accept="image/*" required />
+  {image && (
+    <div>
+      <img src={image} alt="Foto del cliente" width="300" height="300" />
+    </div>
+  )}
+  <Form.Text className="text-muted"></Form.Text>
+</Form.Group>
 
-       
+{/* Espacio entre la sección de "Foto de Perfil" y "Selecciona un horario de trabajo" */}
+<div style={{ marginBottom: '20px' }}></div>
+
+<Form.Group>
+  <Form.Label>Horario de Trabajo:</Form.Label>
+  <Form.Control
+    as="select"
+    value={horarioTrabajo}
+    onChange={(event) => setHorarioTrabajo(event.target.value)}
+    required
+  >
+    <option value="">Selecciona un horario de trabajo</option>
+    {horariosTrabajo.map((horario) => (
+      <option key={horario.id} value={horario.id}>
+        {horario.nombre} ({horario.inicio_turno} - {horario.salida_turno})
+      </option>
+    ))}
+  </Form.Control>
+</Form.Group>
+
+
+<Button variant="success" type="submit">Enviar</Button>
+</Form>
+</Col>
+       </Row>
        </div>
  );
 };

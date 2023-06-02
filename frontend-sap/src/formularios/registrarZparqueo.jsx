@@ -18,7 +18,7 @@ const RegistroZonasParqueo = () => {
   const [foto, setFoto] = useState("");
   const [sitios, setSitios] = useState("SitiosDisponibles");
   const [fotoString, setFotoString] = useState("imagen.jpg");
-  const [numSitiosInteger, setNumSitiosInteger] = useState(0);
+
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -29,8 +29,12 @@ const RegistroZonasParqueo = () => {
     const value = parseInt(input);
     if (!isNaN(value)) {
       setNumSitios(value);
+      const sitiosArray = Array.from({ length: value }, (_, index) => (index + 1).toString());
+      setSitios(sitiosArray.join(','));
     }
   };
+
+
 
   const handleDescripcionChange = (event) => {
     setDescripcion(event.target.value);
@@ -67,6 +71,7 @@ const RegistroZonasParqueo = () => {
 
 
   const handleSubmit = async (event) => {
+    
     event.preventDefault();
 
     await axios.post('http://localhost:8000/api/zonas', {
@@ -80,16 +85,14 @@ const RegistroZonasParqueo = () => {
   
     resetForm();
   
-    // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
+    
 
     
   };
 
   return (
     <>
-    {/* <div className="side"> 
-      <SidebarAdministrador/> 
-    </div> */}
+   
     <div className="container d-flex align-items-center" style={{ height: "100vh", marginLeft:"10px" }}>
       <div className="col-lg-6 mx-auto">
       <h1 className="titulo">Registrar Zona de Parqueo</h1>
