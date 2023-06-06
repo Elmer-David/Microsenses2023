@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,6 +12,10 @@ function ParqueoForm() {
     diaCierra: ''
   });
   const [horariosRegistrados, setHorariosRegistrados] = useState([]);
+  const [horaAbiError, setHoraAbiError] = useState('');
+  const [horaCierError, setHoraCierError] = useState('');
+  const [diaAbrError, setDiaAbrError] = useState('');
+  const [diaCierrError, setDiaCierrError] = useState('');
 
   const diasSemana = [
     { value: '', label: 'Selecciona un día' },
@@ -53,8 +57,56 @@ function ParqueoForm() {
     
   }  
 
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/horarioparqueos')
+      .then(response => {
+        const newShifts = response.data.map(shift => ({
+          horaAbre: shift.hora_ini,
+          horaCierra: shift.hora_fin,
+          diaAbre: shift.dia_ini,
+          diaCierra: shift.dia_fin
+         
+        }));
+        setHorariosRegistrados(newShifts);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+
   const handleSubmit = async(event) => {
+
+
     event.preventDefault();
+    if (!horasAbierto.horaAbre || !horasAbierto.horaCierra || !horasAbierto.diaAbre || !horasAbierto.diaCierra) {
+      if (!horasAbierto.horaAbre ) {
+        setHoraAbiError("Por favor, complete este campo");
+      } else {
+        setHoraAbiError("");
+      }
+
+      if (!horasAbierto.horaCierra) {
+        setHoraCierError("Por favor, complete este campo");
+      } else {
+        setHoraCierError("");
+      }
+
+      if (!horasAbierto.diaAbre ) {
+        setDiaAbrError("Por favor, complete este campo");
+      } else {
+        setDiaAbrError("");
+      }
+      if (!horasAbierto.diaCierra ) {
+        setDiaCierrError("Por favor, complete este campo");
+      } else {
+        setDiaCierrError("");
+      }
+
+      
+      return;
+    }
+
   
     // Verificar si el nuevo horario está dentro del rango de alguno de los horarios existentes
     const conflicto = horariosRegistrados.some((horario) => {
@@ -81,6 +133,17 @@ function ParqueoForm() {
   
     if (conflicto) {
       alert('El nuevo horario está dentro del rango de un horario existente. Por favor, seleccione otro horario.');
+      
+      return;
+    }
+
+    const horaAbre = new Date(`2000-01-01T${horasAbierto.horaAbre}`);
+    const horaCierra = new Date(`2000-01-01T${horasAbierto.horaCierra}`);
+  
+    // Comparar las horas
+    if (horaCierra < horaAbre) {
+      alert('la hora de cierre es menor a la hora de apertura .');
+      setHorasAbierto ({horaCierra :''});
       return;
     }
   
@@ -119,15 +182,15 @@ function ParqueoForm() {
       <h1>Registro de Horarios de Atencion</h1>
         <Form.Group>
           <Form.Label>Hora de apertura</Form.Label>
-          <Form.Control type="time" name="horaAbre" value={horasAbierto.horaAbre} onChange={handleInputChange} />
+          <Form.Control type="time" name="horaAbre" value={horasAbierto.horaAbre} onChange={handleInputChange}required />
         </Form.Group>
         <Form.Group>
           <Form.Label>Hora de cierre</Form.Label>
-          <Form.Control type="time" name="horaCierra" value={horasAbierto.horaCierra} onChange={handleInputChange} />
+          <Form.Control type="time" name="horaCierra" value={horasAbierto.horaCierra} onChange={handleInputChange} required/>
         </Form.Group>
       <Form.Group>
         <Form.Label>Día de apertura</Form.Label>
-        <Form.Control as="select" name="diaAbre" value={horasAbierto.diaAbre} onChange={handleInputChange}>
+        <Form.Control as="select" name="diaAbre" value={horasAbierto.diaAbre} onChange={handleInputChange} required>
           {diasSemana.map((dia) => (
             <option key={dia.value} value={dia.value}>
               {dia.label}
@@ -137,7 +200,7 @@ function ParqueoForm() {
       </Form.Group>
       <Form.Group>
         <Form.Label>Día de cierre</Form.Label>
-        <Form.Control as="select" name="diaCierra" value={horasAbierto.diaCierra} onChange={handleInputChange}>
+        <Form.Control as="select" name="diaCierra" value={horasAbierto.diaCierra} onChange={handleInputChange} required>
           {diasSemana.map((dia) => (
             <option key={dia.value} value={dia.value}>
               {dia.label}
