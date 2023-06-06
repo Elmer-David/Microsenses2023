@@ -19,5 +19,6 @@
     "SOLOCLIENTE_API_URL": "http://localhost:8000/api/clientes",
     "SOLOOPERADOR_API_URL": "http://localhost:8000/api/operadors",
     "SOLOGUARDIA_API_URL": "http://localhost:8000/api/guardias",
-    "HORARIOPERSONAL_API_URL": "http://localhost:8000/api/horarios"
+    "HORARIOPERSONAL_API_URL": "http://localhost:8000/api/horarios",
+    "IMAGENSTORAGE_API_URL": "http://localhost:8000/api/upload"
 }

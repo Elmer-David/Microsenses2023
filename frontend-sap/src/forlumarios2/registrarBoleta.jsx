@@ -4,9 +4,13 @@ import axios from 'axios'
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+//import {subirImagen} from '../firebase/config';
+import configData from '../config/config.json';
 
 const cookies = new Cookies();
-
+const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
+const URL_BOLETA = configData.BOLETAS_API_URL;
+const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
 function BoletaForm() {
   const [formData, setFormData] = useState({
@@ -16,14 +20,17 @@ function BoletaForm() {
     fecha: '',
     imagen: null
   });
+
   const iduser = cookies.get('id');
   
   const min = 111111111;
   const max = 999999999;
   const nfactura = Math.floor(Math.random()*(max-min+1)+min);
+  
+  const [fileUrl, setFileUrl] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/parqueos')
+    fetch(URL_CONVOCATARIA)
       .then(response => response.json())
       .then(data => {
         let precioMe = parseInt(data[0].precio_mensual);
@@ -54,15 +61,8 @@ function BoletaForm() {
     }));
   };
 
-
-
-
-
-  const URL_BOLETA = 'http://localhost:8000/api/boletas';
-
   const [showModal, setShowModal] = useState(false);
-  const handleClick = () => {
-  
+  const handleClick = () => {  
     setShowModal(true);
   };
 
@@ -85,28 +85,49 @@ function BoletaForm() {
         value = currentDate;
       }
     }
-    setFormData({
-      ...formData,
-      [name]: value
+  setFormData({
+    ...formData,
+    [name]: value
     });
   };
-  
+  //subida imagen
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
+
   const handleSubmit = async (event) => {
-     // Aquí puedes enviar los datos del formulario a un servidor o manejarlos localmente
     event.preventDefault();
+    //firebase
+    // try {
+    //   const url = await subirImagen(file);
+    //   setFileUrl(url);
+    //   console.log(url);
+    // } catch (error) {
+    //   console.error(error);
+    // }
 
-    await axios.post(URL_BOLETA, 
-    {
-      mensualidad: formData.mesesPagar,
-      monto: formData.costoMensualida,
-      nro_transaccion: formData.numeroTransaccion,
-      fecha_deposito: formData.fecha,
-      foto_comprobante: "imagen.jpg",
-      estado: 0,
-      nro_factura: nfactura,
-      id_user: iduser
+    //localstorage
+    const fd = new FormData();
+    fd.append('file', archivo.file);
+    await axios.post(URL_IMAGENSTORAGE, fd)
+    .then(response=>{ 
+        var urli= response.data.urlimagen;
+        var auxi = `http://localhost:8000/${urli}`;
+        axios.post(URL_BOLETA, 
+        {
+          mensualidad: formData.mesesPagar,
+          monto: formData.costoMensualida,
+          nro_transaccion: formData.numeroTransaccion,
+          fecha_deposito: formData.fecha,
+          foto_comprobante: auxi,
+          estado: 0,
+          nro_factura: nfactura,
+          id_user: iduser
+        })
     })
-
     resetFormData();
     notificacion();
 
@@ -216,7 +237,7 @@ function BoletaForm() {
           <Form.Control
             type="file"
             name="image"
-            onChange={handleChange}
+            onChange={e=> setArchivo({file: e.target.files[0]})}
           />
         </Form.Group>
 

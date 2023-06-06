@@ -37,6 +37,7 @@ const TablaUserGuardia = () => {
                 <th>DNI</th>
                 <th>TELEFONO</th>
                 <th>CORREO ELECTRONICO</th>
+                <th>FOTO DE PERFIL</th>
                 <th>ELIMINAR</th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@ const TablaUserGuardia = () => {
                         <td>{user.dni}</td>
                         <td>{user.telefono}</td>
                         <td>{user.email}</td>
+                        <td><img src={user.foto_perfil} width="200px"></img></td>
 
                         <td>
                             <button onClick={()=>deleteUser(user.id)} className='btn btn-danger'>Eliminar</button>

@@ -37,6 +37,7 @@ const TablaUserGuardiaSE = () => {
                 <th>DNI</th>
                 <th>TELEFONO</th>
                 <th>CORREO ELECTRONICO</th>
+                <th>FOTO DE PERFIL</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +48,7 @@ const TablaUserGuardiaSE = () => {
                         <td>{user.dni}</td>
                         <td>{user.telefono}</td>
                         <td>{user.email}</td>
-
+                        <td><img src={user.foto_perfil} width="200px"></img></td>
 
                     </tr>
                 ))}

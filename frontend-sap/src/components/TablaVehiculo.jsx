@@ -40,6 +40,7 @@ const TablaVehiculo = () => {
                 <th>NOMBRE</th>
                 <th>APELLIDO</th>
                 <th>CORREO ELECTRONICO</th>
+                <th>IMAGEN VEHICULO</th>
                 <th>ELIMINAR</th>
                 </tr>
             </thead>
@@ -52,6 +53,7 @@ const TablaVehiculo = () => {
                         <td>{vehiculo.name}</td>
                         <td>{vehiculo.apellido}</td>
                         <td>{vehiculo.email}</td>
+                        <td><img src={vehiculo.foto} width="200px"></img></td>
                         <td>
                             <button onClick={()=>deleteVehiculo(vehiculo.id)} className='btn btn-danger'>Eliminar</button>
                         </td>

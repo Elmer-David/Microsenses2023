@@ -5,6 +5,9 @@ import configData from '../config/config.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const User_Api_Url = configData.USER_API_URL;
+const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
+
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
@@ -54,7 +57,6 @@ const FormularioRegistroPerso = () => {
 
 
 
-  const User_Api_Url = configData.USER_API_URL;
 
   const [tipoUsuario, setTipoUsuario] = useState(0);
   const [nombre, setNombre] = useState('');
@@ -130,6 +132,14 @@ const FormularioRegistroPerso = () => {
     }
   };
 
+  //subida imagen
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -153,13 +163,17 @@ const FormularioRegistroPerso = () => {
 
     if (!errorNombre && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente");
-
-      await axios.post(User_Api_Url,{
-    
+      const fd = new FormData();
+      fd.append('file', archivo.file);
+      await axios.post(URL_IMAGENSTORAGE, fd)
+      .then(response=>{ 
+          var urli= response.data.urlimagen;
+          var auxi = `http://localhost:8000/${urli}`;
+      axios.post(User_Api_Url,{
       name: nombre,
       apellido: apellido,
       dni: CI,
-      foto_perfil: null,
+      foto_perfil: auxi,
       telefono: telefono,
       direccion: null,
       email: correoElectronico,
@@ -173,10 +187,8 @@ const FormularioRegistroPerso = () => {
       solicitud_parqueo: 0,
       id_zona: null,
       id_horario: horarioTrabajo
-      } 
-      
-      )
-      
+      })
+    })
       resetForm();
       notificacion();
       // Aquí podrías enviar los datos del formulario al servidor
@@ -409,7 +421,11 @@ const FormularioRegistroPerso = () => {
 
 <Form.Group controlId="formBasicFoto">
   <Form.Label>Foto de Perfil</Form.Label>
-  <Form.Control type="file" onChange={handleImageUpload} accept="image/*" required />
+  <Form.Control 
+  type="file"             
+  onChange={e=> setArchivo({file: e.target.files[0]})}
+  accept="image/*" required
+  />
   {image && (
     <div>
       <img src={image} alt="Foto del cliente" width="300" height="300" />

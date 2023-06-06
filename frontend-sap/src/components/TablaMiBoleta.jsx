@@ -72,6 +72,7 @@ const TablaMiBoleta = () => {
                 <th>APELLIDO</th>
                 <th>CORREO ELECTRONICO</th>
                 <th>ESTADO</th>
+                <th>IMAGEN</th>
                 <th>FACTURA</th>
                 <th>PDF</th>
                 </tr>
@@ -87,6 +88,7 @@ const TablaMiBoleta = () => {
                         <td>{boleta.apellido}</td>
                         <td>{boleta.email}</td>
                         <td>{tipoboleta(boleta.estado)}</td>
+                        <td><img src={boleta.foto_comprobante} width="200px"></img></td>
 
                         {boleta.estado == 1 ?
                             <><td>

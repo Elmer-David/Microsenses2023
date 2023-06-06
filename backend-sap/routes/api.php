@@ -29,6 +29,7 @@ use App\Http\Controllers\BolManualController;
 use App\Http\Controllers\MensOperadorController;
 use App\Http\Controllers\MensGuardiaController;
 use App\Http\Controllers\MensGlobalController;
+use App\Http\Controllers\ArchivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,3 +85,5 @@ Route::resource('mensoperadors', MensOperadorController::class);
 Route::resource('mensguardias', MensGuardiaController::class);
 Route::resource('mensglobals', MensGlobalController::class);
 
+Route::post('upload', [ArchivoController::class, 'upload']);
+Route::post('download', [ArchivoController::class, 'download']);

@@ -27,7 +27,7 @@ const TablaZona = () => {
     <div>
         <div className='d-grid gap-2'>
         </div>
-        <h3 style={{textAlign: "center"}}>Lista de Convocatorias:</h3>
+        <h3 style={{textAlign: "center"}}>Lista de Zonas:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
                 <tr>
@@ -35,6 +35,7 @@ const TablaZona = () => {
                 <th>NRO DE SITIOS</th>
                 <th>DIRECCION</th>
                 <th>DESCRIPCION</th>
+                <th>IMAGEN</th>
                 <th>ELIMINAR</th>
                 </tr>
             </thead>
@@ -45,6 +46,7 @@ const TablaZona = () => {
                         <td>{user.nro_sitios}</td>
                         <td>{user.direccion}</td>
                         <td>{user.descripcion}</td>
+                        <td><img src={user.imagen} width="200px"></img></td>
 
                         <td>
                             <button onClick={()=>deleteUser(user.id)} className='btn btn-danger'>Eliminar</button>

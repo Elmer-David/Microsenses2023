@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import axios from 'axios';
-import SidebarAdministrador from "../components/SidebarAdministrador";
 //import '../style/RegistrarZonaParqueo.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configData from '../config/config.json';
+
+const ZONA_URL = configData.ZONAS_API_URL;
+const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
 const RegistroZonasParqueo = () => {
-  
-  
-
-
-
   
   const [nombre, setNombre] = useState("");
   const [numSitios, setNumSitios] = useState("");
@@ -20,7 +18,6 @@ const RegistroZonasParqueo = () => {
   const [foto, setFoto] = useState("");
   const [sitios, setSitios] = useState("SitiosDisponibles");
   const [fotoString, setFotoString] = useState("imagen.jpg");
-
 
   const handleNombreChange = (event) => {
     setNombre(event.target.value);
@@ -35,8 +32,6 @@ const RegistroZonasParqueo = () => {
       setSitios(sitiosArray.join(','));
     }
   };
-
-
 
   const handleDescripcionChange = (event) => {
     setDescripcion(event.target.value);
@@ -69,22 +64,33 @@ const RegistroZonasParqueo = () => {
     setFoto(null);
     
   }
+
+  //subida imagen
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
   
-
-
   const handleSubmit = async (event) => {
-    
     event.preventDefault();
-
-    await axios.post('http://localhost:8000/api/zonas', {
+    const fd = new FormData();
+    fd.append('file', archivo.file);
+    await axios.post(URL_IMAGENSTORAGE, fd)
+    .then(response=>{ 
+        var urli= response.data.urlimagen;
+        var auxi = `http://localhost:8000/${urli}`;
+        console.log(auxi);
+    axios.post(ZONA_URL, {
       nombre: nombre,
       nro_sitios:numSitios,
       sitios: sitios,
       direccion: direccion,
-      imagen: fotoString,
+      imagen: auxi,
       descripcion: descripcion
     })
-  
+  })
     resetForm();
     notificacion();
     
@@ -136,7 +142,7 @@ const RegistroZonasParqueo = () => {
         </Form.Group>
 
         <Form.Group controlId="direccion">
-          <Form.Label>Direcion: </Form.Label>
+          <Form.Label>Direccion: </Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
@@ -170,7 +176,7 @@ const RegistroZonasParqueo = () => {
           <Form.Control
             type="file"
             accept="image/*"
-            onChange={handleFotoChange}
+            onChange={e=> setArchivo({file: e.target.files[0]})}
             required
           />
         </Form.Group>

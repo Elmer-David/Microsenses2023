@@ -4,9 +4,11 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configData from '../config/config.json';
 
 const cookies = new Cookies();
-
+const URL_VEHICULOS = configData.VEHICULOS_API_URL;
+const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
 const RegistroVehiculo = () => {
   const [nombre, setNombre] = useState("");
@@ -56,17 +58,32 @@ const RegistroVehiculo = () => {
     setFoto('');
   };
 
+  //subida imagen
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post('http://localhost:8000/api/vehiculos', {
+    const fd = new FormData();
+    fd.append('file', archivo.file);
+    await axios.post(URL_IMAGENSTORAGE, fd)
+    .then(response=>{ 
+        var urli= response.data.urlimagen;
+        var auxi = `http://localhost:8000/${urli}`;
+
+    axios.post(URL_VEHICULOS, {
       modelo: nombre,
-      foto: fotoString,
+      foto: auxi,
       nro_placa: numPlaca,
       descripcion: descripcion,
       id_user: iduser
       })
-
+    })
     resetForm();
     notificacion();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
@@ -136,7 +153,7 @@ const RegistroVehiculo = () => {
           <Form.Control
             type="file"
             accept="image/*"
-            onChange={handleFotoChange}
+            onChange={e=> setArchivo({file: e.target.files[0]})}
             required
           />
         </Form.Group>

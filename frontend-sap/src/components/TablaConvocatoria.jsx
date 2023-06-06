@@ -31,6 +31,9 @@ const TablaConvocatoria = () => {
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
                 <tr>
+                <th>NOMBRE DEL PARQUEO</th>
+                <th>NOMBRE DEL BANCO</th>
+                <th>NRO CUENTA BANCO</th>
                 <th>FECHA INICIO</th>
                 <th>FECHA FIN</th>
                 <th>PRECIO DE MENSUALIDAD</th>
@@ -43,6 +46,9 @@ const TablaConvocatoria = () => {
             <tbody>
                 {users.map ((user)=>(
                     <tr key={user.id}>
+                        <td>{user.nombre}</td>
+                        <td>{user.nombre_banco}</td>
+                        <td>{user.cuenta_banco}</td>                        
                         <td>{user.fecha_ini_solicitud}</td>
                         <td>{user.fecha_fin_solicitud}</td>
                         <td>{user.precio_mensual}</td>
