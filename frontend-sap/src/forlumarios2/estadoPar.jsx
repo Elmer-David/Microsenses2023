@@ -119,6 +119,9 @@ function RequestForm() {
     setDescuento('');
     setMulta('');
     setDescuentoAño('');
+    setNombre('');
+    setNumeroCuenta('');
+    setNombreParqueo('');
   }  
 
   const notificacion = () => {
@@ -231,7 +234,7 @@ function RequestForm() {
         />
         </Form.Group>
         <Form.Group controlId="nombreParqueo" className="mt-4">
-            <Form.Label>Nombre del Parqueo: </Form.Label>
+            <Form.Label>Nombre del parqueo: </Form.Label>
             <Form.Control
             type="text"
             placeholder="Ingresa el nombre del Parqueo "
@@ -244,22 +247,22 @@ function RequestForm() {
         </Form.Group>
 
        < Form.Group controlId="numeroCuenta">
-          <Form.Label> Numero de Cuenta:</Form.Label>
+          <Form.Label> Número de cuenta:</Form.Label>
           <Form.Control type="number" value={numeroCuenta}  placeholder="Ingresa el numero de cuenta" onChange={handleNumeroCuentaChange}  required/>
         </Form.Group>
 
         <Form.Group controlId="startDate">
-          <Form.Label>Fecha Inicio:</Form.Label>
+          <Form.Label>Fecha de inicio:</Form.Label>
           <Form.Control type="date" value={startDate} onChange={handleStartDateChange}required />
         </Form.Group>
 
         <Form.Group controlId="endDate">
-          <Form.Label>Fecha Fin:</Form.Label>
+          <Form.Label>Fecha de fin:</Form.Label>
           <Form.Control type="date" value={endDate} onChange={handleEndDateChange}required />
         </Form.Group>
 
         <Form.Group controlId="precio">
-          <Form.Label> Precio de la Mensualidad:</Form.Label>
+          <Form.Label> Precio de la mensualidad:</Form.Label>
           <Form.Control type="number" value={precio} onChange={handlePrecioChange}  required/>
         </Form.Group>
 
