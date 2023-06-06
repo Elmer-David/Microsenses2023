@@ -54,11 +54,17 @@ main{
   font-size: 30px;
 }
 .form-control {
-  background-color: rgb(113, 170, 173) !important;
+  background-color: rgb(12, 77, 81) !important;
   border: 3px solid rgb(207, 199, 199) !important;
   -webkit-text-fill-color: rgb(232, 232, 247); 
   text-shadow: none !important; /* Remover la sombra de texto */
 }
+/* Estilo para el campo de entrada autocompletado */
+.form-control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px rgb(12, 77, 81) inset !important;
+  -webkit-text-fill-color: rgb(232, 232, 247) !important;
+}
+
 .bars{
   display: flex;
   font-size: 25px;
