@@ -143,7 +143,7 @@ function BoletaForm() {
     setShowModal(false)
     setFormData({
       mesesPagar: 0,
-      numeroTransaccion: 0,
+      numeroTransaccion: '',
       costoMensualida: 0,
       fecha: '',
       imagen: null
@@ -175,6 +175,7 @@ function BoletaForm() {
               name="mesesPagar"
               value={formData.mesesPagar}
               onChange={handleMesesPagarChange} 
+              required
             >
               <option value="">Selecciona una opción</option>
               <option value="1">1</option>
@@ -206,6 +207,7 @@ function BoletaForm() {
             name="numeroTransaccion"
             value={formData.numeroTransaccion}
             onChange={handleChange}
+            required
           />
         </Form.Group>
 
@@ -229,6 +231,7 @@ function BoletaForm() {
             name="fecha"
             value={formData.fecha}
             onChange={handleChange}
+            required
           />
         </Form.Group>
 
@@ -238,6 +241,7 @@ function BoletaForm() {
             type="file"
             name="image"
             onChange={e=> setArchivo({file: e.target.files[0]})}
+            required
           />
         </Form.Group>
 
