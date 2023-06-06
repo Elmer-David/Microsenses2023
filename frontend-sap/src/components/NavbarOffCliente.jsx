@@ -6,15 +6,32 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Cookies from 'universal-cookie';
-
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 const cookies = new Cookies();
 
 
 function NavBarOffCliente() {
 
   const nombre = cookies.get('name');
+  const [nombreZona, setNombreZona] = useState();
   const apellido = cookies.get('apellido');
+  const idParqueo = cookies.get('id_zona');
+  const sitio = cookies.get('sitio');
   const nombre_c = nombre+" "+apellido;
+  const nombre_d = sitio +" "+nombreZona;
+
+
+  useEffect(() => {
+    axios
+    .get(`http://localhost:8000/api/zonas/${idParqueo}`)
+      .then((response) => {
+        setNombreZona(response.data.nombre);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const cerrarSesion =()=>{
     //remueve los datos de cookies
@@ -45,6 +62,9 @@ function NavBarOffCliente() {
             <Navbar.Brand href="#">Cliente</Navbar.Brand>
             <Navbar.Text>
             Logueado como: <a >{nombre_c}</a>
+            con sitio de parqueo: <a >{nombre_d}</a>
+            
+
           </Navbar.Text>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             
