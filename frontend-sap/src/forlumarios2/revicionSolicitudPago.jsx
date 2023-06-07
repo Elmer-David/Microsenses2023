@@ -11,9 +11,9 @@ function SolicitudPago() {
   useEffect(() => {
     axios.get('http://localhost:8000/api/boletas')
       .then(response => {
-        setBoletas(response.data.filter(boleta => boleta.estado === 0));
-        setAceptados(response.data.filter(boleta => boleta.estado === 1));
-        setRechazados(response.data.filter(boleta => boleta.estado === 2));
+        setBoletas(response.data.filter(boleta => boleta.estado === 0 && boleta.id_user !== null));
+        setAceptados(response.data.filter(boleta => boleta.estado === 1 && boleta.id_user !== null));
+        setRechazados(response.data.filter(boleta => boleta.estado === 2 && boleta.id_user !== null));
         response.data.forEach(async boleta => {
           const userName = await getUserName(boleta.id_user);
           setNombres(nombres => ({...nombres, [boleta.id]: userName}));

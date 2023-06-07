@@ -143,7 +143,7 @@ function ParqueoForm() {
     // Comparar las horas
     if (horaCierra < horaAbre) {
       alert('la hora de cierre es menor a la hora de apertura .');
-      setHorasAbierto ({horaCierra :''});
+     
       return;
     }
   
@@ -182,7 +182,7 @@ function ParqueoForm() {
       <h1>Registro de Horarios de Atencion</h1>
         <Form.Group>
           <Form.Label>Hora de apertura</Form.Label>
-          <Form.Control type="time" name="horaAbre" value={horasAbierto.horaAbre} onChange={handleInputChange}required />
+          <Form.Control type="time" name="horaAbre" value={horasAbierto.horaAbre} onChange={handleInputChange} required />
         </Form.Group>
         <Form.Group>
           <Form.Label>Hora de cierre</Form.Label>

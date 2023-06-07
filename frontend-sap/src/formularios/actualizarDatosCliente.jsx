@@ -157,27 +157,27 @@ const ActuliazarDatos = () => {
     setErrorCorreoElectronico(errorCorreoElectronico);
 
     if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
-      console.log("El formulario se envió correctamente",Departamento, cargo);
+      console.log("El formulario se envió correctamente",Departamento, cargo,miId,sitioa,id_zonaa,image);
 
       await axios.put(`http://localhost:8000/api/users/${miId}`, {
     
       name: nombre,
       apellido: apellido,
       dni: CI,
-      foto_perfil: null,
+      foto_perfil:null,
       telefono: telefono,
       direccion: direccion,
       email: correoElectronico,
       password: contraseña,
       password_confirmed: confirmarContraseña,
-      tipo_usuario: 3,
+      tipo_usuario: 4,
       cargo: cargo,
       departamento: Departamento,
       sitio: sitioa,
-      primer_ini_sesion: primer_ini_sesiona,
-      solicitud_parqueo: solicitud_parqueoa,
+     
+    
       id_zona: id_zonaa,
-      id_horario: id_horarioa
+      
       } 
       
       )
@@ -207,7 +207,7 @@ const ActuliazarDatos = () => {
         <Form.Label>Nombre:</Form.Label>
         <Form.Control
           type="text"
-          value={nombre}
+          value={nombre }
           onChange={(event) => setNombre(event.target.value)}
           isInvalid={errorNombre}
           pattern="[a-zA-Z]+"
@@ -291,7 +291,7 @@ const ActuliazarDatos = () => {
 
         <Form.Group controlId="formBasicCargo">
               <Form.Label>Cargo: </Form.Label>
-              <Form.Control as="select" defaultValue="Seleccione el cargo"  value={cargo}  required  onChange={(event) => setCargo(event.target.value)}>
+              <Form.Control as="select"  value={cargo}  required  onChange={(event) => setCargo(event.target.value)}>
               <option value="">{cargoa}</option>
     <option value="docente">docente</option>
     <option value="Adminisrativo" >administrativo</option>
@@ -368,7 +368,7 @@ const ActuliazarDatos = () => {
 
 <Form.Group controlId="Departamento">
   <Form.Label> Departamento: </Form.Label>
-  <Form.Control as="select" defaultValue="Seleccione el departamento" value={Departamento} required onChange={(event) => setDepartamento(event.target.value)}>
+  <Form.Control as="select" value={Departamento} required onChange={(event) => setDepartamento(event.target.value)}>
   <option value="">{departamentoa}</option>
     <option value="Sistemas">Sistemas</option>
     <option value="Informatica">Informatica</option>
