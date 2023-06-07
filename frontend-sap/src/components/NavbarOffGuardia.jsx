@@ -61,6 +61,18 @@ function NavBarOffGuardia() {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
 
+                <NavDropdown
+                    title="Enviar Mensaje"
+                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  >
+                    <NavDropdown.Item href="/MenuGuardia/MensajeACliente">Enviar Mensaje Individual a Cliente</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuGuardia/MensajeAOperador">Enviar Mensaje Individual a Operador</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuGuardia/MensajeAGuardia">Enviar Mensaje Individual a Guardia</NavDropdown.Item>
+
+                  </NavDropdown>
+
                   <Nav.Link href="/MenuGuardia/TablaMensajeGuardia">Mensajes Recibidos</Nav.Link>
 
                   {/* <Nav.Link href="/RegistroConvocatoria">Registrar Convocatoria</Nav.Link>
@@ -72,9 +84,9 @@ function NavBarOffGuardia() {
                     title="Listas/Tablas"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#ListaUsuario">Lista de Usuarios</NavDropdown.Item>
+                    <NavDropdown.Item href="/MenuGuardia/TablaClientes">Lista de Clientes</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#ListaVehiculo">Lista de Vehiculos</NavDropdown.Item>
+                    <NavDropdown.Item href="/MenuGuardia/TablaVehiculos">Lista de Vehiculos</NavDropdown.Item>
 
                   </NavDropdown>
 

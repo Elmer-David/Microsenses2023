@@ -5,7 +5,7 @@ import configData from '../config/config.json'
 const API_URL_USERS = configData.SOLOCLIENTE_API_URL;
 const CAPI_URL_USERS = configData.CUSER_API_URL;
 
-const TablaUserCliente = () => {
+const TablaUserClienteSE = () => {
     const [users, setUsers] = useState( [] );
 
     useEffect(()=>{
@@ -17,11 +17,11 @@ const TablaUserCliente = () => {
         setUsers(response.data)
     }
   
-    const deleteUser=async(id)=>{
-        const url=`${CAPI_URL_USERS}/${id}`;
-        await axios.delete(url)
-        getAllUser()
-    }
+    // const deleteUser=async(id)=>{
+    //     const url=`${CAPI_URL_USERS}/${id}`;
+    //     await axios.delete(url)
+    //     getAllUser()
+    // }
 
   return (
     <div>
@@ -38,7 +38,7 @@ const TablaUserCliente = () => {
                 <th>TELEFONO</th>
                 <th>CORREO ELECTRONICO</th>
                 <th>FOTO DE PERFIL</th>
-                <th>ELIMINAR</th>
+                {/* <th>ELIMINAR</th> */}
                 </tr>
             </thead>
             <tbody>
@@ -51,9 +51,9 @@ const TablaUserCliente = () => {
                         <td>{user.email}</td>
                         <td><img src={user.foto_perfil} width="200px"></img></td>
 
-                        <td>
+                        {/* <td>
                             <button onClick={()=>deleteUser(user.id)} className='btn btn-danger'>Eliminar</button>
-                        </td>
+                        </td> */}
 
                     </tr>
                 ))}
@@ -65,4 +65,4 @@ const TablaUserCliente = () => {
   )
 }
 
-export default TablaUserCliente
+export default TablaUserClienteSE

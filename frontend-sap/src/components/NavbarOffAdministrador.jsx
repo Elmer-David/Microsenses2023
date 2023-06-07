@@ -66,8 +66,19 @@ function NavBarOffAdministrador() {
                   <Nav.Link href="/RegistroZonaParqueo">Registrar Zona de Parqueo</Nav.Link>
                   <Nav.Link href="/MenuAdministrador/RegistroPersonal">Registrar Personal</Nav.Link>
                   <Nav.Link href="/RegistroHorario">Registrar Horario del Personal</Nav.Link>
-                  <Nav.Link href="/MenuAdministrador/Mensaje">Enviar Mensaje</Nav.Link>
-                  
+                  <NavDropdown
+                    title="Enviar Mensaje"
+                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  >
+                    <NavDropdown.Item href="/MenuAdministrador/Mensaje">Enviar Mensaje Global</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/MensajeACliente">Enviar Mensaje Individual a Cliente</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/MensajeAOperador">Enviar Mensaje Individual a Operador</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/MensajeAGuardia">Enviar Mensaje Individual a Guardia</NavDropdown.Item>
+
+                  </NavDropdown>
                   <NavDropdown
                     title="Listas/Tablas"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}

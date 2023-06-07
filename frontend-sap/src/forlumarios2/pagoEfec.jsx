@@ -159,6 +159,7 @@ function PagoEfectivo() {
         <option value="">Seleccione un Cliente</option>
         {clientes.map ((cliente)=>(
           <option
+            key={cliente.id}
             value={cliente.id}  
           >
             {`${cliente.name} ${cliente.apellido}`}

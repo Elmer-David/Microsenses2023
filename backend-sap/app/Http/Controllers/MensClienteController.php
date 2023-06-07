@@ -50,7 +50,11 @@ class MensClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        return DB::table('users')
+        ->join('mensajes', 'users.id', '=', 'mensajes.id_user')
+        ->select('mensajes.*', 'users.name', 'users.apellido', 'users.tipo_usuario')
+        ->where('mensajes.id_receptor', $id) 
+        ->get();
     }
 
     /**

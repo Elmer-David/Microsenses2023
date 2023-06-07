@@ -83,7 +83,17 @@ function NavBarOffCliente() {
 
                   <Nav.Link href="/RegistroVehiculo">Registrar Vehiculo</Nav.Link>
                   <Nav.Link href="/RegistroBoleta">Registrar Boleta de pago</Nav.Link>
-                  <Nav.Link href="/MenuCliente/Mensaje">Enviar Mensaje</Nav.Link>
+
+                  <NavDropdown
+                    title="Enviar Mensaje"
+                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  >
+                    <NavDropdown.Item href="/MenuCliente/MensajeAOperador">Enviar Mensaje Individual a Operador</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuCliente/MensajeAGuardia">Enviar Mensaje Individual a Guardia</NavDropdown.Item>
+
+                  </NavDropdown>
+
                   <Nav.Link href="/MenuCliente/TablaMensaje">Mensajes Recibidos</Nav.Link>
                   <Nav.Link href="/MenuCliente/TablaMiBoleta">Mis Boletas</Nav.Link>
                   <Nav.Link href="/MenuCliente/TablaMiVehiculo">Mis Vehiculos</Nav.Link>

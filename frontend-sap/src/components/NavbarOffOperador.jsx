@@ -65,7 +65,21 @@ function NavBarOffOperador() {
                   <Nav.Link href="/RegistroBoletaManual">Registrar Pago de Boleta</Nav.Link>
                   <Nav.Link href="/MenuOperador/RegistroPersonal">Registrar Personal</Nav.Link>
                   <Nav.Link href="/SolicitudBoleta">Revisar Solicitudes de Boletas</Nav.Link>
-                  <Nav.Link href="/MenuOperador/Mensaje">Enviar Mensaje</Nav.Link>
+
+                  <NavDropdown
+                    title="Enviar Mensaje"
+                    id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  >
+                    <NavDropdown.Item href="/MenuOperador/Mensaje">Enviar Mensaje Global</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuOperador/MensajeACliente">Enviar Mensaje Individual a Cliente</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuOperador/MensajeAOperador">Enviar Mensaje Individual a Operador</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuOperador/MensajeAGuardia">Enviar Mensaje Individual a Guardia</NavDropdown.Item>
+
+                  </NavDropdown>
+
                   <Nav.Link href="/MenuOperador/TablaMensajeOperador">Mensajes Recibidos</Nav.Link>
                   
                   <NavDropdown

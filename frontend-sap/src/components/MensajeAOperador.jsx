@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button} from "react-bootstrap";
 import configData from '../config/config.json';
 import Cookies from 'universal-cookie';
@@ -7,13 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const cookies = new Cookies();
+const MENSAJES_API_URL = configData.MENSAJES_API_URL;
+const CLIENTES_API_URL = configData.SOLOOPERADOR_API_URL;
 
-function FormDisabledInputExample() {
+function MensajeAOperador() {
 
     const [asunto, setAsunto] = useState('');
     const [mensaje, setMensaje] = useState('');
     const [receptor, setReceptor] = useState(1);
-    const MENSAJES_API_URL = configData.MENSAJES_API_URL;
 
     const handleAsuntoChange = (event) => {
         setAsunto(event.target.value);
@@ -21,8 +22,21 @@ function FormDisabledInputExample() {
     const handleMensajeChange = (event) => {
         setMensaje(event.target.value);
     };
+
+    const [clientes, setClientes] = useState( [] );
+    const [idAc, setIdAc] = useState('');
+
+    useEffect(()=>{
+      getAllClientes()
+    }, [])
+
+    const getAllClientes=async()=>{
+    const response = await axios.get(CLIENTES_API_URL)
+      setClientes(response.data)
+    }
+
     const handleReceptorChange = (event) => {
-        setReceptor(event.target.value);
+      setIdAc(event.target.value);
     };
 
     const handleSubmit = async (event) => {
@@ -30,8 +44,8 @@ function FormDisabledInputExample() {
         await axios.post(MENSAJES_API_URL, {
             asunto: asunto,
             mensaje: mensaje,
-            id_receptor: null,
-            global: receptor,
+            id_receptor: idAc,
+            global: 0,
             estado: 0,
             id_user: cookies.get('id')
         })
@@ -62,23 +76,20 @@ function FormDisabledInputExample() {
   return (
     <>
     <div>
-    <h2 style={{textAlign: "center", marginTop: "20px"}}>Sistema de Mensajeria</h2>
+    <h2 style={{textAlign: "center", marginTop: "20px"}}>Sistema de Mensajeria A Operadores</h2>
     <Form style={{marginLeft: "80px", marginRight: "80px"}} onSubmit={handleSubmit}>
     <Form.Group className="mb-3">
-        <Form.Label style={{marginTop: "50px"}} >Para:</Form.Label>
+        <Form.Label style={{marginTop: "50px"}} >Operador:</Form.Label>
         <Form.Select onChange={handleReceptorChange}>
+        <option value="">Seleccione un Operador</option>
+        {clientes.map ((cliente)=>(
           <option
-            value="1"
-          >Todos</option>
-          <option
-            value="2"
-          >Operadores</option>
-          <option
-            value="3"
-          >Guardias</option>
-          <option
-            value="4"
-          >Clientes</option>
+            key={cliente.id}
+            value={cliente.id}  
+          >
+            {`${cliente.name} ${cliente.apellido}`}
+          </option>
+        ))}
         </Form.Select>
       </Form.Group>
       <Form.Group className="mb-3">
@@ -124,4 +135,4 @@ function FormDisabledInputExample() {
   );
 }
 
-export default FormDisabledInputExample;
+export default MensajeAOperador;

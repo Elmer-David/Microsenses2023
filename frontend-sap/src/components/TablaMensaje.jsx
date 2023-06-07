@@ -2,7 +2,9 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import configData from '../config/config.json'
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 
 const API_URL_USERS = configData.MENSCLIENTE_API_URL;
 const API_URL_GLOBAL = configData.MENSGLOBAL_API_URL;
@@ -10,10 +12,13 @@ const API_URL_GLOBAL = configData.MENSGLOBAL_API_URL;
 const TablaMensaje = () => {
     const [users, setUsers] = useState( [] );
     const [globals, setGlobals] = useState( [] );
+    const [indiv, setIndiv] = useState( [] );
+    const miId = cookies.get('id');
 
     useEffect(()=>{
         getAllUser()
         getAllGlobal()
+        getMenInd()
     }, [])
 
     const getAllUser=async()=>{
@@ -23,6 +28,11 @@ const TablaMensaje = () => {
     const getAllGlobal=async()=>{
         const response = await axios.get(API_URL_GLOBAL)
         setGlobals(response.data)
+    }
+    const getMenInd=async()=>{
+        const url = `${API_URL_USERS}/${miId}`;
+        const response = await axios.get(url)
+        setIndiv(response.data)
     }
 
     function tipocargo(props){
@@ -79,8 +89,19 @@ const TablaMensaje = () => {
                         <td>{user.apellido}</td>
 
                     </tr>
-                    ))}
+                ))}
                 {globals.map ((user)=>(
+                    <tr key={user.id}>
+                        <td>{user.created_at}</td>
+                        <td>{user.asunto}</td>
+                        <td>{user.mensaje}</td>
+                        <td>{tipocargo(user.tipo_usuario)}</td>
+                        <td>{user.name}</td>
+                        <td>{user.apellido}</td>
+
+                    </tr>
+                ))}
+                {indiv.map ((user)=>(
                     <tr key={user.id}>
                         <td>{user.created_at}</td>
                         <td>{user.asunto}</td>

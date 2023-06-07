@@ -156,19 +156,19 @@ function LoginForm(){
     <div className="form-container">
       <Form onSubmit={handleSubmit}>
         <FormGroup controlId="formUsername">
-          <FormLabel>Email</FormLabel>
+          <FormLabel>Email:</FormLabel>
           <FormControl type="text" value={username} onChange={handleUsernameChange} />
         </FormGroup>
   
         <FormGroup controlId="formPassword">
-          <FormLabel>Contraseña</FormLabel>
+          <FormLabel>Contraseña:</FormLabel>
           <FormControl type="password" value={password} onChange={handlePasswordChange} />
         </FormGroup>
   
         {error && <Alert variant="danger">{error}</Alert>}
   
         <Button variant="primary" type="submit" className="btn-login">
-          Inicar Secion
+          Iniciar Sesion
         </Button>
       </Form>
     </div>

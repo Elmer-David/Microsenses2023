@@ -8,7 +8,7 @@ const cookies = new Cookies();
 
 //const API_URL_VEHICULOS ='http://localhost:8000/api/vehiculos'
 
-const TablaVehiculo = () => {
+const TablaVehiculoSE = () => {
     const [vehiculos, setVehiculos] = useState( [] );
     const API_URL_VEHICULOS = configData.VEHICLIS_API_URL;
 
@@ -27,11 +27,11 @@ const TablaVehiculo = () => {
         setVehiculos(response.data)
     }
   
-    const deleteVehiculo=async(id)=>{
-        const url=`${API_URL_VEHICULOS}/${id}`;
-        await axios.delete(url)
-        getAllVehiculo()
-    }
+    // const deleteVehiculo=async(id)=>{
+    //     const url=`${API_URL_VEHICULOS}/${id}`;
+    //     await axios.delete(url)
+    //     getAllVehiculo()
+    // }
 
     const tipousuario=()=>{
       switch (tipou){
@@ -74,7 +74,7 @@ const TablaVehiculo = () => {
                 <th>IMAGEN VEHICULO</th>
                 {/* {admin ?
                 : null} */}
-                <th>ELIMINAR</th> 
+                {/* <th>ELIMINAR</th>  */}
                 </tr>
             </thead>
             <tbody>
@@ -90,9 +90,9 @@ const TablaVehiculo = () => {
                         {/* {admin ? 
                         : null
                     } */}
-                        <td>
+                        {/* <td>
                             <button onClick={()=>deleteVehiculo(vehiculo.id)} className='btn btn-danger'>Eliminar</button>
-                        </td>
+                        </td> */}
                         
                     </tr>
                 ))}
@@ -104,4 +104,4 @@ const TablaVehiculo = () => {
   )
 }
 
-export default TablaVehiculo
+export default TablaVehiculoSE
