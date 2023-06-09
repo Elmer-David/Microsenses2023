@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
 
-
 const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
 function RequestForm() {
@@ -138,13 +137,6 @@ function RequestForm() {
     setNombreParqueo('');
   }  
 
-  const initialValues ={
-    file:null,
-    nombre: ''
-  }
-  const [archivo, setArchivo] = useState(initialValues);
-  //fin subida imagen
-
   const notificacion = () => {
     toast.success('Convocatoria Modificada con exito', {
       position: "top-center",
@@ -163,9 +155,13 @@ function RequestForm() {
     window.location.href='./MenuAdministrador'
   } 
 
-
-
-  
+  //subida imagen
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
 
 
   const handleSubmit = async (event) => {
@@ -250,7 +246,7 @@ function RequestForm() {
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
    {/*aqui se puede poner cosas para el lateral*/} 
       <Form onSubmit={handleSubmit} className="mx-auto">
-      <h1> Formulario de la  convocatoria  </h1>
+      <h1 style={{marginTop:"230px"}}> Formulario de la  convocatoria  </h1>
 
       <Form.Group controlId="nombre" className="mt-4">
             <Form.Label>Nombre del Banco: </Form.Label>

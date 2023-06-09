@@ -61,6 +61,10 @@ import MensajeAGuardia from '../components/MensajeAGuardia';
 import MensajeAOperador from '../components/MensajeAOperador';
 import TablaUserClienteSE from '../components/TablaUserClienteSE';
 import TablaVehiculoSE from '../components/TablaVehiculoSE';
+import RegistrarBoletaQr from '../forlumarios2/registrarBoletaQR';
+import TablaBoletaQR from '../components/TablaBoletaQR';
+import TablaBoletaSE from '../components/TablaBoletaSE';
+import TablaBoletaQRSE from '../components/TablaBoletaQRSE';
 
 const Rutas=()=> {
 
@@ -100,6 +104,7 @@ const Rutas=()=> {
         <Route path='/MenuAdministrador/MensajeAOperador' element={<><NavBarOffAdministrador/><MensajeAOperador/></>}/>
         <Route path='/MenuAdministrador/MensajeAGuardia' element={<><NavBarOffAdministrador/><MensajeAGuardia/></>}/>
         <Route path='/MenuAdministrador/TablaBoletaManual' element={<><NavBarOffAdministrador/><TablaBoletaManual/></>}/>
+        <Route path='/MenuAdministrador/TablaBoletaQR' element={<><NavBarOffAdministrador/><TablaBoletaQR/></>}/>
 
         <Route path='/MenuCliente' element={<NavBarOffCliente/>}/>
         <Route path='/RegistroVehiculo' element={<><NavBarOffCliente/><RegistroVehiculo/></>}/>
@@ -112,6 +117,7 @@ const Rutas=()=> {
         <Route path='/MenuCliente/TablaMiVehiculo' element={<><NavBarOffCliente/><TablaMiVehiculo/></>}/>
         <Route path='/MenuCliente/MensajeAOperador' element={<><NavBarOffCliente/><MensajeAOperador/></>}/>
         <Route path='/MenuCliente/MensajeAGuardia' element={<><NavBarOffCliente/><MensajeAGuardia/></>}/>
+        <Route path='/MenuCliente/RegistroBoletaQR' element={<><NavBarOffCliente/><RegistrarBoletaQr/></>}/>
 
         <Route path='/MenuOperador' element={<NavBarOffOperador/>}/>
         <Route path='/RegistroBoletaManual' element={<><NavBarOffOperador/><RegistroBoletaManual/></>}/>
@@ -127,6 +133,8 @@ const Rutas=()=> {
         <Route path='/MenuOperador/MensajeACliente' element={<><NavBarOffOperador/><MensajeACliente/></>}/>
         <Route path='/MenuOperador/MensajeAOperador' element={<><NavBarOffOperador/><MensajeAOperador/></>}/>
         <Route path='/MenuOperador/MensajeAGuardia' element={<><NavBarOffOperador/><MensajeAGuardia/></>}/>
+        <Route path='/MenuOperador/TablaBoletaT' element={<><NavBarOffOperador/><TablaBoletaSE/></>}/>
+        <Route path='/MenuOperador/TablaBoletaQR' element={<><NavBarOffOperador/><TablaBoletaQRSE/></>}/>
 
         <Route path='/MenuGuardia' element={<NavBarOffGuardia/>}/>
         <Route path='/MenuGuardia/TablaMensajeGuardia' element={<><NavBarOffGuardia/><TablaMensajeGuardia/></>}/>

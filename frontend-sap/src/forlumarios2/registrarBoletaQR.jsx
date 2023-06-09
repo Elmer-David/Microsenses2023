@@ -12,7 +12,7 @@ const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
 const URL_BOLETA = configData.BOLETAS_API_URL;
 const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
-function BoletaForm() {
+function BoletaFormQR() {
   const [formData, setFormData] = useState({
     mesesPagar: '',
     numeroTransaccion: '',
@@ -123,7 +123,7 @@ function BoletaForm() {
           nro_transaccion: formData.numeroTransaccion,
           fecha_deposito: formData.fecha,
           foto_comprobante: auxi,
-          estado: 0,
+          estado: 4,
           nro_factura: nfactura,
           id_user: iduser
         })
@@ -162,13 +162,39 @@ function BoletaForm() {
       });
   } 
 
+  const [ultiConv, setUltiConv] = useState([]);
+  useEffect(() => {
+    axios
+      .get(URL_CONVOCATARIA)
+      .then((response) => {
+        var ult = response.data[response.data.length -1];
+        setUltiConv(ult);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <div className="d-flex align-items-center" style={{ height: '100vh' }}>
   
       <Form onSubmit={handleSubmit}  className="mx-auto">
-        <h1>Registro de Boleta de Pago por Transferencia</h1>
-        <Form.Group controlId="mesesPagar">
+        <h1 style={{marginTop:"230px"}}>Registro de Boleta de Pago por QR</h1>
           
+            {/* <img>
+            type="img"
+            src="http:\/\/localhost:8000\/imagen\/1686102244-129-0.jpg"
+            width="200px"
+          
+            </img> */}
+                        <Form.Group controlId="qr">
+            <Form.Label>QR:</Form.Label>
+            <div align="center"><img src={ultiConv.imagen} width="350px"></img></div>
+            {/* <img src="http://localhost:8000/imagen/1686102244-129-0.jpg" width="200px"></img> */}
+
+            </Form.Group>
+
+            <Form.Group controlId="mesesPagar">
             <Form.Label>Cantidad de meses a pagar</Form.Label>
             <Form.Control
               as="select"
@@ -272,9 +298,9 @@ function BoletaForm() {
         </div>
       </Form>
       <ToastContainer />
-
+      
     </div>
   );
 }
 
-export default BoletaForm;
+export default BoletaFormQR;

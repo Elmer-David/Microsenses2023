@@ -82,7 +82,8 @@ function NavBarOffCliente() {
                 <Nav className="justify-content-end flex-grow-1 pe-3">
 
                   <Nav.Link href="/RegistroVehiculo">Registrar Vehiculo</Nav.Link>
-                  <Nav.Link href="/RegistroBoleta">Registrar Boleta de pago</Nav.Link>
+                  <Nav.Link href="/RegistroBoleta">Registrar Boleta de Pago por Transferencia</Nav.Link>
+                  <Nav.Link href="/MenuCliente/RegistroBoletaQR">Registrar Boleta de Pago por QR</Nav.Link>
 
                   <NavDropdown
                     title="Enviar Mensaje"

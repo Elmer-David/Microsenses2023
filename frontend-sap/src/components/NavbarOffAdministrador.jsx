@@ -93,6 +93,8 @@ function NavBarOffAdministrador() {
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuAdministrador/TablaBoleta">Lista de Boletas Por Transferencia</NavDropdown.Item>
                     <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuAdministrador/TablaBoletaQR">Lista de Boletas Por QR</NavDropdown.Item>
+                    <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuAdministrador/TablaBoletaManual">Lista de Boletas Por Pago en Efectivo</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuAdministrador/TablaVehiculo">Lista de Vehiculos</NavDropdown.Item>

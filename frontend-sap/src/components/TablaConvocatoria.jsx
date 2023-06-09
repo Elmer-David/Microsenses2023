@@ -40,6 +40,7 @@ const TablaConvocatoria = () => {
                 <th>DESCUENTO 3 MESES</th>
                 <th>DESCUENTO 12 MESES</th>
                 <th>MULTA</th>
+                <th>QR</th>
                 <th>ELIMINAR</th>
                 </tr>
             </thead>
@@ -55,6 +56,7 @@ const TablaConvocatoria = () => {
                         <td>{user.descuento3meses}</td>
                         <td>{user.descuento12meses}</td>
                         <td>{user.multa}</td>
+                        <td><img src={user.imagen} width="200px"></img></td>
 
                         <td>
                             <button onClick={()=>deleteUser(user.id)} className='btn btn-danger'>Eliminar</button>

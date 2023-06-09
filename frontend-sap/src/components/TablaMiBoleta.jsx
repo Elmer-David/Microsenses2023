@@ -50,6 +50,9 @@ const TablaMiBoleta = () => {
         case 3 :
             resul = "BOLETA MANUAL"
             return resul;  
+        case 4 :
+            resul = "BOLETA QR"
+            return resul; 
         default :
             resul = "NO DEFINIDO"
             return resul;

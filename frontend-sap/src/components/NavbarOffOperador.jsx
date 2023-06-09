@@ -86,6 +86,10 @@ function NavBarOffOperador() {
                     title="Listas/Tablas"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
+                    <NavDropdown.Item href="/MenuOperador/TablaBoletaT">Lista de Boletas Por Transferencia</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuOperador/TablaBoletaQR">Lista de Boletas Por QR</NavDropdown.Item>
+                    <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuOperador/TablaManual">Lista de Boletas Registradas Manualmente</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuOperador/TablaUserSimple">Lista de Usuarios Simples</NavDropdown.Item>
