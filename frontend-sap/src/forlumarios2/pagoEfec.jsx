@@ -63,7 +63,8 @@ function PagoEfectivo() {
         let descuento = parseInt(ultimaConv.descuento3meses);
         let descuento12 = parseInt(ultimaConv.descuento12meses);
   
-        let costoTotal = precioMe * formData.mesesPagar;
+        let mesesPagar = parseInt(formData.mesesPagar);
+        let costoTotal = isNaN(mesesPagar) ? 0 : precioMe * mesesPagar;
         if (formData.mesesPagar > 3 && formData.mesesPagar < 12 ) {
           costoTotal -= descuento;
         } else if (formData.mesesPagar > 11) {
@@ -188,7 +189,7 @@ function PagoEfectivo() {
             <Form.Control
               as="select"
               name="mesesPagar"
-              value={formData.mesesPagar}
+              value={formData.mesesPagar || ''}
               onChange={handleMesesPagarChange}
             >
               <option value="">Selecciona una opción</option>

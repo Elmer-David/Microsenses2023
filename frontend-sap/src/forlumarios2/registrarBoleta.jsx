@@ -52,7 +52,8 @@ function BoletaForm() {
         let descuento12 = parseInt(ultimaConv.descuento12meses);
 
 
-        let costoTotal = precioMe * formData.mesesPagar;
+        let mesesPagar = parseInt(formData.mesesPagar);
+        let costoTotal = isNaN(mesesPagar) ? 0 : precioMe * mesesPagar;
 
         if (formData.mesesPagar > 3 && formData.mesesPagar < 12 ) {
           costoTotal -= descuento;
@@ -188,7 +189,7 @@ function BoletaForm() {
             <Form.Control
               as="select"
               name="mesesPagar"
-              value={formData.mesesPagar}
+              value={formData.mesesPagar || ''}
               onChange={handleMesesPagarChange} 
               required
             >
