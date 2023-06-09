@@ -3,11 +3,16 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configData from '../config/config.json';
+
+
+const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [precio , setPrecio] = useState('');
+  const [foto , setFoto] = useState('');
   const [descuento , setDescuento] = useState('');
   const [multa , setMulta] = useState('');
   const [descuentoAño , setDescuentoAño] = useState('');
@@ -16,6 +21,15 @@ function RequestForm() {
   const [nombreParqueo, setNombreParqueo] = useState('');
   const URL_PARQUEO = 'http://localhost:8000/api/parqueos/';
 
+
+  const handleFotoChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setFoto(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
  
 
   const handleStartDateChange = (event) => {
@@ -124,6 +138,13 @@ function RequestForm() {
     setNombreParqueo('');
   }  
 
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
+
   const notificacion = () => {
     toast.success('Convocatoria Modificada con exito', {
       position: "top-center",
@@ -149,11 +170,19 @@ function RequestForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const fd = new FormData();
+    fd.append('file', archivo.file);
+    await axios.post(URL_IMAGENSTORAGE, fd)
+    .then(response=>{ 
+        var urli= response.data.urlimagen;
+        var auxi = `http://localhost:8000/${urli}`;
+
     axios.post(URL_PARQUEO, 
       {
         nombre: nombreParqueo,
         descripcion: "Descripcion",
-        imagen: "imagen.jpg",
+        imagen: auxi,
         fecha_ini_solicitud: startDate,
         fecha_fin_solicitud: endDate,
         fecha_ini_pago: null,
@@ -166,6 +195,8 @@ function RequestForm() {
         cuenta_banco: numeroCuenta,
         nombre_banco: nombre
       })
+
+    })
     // await axios.get(URL_PARQUEO)
     // .then(response=>{
     //   if(response.data[0] != null){
@@ -279,6 +310,29 @@ function RequestForm() {
           <Form.Label> Multa por demora de pago:</Form.Label>
           <Form.Control type="number" value={multa} onChange={handleMultaChange}  required/>
         </Form.Group>
+
+        <Form.Group controlId="foto">
+          <Form.Label>Foto del QR para pagos </Form.Label>
+          <Form.Control
+            type="file"
+            accept="image/*"
+            onChange={e=> setArchivo({file: e.target.files[0]})}
+            required
+          />
+        </Form.Group>
+
+        {foto && (
+          <Form.Group>
+            <Form.Label>Foto del QR para pagos:</Form.Label>
+            <br />
+            <img
+              src={foto}
+              alt="Preview de la foto del QR"
+              style={{ maxWidth: "400px", maxHeight: "400px" }}
+            />
+          </Form.Group>
+        )}
+
 
         <Button style={{backgroundColor: "#DC3545", marginLeft: "80px"}} onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>

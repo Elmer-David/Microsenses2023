@@ -8,7 +8,7 @@ import configData from '../config/config.json';
 
 const cookies = new Cookies();
 
-const regexSoloLetras = /^[a-zA-Z]+$/;
+const regexSoloLetras = /^[a-zA-Z ]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
 const URL_USER = configData.CUSER_API_URL;
@@ -260,7 +260,7 @@ const ActuliazarDatos = () => {
           value={nombre }
           onChange={(event) => setNombre(event.target.value)}
           isInvalid={errorNombre}
-          pattern="[a-zA-Z]+"
+          pattern="[a-zA-Z ]+"
           maxLength={30}
           minLength={2}
           required
@@ -278,7 +278,7 @@ const ActuliazarDatos = () => {
           value={apellido}
           onChange={(event) => setApellido(event.target.value)}
           isInvalid={errorApellido}
-          pattern="[a-zA-Z]+"
+          pattern="[a-zA-Z ]+"
           maxLength={30}
           minLength={2}
           required
