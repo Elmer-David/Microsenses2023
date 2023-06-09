@@ -1,52 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Modal, Col, Row } from 'react-bootstrap';
+import {  Button, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 
 function SolicitudPagoQr() {
   const [boletas, setBoletas] = useState([]);
   const [aceptados, setAceptados] = useState([]);
   const [rechazados, setRechazados] = useState([]);
-  const [nombres, setNombres] = useState({});
+  
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/boletas')
-      .then(response => {
-        setBoletas(response.data.filter(boleta => boleta.estado === 4 && boleta.id_user !== null));
-        setAceptados(response.data.filter(boleta => boleta.estado === 5 && boleta.id_user !== null));
-        setRechazados(response.data.filter(boleta => boleta.estado === 6 && boleta.id_user !== null));
-        
-        response.data.forEach(async boleta => {
-          const userName = await getUserName(boleta.id_user);
-          setNombres(nombres => ({...nombres, [boleta.id]: userName}));
+    const fetchData = async () => {
+      try {
+        const [boletasResponse, usersResponse] = await Promise.all([
+          axios.get('http://localhost:8000/api/boletas'),
+          axios.get('http://localhost:8000/api/users')
+        ]);
+  
+        const boletasData = boletasResponse.data;
+        const usersData = usersResponse.data;
+  
+        const userNames = {};
+        const boletasWithNames = [];
+  
+        boletasData.forEach(boleta => {
+          if (boleta.id_user !== null) {
+            userNames[boleta.id_user] = '';
+            boletasWithNames.push({
+              ...boleta,
+              userName: '' // Esta propiedad se llenará más adelante
+            });
+          }
         });
-      })
-      .catch(error => {
+  
+        usersData.forEach(user => {
+          if (userNames[user.id] !== undefined) {
+            userNames[user.id] = user.name;
+          }
+        });
+  
+        boletasWithNames.forEach(boleta => {
+          boleta.userName = userNames[boleta.id_user] || 'Usuario no encontrado';
+        });
+  
+        const boletasPendientes = boletasWithNames.filter(boleta => boleta.estado === 4);
+        const boletasAceptadas = boletasWithNames.filter(boleta => boleta.estado === 5);
+        const boletasRechazadas = boletasWithNames.filter(boleta => boleta.estado === 6);
+  
+        setBoletas(boletasPendientes);
+        setAceptados(boletasAceptadas);
+        setRechazados(boletasRechazadas);
+      } catch (error) {
         console.error(error);
-      });
-  }, []);
-
-  const getUserName = async (userId) => {
-    try {
-      const response = await axios.get("http://localhost:8000/api/users");
-      const user = response.data.find(user => user.id === userId);
-      if (user) {
-        return user.name;
-      } else {
-        return "Usuario no encontrado";
       }
-    } catch (error) {
-      console.error(error);
-      return "";
-    }
-  };
-
+    };
+  
+    fetchData();
+  }, []);
   const handleAceptadoClick = (id) => {
     const boletaAceptada = boletas.find(boleta => boleta.id === id);
-
-    axios.put(`http://localhost:8000/api/boletas/${id}`, { estado: 5 })
+  
+    axios
+      .put(`http://localhost:8000/api/boletas/${id}`, { estado: 5 })
       .then(response => {
         setAceptados([...aceptados, boletaAceptada]);
         setBoletas(boletas.filter(boleta => boleta.id !== id));
+        setRechazados(rechazados.filter(boleta => boleta.id !== id));
       })
       .catch(error => {
         console.error(error);
@@ -55,10 +73,13 @@ function SolicitudPagoQr() {
   
   const handleRechazoClick = (id) => {
     const boletaRechazada = boletas.find(boleta => boleta.id === id);
-    axios.put(`http://localhost:8000/api/boletas/${id}`, { estado: 6 })
+  
+    axios
+      .put(`http://localhost:8000/api/boletas/${id}`, { estado: 6 })
       .then(response => {
         setRechazados([...rechazados, boletaRechazada]);
         setBoletas(boletas.filter(boleta => boleta.id !== id));
+        setAceptados(aceptados.filter(boleta => boleta.id !== id));
       })
       .catch(error => {
         console.error(error);
@@ -66,47 +87,39 @@ function SolicitudPagoQr() {
   };
 
   return (
-    <Row style={{marginLeft: "0px", background: "#0C4D51"}}>
-              <h2 style={{textAlign: "center", color: "#F1F1F2"}}>Solicitudes de Boleta por QR:</h2>
-              <></>
-      <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
+    <Row style={{ marginLeft: "0px", background: "#0C4D51" }}>
+      <h2 style={{ marginLeft: "520px", color: "#F1F1F2" }}>Solicitudes de Pago:</h2>
+      <></>
+      <Col style={{ marginLeft: "5px", background: "#F3F3FA" }}>
         <h2>Pendientes:</h2>
         <ul>
-        <p>--------------------------------------------------</p>
-
+          <p>--------------------------------------------------</p>
           {boletas.map(boleta => (
             <li key={boleta.id}>
-             
-              {/* <p>id usuario: {boleta.id_user}</p> */}
-              <p>Nombre de usuario: {nombres[boleta.id]}</p>
-
+              <p>Nombre de usuario: {boleta.userName}</p>
               <p>Numero de transaccion: {boleta.nro_transaccion}</p>
-              <p>Meses a pagar : {boleta.mensualidad}</p>
+              <p>Meses a pagar: {boleta.mensualidad}</p>
               <p>Monto a pagar: {boleta.monto}</p>
               <p>Fecha de deposito: {boleta.fecha_deposito}</p>
-              <img src={boleta.foto_comprobante} width="350px"></img>
+              <img src={boleta.foto_comprobante} width="350px" alt="Comprobante"></img>
               <p></p>
-
-              <Button style={{backgroundColor: "#198754", marginLeft: "35px"}} onClick={() => handleAceptadoClick(boleta.id)}>Aceptar</Button>
-              <Button style={{backgroundColor: "#DC3545", marginLeft: "40px"}} onClick={() => handleRechazoClick(boleta.id)}>Rechazar</Button>
+              <Button style={{ backgroundColor: "#198754", marginLeft: "35px" }} onClick={() => handleAceptadoClick(boleta.id)}>Aceptar</Button>
+              <Button style={{ backgroundColor: "#DC3545", marginLeft: "40px" }} onClick={() => handleRechazoClick(boleta.id)}>Rechazar</Button>
               <p>--------------------------------------------------</p>
             </li>
           ))}
         </ul>
-      </Col> 
-        
-      <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
+      </Col>
+
+      <Col style={{ marginLeft: "5px", background: "#F3F3FA" }}>
         <h2>Aceptados:</h2>
         <p>--------------------------------------------------</p>
-
         <ul>
           {aceptados.map(boleta => (
             <li key={boleta.id}>
-             
-              {/* <p>id usuario: {boleta.id_user}</p> */}
-              <p>Nombre de usuario: {nombres[boleta.id]}</p>
+              <p>Nombre de usuario: {boleta.userName}</p>
               <p>Numero de transaccion: {boleta.nro_transaccion}</p>
-              <p>Meses a pagar : {boleta.mensualidad}</p>
+              <p>Meses a pagar: {boleta.mensualidad}</p>
               <p>Monto a pagar: {boleta.monto}</p>
               <p>Fecha de deposito: {boleta.fecha_deposito}</p>
               <p>--------------------------------------------------</p>
@@ -115,29 +128,24 @@ function SolicitudPagoQr() {
         </ul>
       </Col>
 
-        <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
-          <h2>Rechazados:</h2>
-          <p>--------------------------------------------------</p>
-
-          <ul>
+      <Col style={{ marginLeft: "5px", background: "#F3F3FA" }}>
+        <h2>Rechazados:</h2>
+        <p>--------------------------------------------------</p>
+        <ul>
           {rechazados.map(boleta => (
             <li key={boleta.id}>
-          
-              {/* <p>id usuario: {boleta.id_user}</p> */}
-              <p>Nombre de usuario: {nombres[boleta.id]}</p>
-
+              <p>Nombre de usuario: {boleta.userName}</p>
               <p>Numero de transaccion: {boleta.nro_transaccion}</p>
-              <p>Meses a pagar : {boleta.mensualidad}</p>
+              <p>Meses a pagar: {boleta.mensualidad}</p>
               <p>Monto a pagar: {boleta.monto}</p>
               <p>Fecha de deposito: {boleta.fecha_deposito}</p>
               <p>--------------------------------------------------</p>
             </li>
           ))}
         </ul>
-         
-        </Col>
-      </Row>
-    );
-  }
+      </Col>
+    </Row>
+  );
+}
 
 export default SolicitudPagoQr;
