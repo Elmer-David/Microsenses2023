@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CLIENTES_API_URL = configData.SOLOCLIENTE_API_URL;
 const BOLETAS_API_URL = configData.BOLETAS_API_URL;
-
+const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
 function PagoEfectivo() {
   const [formData, setFormData] = useState({
     mesesPagar: '',
@@ -40,14 +40,28 @@ function PagoEfectivo() {
   const nfactura = Math.floor(Math.random()*(max-min+1)+min);
   const tiempoTranscurrido = Date.now();
   const hoy = new Date(tiempoTranscurrido);
+
+
+  const [ultimaConv, setUltimaConv] = useState([]);
+  useEffect(() => {
+    axios
+      .get(URL_CONVOCATARIA)
+      .then((response) => {
+        var ult = response.data[response.data.length -1];
+        setUltimaConv(ult);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   
   useEffect(() => {
     fetch('http://localhost:8000/api/parqueos')
       .then(response => response.json())
       .then(data => {
-        let precioMe = parseInt(data[0].precio_mensual);
-        let descuento = parseInt(data[0].descuento3meses);
-        let descuento12 = parseInt(data[0].descuento12meses);
+        let precioMe = parseInt(ultimaConv.precio_mensual);
+        let descuento = parseInt(ultimaConv.descuento3meses);
+        let descuento12 = parseInt(ultimaConv.descuento12meses);
   
         let costoTotal = precioMe * formData.mesesPagar;
         if (formData.mesesPagar > 3 && formData.mesesPagar < 12 ) {

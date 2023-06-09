@@ -29,13 +29,27 @@ function BoletaFormQR() {
   
   const [fileUrl, setFileUrl] = useState('');
 
+
+  const [ultimaConv, setUltimaConv] = useState([]);
+  useEffect(() => {
+    axios
+      .get(URL_CONVOCATARIA)
+      .then((response) => {
+        var ult = response.data[response.data.length -1];
+        setUltimaConv(ult);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   useEffect(() => {
     fetch(URL_CONVOCATARIA)
       .then(response => response.json())
       .then(data => {
-        let precioMe = parseInt(data[0].precio_mensual);
-        let descuento = parseInt(data[0].descuento3meses);
-        let descuento12 = parseInt(data[0].descuento12meses);
+        let precioMe = parseInt(ultimaConv.precio_mensual);
+        let descuento = parseInt(ultimaConv.descuento3meses);
+        let descuento12 = parseInt(ultimaConv.descuento12meses);
 
         let costoTotal = precioMe * formData.mesesPagar;
 
