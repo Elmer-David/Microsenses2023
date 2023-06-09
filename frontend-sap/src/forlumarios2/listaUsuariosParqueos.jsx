@@ -42,16 +42,16 @@ function ListaUsuariosParqueo() {
   
     return (
       <div>
-        <h2>lista de Uusarios y sus respectivo sitiosd de parqeo:</h2>
+        <h2 style={{marginLeft:"30px"}}>Lista de Uusarios y sus respectivo sitios de parqeo:</h2>
         <ul>
           {boletas.map((boleta) => (
             <li key={boleta.id} style={{ display: "flex", alignItems: "center" }}>
               <p style={{ marginRight: "10px" }}>Nombre: {boleta.name}</p>
-              <p style={{ marginRight: "10px" }}>Apellido: {boleta.apellido}</p>
-              <p style={{ marginRight: "10px" }}>CI: {boleta.dni}</p>
-              <p style={{ marginRight: "10px" }}>Gmail: {boleta.email}</p>
-              <p style={{ marginRight: "10px" }}>sitio Parqueo: {boleta.sitio}</p>
-              <p style={{ marginRight: "10px" }}>Zona de Parqueo: {boleta.zonaName}</p>
+              <p style={{ marginRight: "25px" }}>Apellido: {boleta.apellido}</p>
+              <p style={{ marginRight: "25px" }}>CI: {boleta.dni}</p>
+              <p style={{ marginRight: "25px" }}>Gmail: {boleta.email}</p>
+              <p style={{ marginRight: "25px" }}>Sitio Parqueo: {boleta.sitio}</p>
+              <p style={{ marginRight: "25px" }}>Zona de Parqueo: {boleta.zonaName}</p>
                {/* <Button style={{marginLeft: "100px"}} onClick={() => handleEliminarClick(boleta.id)}>
                 Eliminar cliente
               </Button> */}

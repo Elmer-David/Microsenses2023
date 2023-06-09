@@ -66,6 +66,7 @@ import TablaBoletaQR from '../components/TablaBoletaQR';
 import TablaBoletaSE from '../components/TablaBoletaSE';
 import TablaBoletaQRSE from '../components/TablaBoletaQRSE';
 import SolicitudPagoQr from '../forlumarios2/solicitudPagoQr';
+import ListaUsuariosParqueo from '../forlumarios2/listaUsuariosParqueos';
 
 const Rutas=()=> {
 
@@ -106,6 +107,7 @@ const Rutas=()=> {
         <Route path='/MenuAdministrador/MensajeAGuardia' element={<><NavBarOffAdministrador/><MensajeAGuardia/></>}/>
         <Route path='/MenuAdministrador/TablaBoletaManual' element={<><NavBarOffAdministrador/><TablaBoletaManual/></>}/>
         <Route path='/MenuAdministrador/TablaBoletaQR' element={<><NavBarOffAdministrador/><TablaBoletaQR/></>}/>
+        <Route path='/MenuAdministrador/TablaUsuarioParqueo' element={<><NavBarOffAdministrador/><ListaUsuariosParqueo/></>}/>
 
         <Route path='/MenuCliente' element={<NavBarOffCliente/>}/>
         <Route path='/RegistroVehiculo' element={<><NavBarOffCliente/><RegistroVehiculo/></>}/>
@@ -137,6 +139,7 @@ const Rutas=()=> {
         <Route path='/MenuOperador/TablaBoletaT' element={<><NavBarOffOperador/><TablaBoletaSE/></>}/>
         <Route path='/MenuOperador/TablaBoletaQR' element={<><NavBarOffOperador/><TablaBoletaQRSE/></>}/>
         <Route path='/MenuOperador/SolicitudBoletaQR' element={<><NavBarOffOperador/><SolicitudPagoQr/></>}/>
+        <Route path='/MenuOperador/TablaUsuarioParqueo' element={<><NavBarOffOperador/><ListaUsuariosParqueo/></>}/>
 
         <Route path='/MenuGuardia' element={<NavBarOffGuardia/>}/>
         <Route path='/MenuGuardia/TablaMensajeGuardia' element={<><NavBarOffGuardia/><TablaMensajeGuardia/></>}/>

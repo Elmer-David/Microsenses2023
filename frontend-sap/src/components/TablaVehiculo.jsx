@@ -11,6 +11,7 @@ const cookies = new Cookies();
 const TablaVehiculo = () => {
     const [vehiculos, setVehiculos] = useState( [] );
     const API_URL_VEHICULOS = configData.VEHICLIS_API_URL;
+    const API_URL_VEHICULO = configData.VEHICULOS_API_URL;
 
     const tipou = cookies.get('tipo_usuario');
     const [admin, setAdmin] = useState(true);
@@ -28,7 +29,7 @@ const TablaVehiculo = () => {
     }
   
     const deleteVehiculo=async(id)=>{
-        const url=`${API_URL_VEHICULOS}/${id}`;
+        const url=`${API_URL_VEHICULO}/${id}`;
         await axios.delete(url)
         getAllVehiculo()
     }

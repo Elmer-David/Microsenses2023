@@ -98,6 +98,8 @@ function NavBarOffOperador() {
                     <NavDropdown.Item href="/MenuOperador/TablaUserCliente">Lista de Clientes</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="/MenuOperador/TablaUserGuardia">Lista de Guardias</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/MenuOperador/TablaUsuarioParqueo">Lista de Clientes con Parqueos</NavDropdown.Item>
 
                   </NavDropdown>
 
