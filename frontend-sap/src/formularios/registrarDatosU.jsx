@@ -151,8 +151,8 @@ function resetForm() {
   };
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center" >
-      <h1>Registrar cuenta </h1>
+    <div style={{color: '#EAF1F7', backgroundColor:"#EAF1F7"}} className="d-flex flex-column justify-content-center align-items-center" >
+      <h1 style={{marginTop: "30px"}} >Registrar cuenta </h1>
       <Row className="justify-content-md-center">
         <Col md={6}>
     <Form onSubmit={onSubmit}>

@@ -249,7 +249,7 @@ function BoletaForm() {
 
         <div>
         
-        <Button onClick={handleClick}  variant="danger" >Cancelar </Button>
+        <Button style={{backgroundColor: "#DC3545", marginLeft: "80px", marginTop:"20px"}} onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>Confirmar acción</Modal.Title>
@@ -266,7 +266,7 @@ function BoletaForm() {
                   </Modal.Footer>
                </Modal>
 
-          <Button variant="primary" type="submit" className="mr-2">
+          <Button style={{backgroundColor: "#198754", marginLeft: "80px", marginTop:"20px"}} variant="primary" type="submit" className="mr-2">
             Enviar
           </Button>
         </div>

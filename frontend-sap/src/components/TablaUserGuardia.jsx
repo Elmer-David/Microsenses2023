@@ -31,11 +31,12 @@ const TablaUserGuardia = () => {
         <h3 style={{textAlign: "center"}}>Lista de Guardias:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
-                <tr>
+            <tr style={{backgroundColor: "#0C4D51"}}>
                 <th>NOMBRE</th>
                 <th>APELLIDO</th>
                 <th>DNI</th>
                 <th>TELEFONO</th>
+                <th>DIRECCION</th>
                 <th>CORREO ELECTRONICO</th>
                 <th>FOTO DE PERFIL</th>
                 <th>ELIMINAR</th>
@@ -48,6 +49,7 @@ const TablaUserGuardia = () => {
                         <td>{user.apellido}</td>
                         <td>{user.dni}</td>
                         <td>{user.telefono}</td>
+                        <td>{user.direccion}</td>
                         <td>{user.email}</td>
                         <td><img src={user.foto_perfil} width="200px"></img></td>
 

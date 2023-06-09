@@ -18,8 +18,8 @@ const TablaVehiculo = () => {
     useEffect(()=>{
         getAllVehiculo()
         tipousuario()
-        console.log(admin);
-        console.log(tipou); 
+        // console.log(admin);
+        // console.log(tipou); 
     }, [])
 
     const getAllVehiculo=async()=>{
@@ -64,7 +64,7 @@ const TablaVehiculo = () => {
         <h3 style={{textAlign: "center"}}>Lista de Vehiculos:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
-                <tr>
+            <tr style={{backgroundColor: "#0C4D51"}}>
                 <th>MODELO</th>
                 <th>NRO_PLACA</th>
                 <th>DESCRIPCION</th>

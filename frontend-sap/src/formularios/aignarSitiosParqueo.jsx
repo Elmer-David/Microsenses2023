@@ -256,10 +256,10 @@ function AsignarSitiosParqueo() {
                     <p>Nombre de la zona: {user.nombreZona}</p>
                   </>
                 )}
-                <Button variant="primary" onClick={() => handleRandomClick(user.id)}>
+                <Button style={{backgroundColor: "#198754", marginLeft: "50px"}} variant="primary" onClick={() => handleRandomClick(user.id)}>
                   Aleatorio
                 </Button>{" "}
-                <Button variant="secondary" onClick={() => handleManualClick(user.id)}>
+                <Button style={{backgroundColor: "#198754", marginLeft: "50px"}} variant="secondary" onClick={() => handleManualClick(user.id)}>
                   Manual
                 </Button>
               </ListGroup.Item>

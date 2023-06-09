@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configData from '../config/config.json';
 
 const cookies = new Cookies();
 
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
+
+const URL_USER = configData.CUSER_API_URL;
+const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
 
 const ActuliazarDatos = () => {
 
@@ -135,6 +139,14 @@ const ActuliazarDatos = () => {
     }
   };
 
+  //subida imagen
+  const initialValues ={
+    file:null,
+    nombre: ''
+  }
+  const [archivo, setArchivo] = useState(initialValues);
+  //fin subida imagen
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -158,13 +170,17 @@ const ActuliazarDatos = () => {
 
     if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente",Departamento, cargo,miId,sitioa,id_zonaa,image);
-
-      await axios.put(`http://localhost:8000/api/users/${miId}`, {
-    
+      const fd = new FormData();
+      fd.append('file', archivo.file);
+      await axios.post(URL_IMAGENSTORAGE, fd)
+      .then(response=>{ 
+          var urli= response.data.urlimagen;
+          var auxi = `http://localhost:8000/${urli}`;
+      axios.put(`${URL_USER}/${miId}`, {
       name: nombre,
       apellido: apellido,
       dni: CI,
-      foto_perfil:null,
+      foto_perfil:auxi,
       telefono: telefono,
       direccion: direccion,
       email: correoElectronico,
@@ -174,15 +190,12 @@ const ActuliazarDatos = () => {
       cargo: cargo,
       departamento: Departamento,
       sitio: sitioa,
-     
-    
       id_zona: id_zonaa,
-      
-      } 
-      
-      )
-      
+      })
+      })
       resetForm();
+      actualizarCookies();
+      notificacion();
       // Aquí podrías enviar los datos del formulario al servidor
     } else {
       console.log("Hay errores en el formulario:");
@@ -196,6 +209,43 @@ const ActuliazarDatos = () => {
       console.log(errorCorreoElectronico);
     }
   };
+
+  useEffect ( ()=>{
+    setNombre(nombrea)
+    setApellido(apellidoa)
+    setTelefono(telefonoa)
+    setCI(dnia)
+    setDireccion(direcciona)
+    setCargo(cargoa)
+    setCorreoElectronico(emaila)
+    setDepartamento(departamentoa)
+  }, [])
+
+  function actualizarCookies(){
+      cookies.set('name', nombre, {path: "/"});
+      cookies.set('apellido', apellido, {path: "/"});
+      cookies.set('telefono', telefono, {path: "/"});
+      cookies.set('dni', CI, {path: "/"});
+      cookies.set('direccion', direccion, {path: "/"});
+      cookies.set('cargo', cargo, {path: "/"});
+      cookies.set('password_confirmed', contraseña, {path: "/"});
+      cookies.set('email', correoElectronico, {path: "/"});
+      cookies.set('departamento', Departamento, {path: "/"});
+      cookies.set('foto_perfil', null, {path: "/"});
+  }
+  const notificacion = () => {
+    toast.success('Datos Actualizados con Exito', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } 
+
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center" >
@@ -214,7 +264,7 @@ const ActuliazarDatos = () => {
           maxLength={30}
           minLength={2}
           required
-          placeholder= {nombrea}
+          // placeholder= {nombrea}
         />
         <Form.Control.Feedback type="invalid">
           {errorNombre}
@@ -232,7 +282,7 @@ const ActuliazarDatos = () => {
           maxLength={30}
           minLength={2}
           required
-          placeholder= {apellidoa}
+          // placeholder= {apellidoa}
         />
         <Form.Control.Feedback type="invalid">
           {errorApellido}
@@ -250,7 +300,7 @@ const ActuliazarDatos = () => {
             maxLength={8}
             minLength={2}
             required
-            placeholder= {telefonoa}
+            // placeholder= {telefonoa}
           />
           <Form.Control.Feedback type="invalid" >
             {errorTelefono}
@@ -268,7 +318,7 @@ const ActuliazarDatos = () => {
             maxLength={10}
             minLength={6}
             required
-            placeholder= {dnia}
+            // placeholder= {dnia}
           />
           <Form.Control.Feedback type="invalid" >
             {errorCI}
@@ -285,7 +335,7 @@ const ActuliazarDatos = () => {
             maxLength={250}
             minLength={2}
             required
-            placeholder= {direcciona}
+            // placeholder= {direcciona}
           />
         </Form.Group>
 
@@ -293,8 +343,8 @@ const ActuliazarDatos = () => {
               <Form.Label>Cargo: </Form.Label>
               <Form.Control as="select"  value={cargo}  required  onChange={(event) => setCargo(event.target.value)}>
               <option value="">{cargoa}</option>
-    <option value="docente">docente</option>
-    <option value="Adminisrativo" >administrativo</option>
+    <option value="Docente">Docente</option>
+    <option value="Adminisrativo" >Administrativo</option>
               </Form.Control>
             </Form.Group>
 
@@ -358,7 +408,7 @@ const ActuliazarDatos = () => {
     onChange={(event) => setCorreoElectronico(event.target.value)}
     isInvalid={errorCorreoElectronico}
     required
-    placeholder= {emaila}
+    // placeholder= {emaila}
 
   />
   <Form.Control.Feedback type="invalid">
@@ -378,7 +428,11 @@ const ActuliazarDatos = () => {
 
           <Form.Group controlId="formBasicFoto">            
           <Form.Label>Foto de Perfil</Form.Label>
-              <Form.Control type="file" onChange={handleImageUpload} accept="image/*"   required />
+              <Form.Control 
+              type="file" 
+              onChange={e=> setArchivo({file: e.target.files[0]})}
+              accept="image/*"   
+              required />
               {image && (
                 <div>
                   <img src={image} alt="Foto del cliente" width="300" height="300" />
@@ -390,6 +444,7 @@ const ActuliazarDatos = () => {
 
 <Button variant="success" type="submit">Actualizar</Button>
 </Form>
+<ToastContainer />
 </Col>
        </Row>
        </div>

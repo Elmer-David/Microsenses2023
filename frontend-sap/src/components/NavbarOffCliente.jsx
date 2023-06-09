@@ -62,7 +62,7 @@ function NavBarOffCliente() {
             <Navbar.Brand href="#">Cliente</Navbar.Brand>
             <Navbar.Text>
             Logueado como: <a >{nombre_c}</a>
-            con sitio de parqueo: <a >{nombre_d}</a>
+            -Con sitio de parqueo: <a >{nombre_d}</a>
             
 
           </Navbar.Text>

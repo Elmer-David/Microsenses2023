@@ -103,7 +103,7 @@ const RegistroVehiculo = () => {
 
   return (
     
-    <div className="container d-flex align-items-center" style={{ height: "100vh" }}>
+    <div className="d-flex align-items-center" style={{ height: "100vh" }}>
     <div className="col-lg-6 mx-auto">
       <h1>Registrar Vehículo</h1>
       <Form onSubmit={handleSubmit}>
@@ -176,7 +176,7 @@ const RegistroVehiculo = () => {
               
                 
                 
-             <Button onClick={handleClick} variant="danger"   >Cancelar </Button>
+             <Button style={{backgroundColor: "#DC3545", marginLeft: "80px"}} onClick={handleClick} variant="danger"   >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                  
                   <Modal.Body>¿Estás seguro de cancelar el registro?</Modal.Body>
@@ -193,7 +193,7 @@ const RegistroVehiculo = () => {
                 
                 
                 
-                  <Button variant="success" type="submit">
+                  <Button style={{backgroundColor: "#198754", marginRight: "180px"}} variant="success" type="submit">
                     Registrar
                   </Button>
                 </div>

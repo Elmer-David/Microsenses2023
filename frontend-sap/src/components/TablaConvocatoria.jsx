@@ -30,7 +30,7 @@ const TablaConvocatoria = () => {
         <h3 style={{textAlign: "center"}}>Lista de Convocatorias:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
-                <tr>
+                <tr style={{backgroundColor: "#0C4D51"}}>
                 <th>NOMBRE DEL PARQUEO</th>
                 <th>NOMBRE DEL BANCO</th>
                 <th>NRO CUENTA BANCO</th>

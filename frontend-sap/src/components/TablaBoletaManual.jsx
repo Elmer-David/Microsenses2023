@@ -48,7 +48,7 @@ const TablaBoletaManual = () => {
         <h3 style={{textAlign: "center"}}>Boletas Registradas Manualmente:</h3>
         <table style={{marginLeft: "10px", marginRight: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
-                <tr>
+            <tr style={{backgroundColor: "#0C4D51"}}>
                 <th>MENSUALIDAD</th>
                 <th>MONTO</th>
                 <th>FECHA DE PAGO</th>

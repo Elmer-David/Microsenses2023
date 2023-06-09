@@ -28,10 +28,10 @@ const TablaBoleta = () => {
     <div>
         <div className='d-grid gap-2'>
         </div>
-        <h3 style={{textAlign: "center"}}>Lista de Boletas:</h3>
+        <h3 style={{textAlign: "center"}}>Lista de Boletas Por Transferencia:</h3>
         <table style={{marginLeft: "10px"}} className='table table-striped'>
             <thead className='bg-primary text-white'>
-                <tr>
+            <tr style={{backgroundColor: "#0C4D51"}}>
                 <th>MENSUALIDAD</th>
                 <th>MONTO</th>
                 <th>NRO TRANSACCION</th>
@@ -39,6 +39,7 @@ const TablaBoleta = () => {
                 <th>NOMBRE</th>
                 <th>APELLIDO</th>
                 <th>CORREO ELECTRONICO</th>
+                <th>IMAGEN</th>
                 <th>ELIMINAR</th>
                 </tr>
             </thead>
@@ -52,6 +53,7 @@ const TablaBoleta = () => {
                         <td>{boleta.name}</td>
                         <td>{boleta.apellido}</td>
                         <td>{boleta.email}</td>
+                        <td><img src={boleta.foto_comprobante} width="200px"></img></td>
 
                         <td>
                             <button onClick={()=>deleteBoleta(boleta.id)} className='btn btn-danger'>Eliminar</button>

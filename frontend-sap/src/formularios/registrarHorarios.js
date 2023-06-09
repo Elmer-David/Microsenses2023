@@ -149,19 +149,19 @@ function RegistroH() {
         {endTimeError && <div className="error-message">{endTimeError}</div>}
       </Form.Group>
 
-      <Button variant="danger" type="reset">
+      <Button style={{backgroundColor: "#DC3545", marginLeft: "80px"}} variant="danger" type="reset">
         Cancelar
       </Button>
-      <Button variant="success" type="submit" onClick={handleSave}>Guardar</Button>
+      <Button style={{backgroundColor: "#198754", marginLeft: "80px"}} variant="success" type="submit" onClick={handleSave}>Guardar</Button>
 
       <h2>Horarios Registrados</h2>
       <ListGroup>
         {shifts.map((shift, index) => (
           <ListGroup.Item key={index}>
             <span>{shift.name} - {shift.startTime} a {shift.endTime}</span>
-            <Button variant="danger" size="sm" className="float-right" onClick={() => handleDelete(index)}>
+            {/* <Button variant="danger" size="sm" className="float-right" onClick={() => handleDelete(index)}>
               Eliminar
-            </Button>
+            </Button> */}
           </ListGroup.Item>
         ))}
       </ListGroup>

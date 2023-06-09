@@ -65,10 +65,10 @@ function SolicitudPago() {
   };
 
   return (
-    <Row style={{marginLeft: "0px", background: "#1E1F26"}}>
+    <Row style={{marginLeft: "0px", background: "#0C4D51"}}>
               <h2 style={{marginLeft: "520px", color: "#F1F1F2"}}>Solicitudes de Pago:</h2>
               <></>
-      <Col style={{marginLeft: "5px", background: "#D0E1F9"}}>
+      <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
         <h2>Pendientes:</h2>
         <ul>
         <p>--------------------------------------------------</p>
@@ -84,15 +84,15 @@ function SolicitudPago() {
               <p>Monto a pagar: {boleta.monto}</p>
               <p>Fecha de deposito: {boleta.fecha_deposito}</p>
 
-              <Button style={{marginLeft: "35px"}} onClick={() => handleAceptadoClick(boleta.id)}>Aceptar</Button>
-              <Button style={{marginLeft: "40px"}} onClick={() => handleRechazoClick(boleta.id)}>Rechazar</Button>
+              <Button style={{backgroundColor: "#198754", marginLeft: "35px"}} onClick={() => handleAceptadoClick(boleta.id)}>Aceptar</Button>
+              <Button style={{backgroundColor: "#DC3545", marginLeft: "40px"}} onClick={() => handleRechazoClick(boleta.id)}>Rechazar</Button>
               <p>--------------------------------------------------</p>
             </li>
           ))}
         </ul>
       </Col> 
         
-      <Col style={{marginLeft: "5px", background: "#F1F1F2"}}>
+      <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
         <h2>Aceptados:</h2>
         <p>--------------------------------------------------</p>
 
@@ -112,7 +112,7 @@ function SolicitudPago() {
         </ul>
       </Col>
 
-        <Col style={{marginLeft: "5px", background: "#BCBABE"}}>
+        <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
           <h2>Rechazados:</h2>
           <p>--------------------------------------------------</p>
 

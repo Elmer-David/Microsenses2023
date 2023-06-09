@@ -7,14 +7,14 @@ import axios from 'axios';
 
 function NavBarMenu() {
   return (
-    <Navbar className='navbar333' style={{ backgroundColor: 'rgb(192, 192, 192)' }} expand="lg">
+    <Navbar className='navbar333' style={{ backgroundColor: 'rgb(12,77,81)' }} expand="lg">
       {/* style={{ backgroundColor: 'rgb(8, 8, 100)' }} */}
       <Container>
-        <Navbar.Brand  href="/">Parqueo FCyT </Navbar.Brand>
+        <Navbar.Brand style={{ color: 'rgb(255,255,255)' }} href="/">Parqueo FCyT </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-             <Nav.Link href="/MenuPrincipal/Convocatoria">Convocatoria</Nav.Link>
+             <Nav.Link style={{ color: 'rgb(255,255,255)' }} href="/MenuPrincipal/Convocatoria">Convocatoria</Nav.Link>
             {/*f="#link">Link</Nav.Link>
             <NavDropdown title="Registro Lista" id="basic-nav-dropdown">
               <NavDropdown.Item href="/RegistroConvocatoria">Registro Convocatoria</NavDropdown.Item>
@@ -29,10 +29,10 @@ function NavBarMenu() {
             </NavDropdown> */}
           </Nav>
           <Navbar.Text>
-           <a href="/RegistroCuenta">Registrarse         |</a>
+           <a style={{ color: 'rgb(255,255,255)' }} href="/RegistroCuenta">Registrarse</a>
           </Navbar.Text>
           <Navbar.Text>
-           <a href="/Login">|            Iniciar Sesion</a>
+           <a style={{ color: 'rgb(255,255,255)', marginLeft:"20px" }} href="/Login">Iniciar Sesion</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

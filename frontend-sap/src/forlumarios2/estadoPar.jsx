@@ -216,7 +216,7 @@ function RequestForm() {
   };
 
   return (
-    <div className="d-flex align-items-center" style={{ height: 'auto' }}>
+    <div className="d-flex align-items-center" style={{ height: '100vh' }}>
    {/*aqui se puede poner cosas para el lateral*/} 
       <Form onSubmit={handleSubmit} className="mx-auto">
       <h1> Formulario de la  convocatoria  </h1>
@@ -280,7 +280,7 @@ function RequestForm() {
           <Form.Control type="number" value={multa} onChange={handleMultaChange}  required/>
         </Form.Group>
 
-        <Button onClick={handleClick}  variant="danger" >Cancelar </Button>
+        <Button style={{backgroundColor: "#DC3545", marginLeft: "80px"}} onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>Confirmar acción</Modal.Title>
@@ -299,8 +299,8 @@ function RequestForm() {
 
 
 
-        <Button variant="primary" type="submit">
-          Confirmar
+        <Button style={{backgroundColor: "#198754", marginLeft: "80px"}} variant="primary" type="submit">
+          Registrar
         </Button>
       </Form>
       <ToastContainer />

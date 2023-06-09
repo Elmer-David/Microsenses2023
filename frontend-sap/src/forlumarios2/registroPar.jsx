@@ -210,7 +210,7 @@ function ParqueoForm() {
       </Form.Group>
 
                
-        <Button onClick={handleClick}  variant="danger" >cancelar </Button>
+        <Button style={{backgroundColor: "#DC3545", marginLeft: "80px"}} onClick={handleClick}  variant="danger" >Cancelar </Button>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                   <Modal.Header closeButton>
                     <Modal.Title>Confirmar acción</Modal.Title>
@@ -228,7 +228,7 @@ function ParqueoForm() {
                </Modal>
 
 
-      <Button type="submit">Guardar</Button>
+      <Button style={{backgroundColor: "#198754", marginLeft: "80px"}} type="submit">Registrar</Button>
       <ul>
             {horariosRegistrados.map((horario, index) => (
                 <li key={index}>

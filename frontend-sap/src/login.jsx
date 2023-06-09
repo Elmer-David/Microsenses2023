@@ -153,7 +153,7 @@ function LoginForm(){
       ))}
     </div> */}
   
-    <div className="form-container">
+    <div className="d-flex align-items-center" style={{ height: "60vh", marginLeft:"50px", backgroundColor:"#EAF1F7"}}>
       <Form onSubmit={handleSubmit}>
         <FormGroup controlId="formUsername">
           <FormLabel>Email:</FormLabel>
@@ -167,7 +167,7 @@ function LoginForm(){
   
         {error && <Alert variant="danger">{error}</Alert>}
   
-        <Button variant="primary" type="submit" className="btn-login">
+        <Button style={{ marginLeft: '40px' }} variant="primary" type="submit" className="btn-login">
           Iniciar Sesion
         </Button>
       </Form>

@@ -99,6 +99,7 @@ const Rutas=()=> {
         <Route path='/MenuAdministrador/MensajeACliente' element={<><NavBarOffAdministrador/><MensajeACliente/></>}/>
         <Route path='/MenuAdministrador/MensajeAOperador' element={<><NavBarOffAdministrador/><MensajeAOperador/></>}/>
         <Route path='/MenuAdministrador/MensajeAGuardia' element={<><NavBarOffAdministrador/><MensajeAGuardia/></>}/>
+        <Route path='/MenuAdministrador/TablaBoletaManual' element={<><NavBarOffAdministrador/><TablaBoletaManual/></>}/>
 
         <Route path='/MenuCliente' element={<NavBarOffCliente/>}/>
         <Route path='/RegistroVehiculo' element={<><NavBarOffCliente/><RegistroVehiculo/></>}/>
