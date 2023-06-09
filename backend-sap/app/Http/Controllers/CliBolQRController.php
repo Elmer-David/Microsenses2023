@@ -19,7 +19,7 @@ class CliBolQRController extends Controller
         return DB::table('users')
         ->join('boletas', 'users.id', '=', 'boletas.id_user')
         ->select('boletas.*', 'users.name', 'users.apellido', 'users.email')
-        ->where('boletas.estado', 4) 
+        ->whereBetween('boletas.estado', [4, 6]) 
         ->get();
     }
 

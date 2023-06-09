@@ -22,6 +22,36 @@ const TablaBoletaSE = () => {
     //     await axios.delete(url)
     //     getAllBoleta()
     // }
+    function tipoboleta(props){
+        var usu = props;
+        var resul = '';
+        switch (usu){
+        case 0 :
+            resul = "PENDIENTE"
+             return resul;
+        case 1 :
+            resul = "ACEPTADA"
+            return resul;
+        case 2 :
+            resul = "RECHAZADA"
+            return resul;
+        case 3 :
+            resul = "BOLETA MANUAL"
+            return resul;  
+        case 4 :
+            resul = "BOLETA QR PENDIENTE"
+            return resul; 
+        case 5 :
+            resul = "BOLETA QR ACEPTADA"
+            return resul; 
+        case 6 :
+            resul = "BOLETA QR RECHAZADA"
+            return resul; 
+        default :
+            resul = "NO DEFINIDO"
+            return resul;
+      }
+    }
 
   return (
     <div>
@@ -40,6 +70,7 @@ const TablaBoletaSE = () => {
                 <th>APELLIDO</th>
                 <th>CORREO ELECTRONICO</th>
                 <th>IMAGEN</th>
+                <th>ESTADO</th>
                 {/* <th>ELIMINAR</th> */}
                 </tr>
             </thead>
@@ -54,6 +85,7 @@ const TablaBoletaSE = () => {
                         <td>{boleta.apellido}</td>
                         <td>{boleta.email}</td>
                         <td><img src={boleta.foto_comprobante} width="200px"></img></td>
+                        <td>{tipoboleta(boleta.estado)}</td>
 
                         {/* <td>
                             <button onClick={()=>deleteBoleta(boleta.id)} className='btn btn-danger'>Eliminar</button>

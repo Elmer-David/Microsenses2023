@@ -65,6 +65,7 @@ import RegistrarBoletaQr from '../forlumarios2/registrarBoletaQR';
 import TablaBoletaQR from '../components/TablaBoletaQR';
 import TablaBoletaSE from '../components/TablaBoletaSE';
 import TablaBoletaQRSE from '../components/TablaBoletaQRSE';
+import SolicitudPagoQr from '../forlumarios2/solicitudPagoQr';
 
 const Rutas=()=> {
 
@@ -135,6 +136,7 @@ const Rutas=()=> {
         <Route path='/MenuOperador/MensajeAGuardia' element={<><NavBarOffOperador/><MensajeAGuardia/></>}/>
         <Route path='/MenuOperador/TablaBoletaT' element={<><NavBarOffOperador/><TablaBoletaSE/></>}/>
         <Route path='/MenuOperador/TablaBoletaQR' element={<><NavBarOffOperador/><TablaBoletaQRSE/></>}/>
+        <Route path='/MenuOperador/SolicitudBoletaQR' element={<><NavBarOffOperador/><SolicitudPagoQr/></>}/>
 
         <Route path='/MenuGuardia' element={<NavBarOffGuardia/>}/>
         <Route path='/MenuGuardia/TablaMensajeGuardia' element={<><NavBarOffGuardia/><TablaMensajeGuardia/></>}/>

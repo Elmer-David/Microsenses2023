@@ -64,7 +64,8 @@ function NavBarOffOperador() {
                   <Nav.Link href="/MenuOperador/AsignarSitio">Asignar Sitio</Nav.Link>
                   <Nav.Link href="/RegistroBoletaManual">Registrar Pago de Boleta</Nav.Link>
                   <Nav.Link href="/MenuOperador/RegistroPersonal">Registrar Personal</Nav.Link>
-                  <Nav.Link href="/SolicitudBoleta">Revisar Solicitudes de Boletas</Nav.Link>
+                  <Nav.Link href="/SolicitudBoleta">Revisar Solicitudes de Boletas Por Transferencia</Nav.Link>
+                  <Nav.Link href="/MenuOperador/SolicitudBoletaQR">Revisar Solicitudes de Boletas Por QR</Nav.Link>
 
                   <NavDropdown
                     title="Enviar Mensaje"

@@ -66,7 +66,7 @@ function SolicitudPago() {
 
   return (
     <Row style={{marginLeft: "0px", background: "#0C4D51"}}>
-              <h2 style={{marginLeft: "520px", color: "#F1F1F2"}}>Solicitudes de Pago:</h2>
+              <h2 style={{textAlign: "center", color: "#F1F1F2"}}>Solicitudes de Boleta por Transferencia:</h2>
               <></>
       <Col style={{marginLeft: "5px", background: "#F3F3FA"}}>
         <h2>Pendientes:</h2>
@@ -83,6 +83,8 @@ function SolicitudPago() {
               <p>Meses a pagar : {boleta.mensualidad}</p>
               <p>Monto a pagar: {boleta.monto}</p>
               <p>Fecha de deposito: {boleta.fecha_deposito}</p>
+              <img src={boleta.foto_comprobante} width="350px"></img>
+              <p></p>
 
               <Button style={{backgroundColor: "#198754", marginLeft: "35px"}} onClick={() => handleAceptadoClick(boleta.id)}>Aceptar</Button>
               <Button style={{backgroundColor: "#DC3545", marginLeft: "40px"}} onClick={() => handleRechazoClick(boleta.id)}>Rechazar</Button>

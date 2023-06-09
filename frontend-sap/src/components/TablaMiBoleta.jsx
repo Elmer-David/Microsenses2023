@@ -51,7 +51,13 @@ const TablaMiBoleta = () => {
             resul = "BOLETA MANUAL"
             return resul;  
         case 4 :
-            resul = "BOLETA QR"
+            resul = "BOLETA QR PENDIENTE"
+            return resul; 
+        case 5 :
+            resul = "BOLETA QR ACEPTADA"
+            return resul; 
+        case 6 :
+            resul = "BOLETA QR RECHAZADA"
             return resul; 
         default :
             resul = "NO DEFINIDO"
@@ -93,7 +99,7 @@ const TablaMiBoleta = () => {
                         <td>{tipoboleta(boleta.estado)}</td>
                         <td><img src={boleta.foto_comprobante} width="200px"></img></td>
 
-                        {boleta.estado == 1 ?
+                        {boleta.estado == 1 || boleta.estado == 5 ?
                             <><td>
                             <button onClick={()=>{
                                 verFactura(boleta.id);
