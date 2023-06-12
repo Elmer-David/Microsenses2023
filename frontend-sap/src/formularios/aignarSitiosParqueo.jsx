@@ -205,7 +205,7 @@ function AsignarSitiosParqueo() {
             email: user.email,
             password: user.password_confirmed,
             password_confirmed: user.password_confirmed,
-            tipo_usuario: user.tipo_usuario,
+            tipo_usuario: 4,
             cargo: user.cargo,
             departamento: user.departamento,
             solicitud_parqueo: 2,
