@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
 
+
 const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
+const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
 
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
@@ -20,28 +22,46 @@ function RequestForm() {
   const [nombreParqueo, setNombreParqueo] = useState('');
   const URL_PARQUEO = 'http://localhost:8000/api/parqueos/';
 
+  const [ultimaConv, setUltimaConv] = useState(null); // Inicialmente se establece como null
 
-  const handleFotoChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setFoto(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  };
- 
+
+  useEffect(() => {
+    axios
+      .get(URL_CONVOCATARIA)
+      .then((response) => {
+        if (response.data.length > 0) {
+          var ult = response.data[response.data.length - 1];
+          setUltimaConv(ult);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleStartDateChange = (event) => {
     const selectedDate = new Date(event.target.value);
     const currentDate = new Date();
-    if (selectedDate < currentDate) {
+    let lastConvEndDate = null;
+  
+    if (ultimaConv) {
+      lastConvEndDate = new Date(ultimaConv.fecha_fin_solicitud);
+    }
+  
+    if (lastConvEndDate) {
+      if (selectedDate < lastConvEndDate) {
+        // si la fecha seleccionada es anterior a la fecha de fin de la última convocatoria, se establece la fecha de fin de la última convocatoria como la nueva fecha de inicio
+        setStartDate(lastConvEndDate.toISOString().slice(0, 10));
+      } else {
+        setStartDate(event.target.value);
+      }
+    } else if (selectedDate < currentDate) {
       // si la fecha seleccionada es anterior a la fecha actual, se establece la fecha actual como la nueva fecha de inicio
       setStartDate(currentDate.toISOString().slice(0, 10));
     } else {
       setStartDate(event.target.value);
     }
-  };
-  const handleNombreChange = (event) => {
+  };const handleNombreChange = (event) => {
     setNombre(event.target.value);
   };
   const handleNombreParqueoChange = (event) => {
@@ -90,7 +110,7 @@ function RequestForm() {
     
   
     const inputValue = event.target.value;
-    const mitadPrecio = Number(precio) / 2;
+    const mitadPrecio = Number(precio) / 4;
     const nuevaMulta = inputValue <= mitadPrecio ? inputValue : mitadPrecio;
   
     setMulta(nuevaMulta);
@@ -166,6 +186,12 @@ function RequestForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (new Date(startDate) > new Date(endDate)) {
+      // La fecha de inicio es mayor a la fecha de fin, se muestra un mensaje de error o se realiza alguna acción correspondiente
+      alert ('La fecha de inicio de la Convocatoria  no puede ser desdpues de la fecha de fin de la Convocatoria');
+      return; // Se detiene la ejecución del formulario
+    }
 
     const fd = new FormData();
     fd.append('file', archivo.file);
@@ -279,12 +305,12 @@ function RequestForm() {
         </Form.Group>
 
         <Form.Group controlId="startDate">
-          <Form.Label>Fecha de inicio:</Form.Label>
+          <Form.Label>Fecha de inicio de la Convocatoria:</Form.Label>
           <Form.Control type="date" value={startDate} onChange={handleStartDateChange}required />
         </Form.Group>
 
         <Form.Group controlId="endDate">
-          <Form.Label>Fecha de fin:</Form.Label>
+          <Form.Label>Fecha de fin de la Convocatoria:</Form.Label>
           <Form.Control type="date" value={endDate} onChange={handleEndDateChange}required />
         </Form.Group>
 

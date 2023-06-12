@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import axios from 'axios'
+import configData from '../config/config.json'
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
+const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
 
 function SolicitarEspacio() {
 
   const nombre = cookies.get('name');
+  const solicitudParqueo = cookies.get('solicitud_parqueo');
   const apellido = cookies.get('apellido');
   const CI = cookies.get('dni');
   const confirmarContraseña = cookies.get('password_confirmed');
@@ -15,10 +18,26 @@ function SolicitarEspacio() {
   const tipo_usuario = cookies.get('tipo_usuario');
   const cargo = cookies.get('cargo');
 
-  const [enviado, setEnviado] = useState(false);
+  const [enviado, setEnviado] = useState(cookies.get('solicitud_parqueo') === '1' ? true : false);
   const [mostrarCancelModal, setMostrarCancelModal] = useState(false);
   const [showSolicitudEnviadaModal, setMostrarSolicitudEnviadaModal] = useState(false);
+  const [mostrarFechaNoVigenteModal, setMostrarFechaNoVigenteModal] = useState(false);
   const id = cookies.get('id'); 
+
+
+  
+  const [ultimaConv, setUltimaConv] = useState([]);
+  useEffect(() => {
+    axios
+      .get(URL_CONVOCATARIA)
+      .then((response) => {
+        var ult = response.data[response.data.length -1];
+        setUltimaConv(ult);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   useEffect(() => {
     if (enviado) {
@@ -50,8 +69,23 @@ function SolicitarEspacio() {
   }, [enviado]);
 
   const handleSolicitarClick = () => {
+    const fechaActual = new Date();
+    const fechaFinSolicitud = new Date(ultimaConv.fecha_fin_solicitud);
+
+    if (fechaActual <= fechaFinSolicitud) {
+
     setEnviado(true);
+
     setMostrarSolicitudEnviadaModal(true);
+  } else {
+    // La fecha de convocatoria ya no está vigente
+    setMostrarFechaNoVigenteModal(true);
+
+  }
+  };
+  const handleFechaNoVigenteModal = () => {
+    console.log("Datos enviados:", solicitudParqueo, nombre, tipo_usuario);
+    setMostrarFechaNoVigenteModal(false);
   };
 
   const handleCancelarClick = () => {
@@ -97,12 +131,13 @@ function SolicitarEspacio() {
 
   return (
     <>
-      <Button
-        variant={enviado ? "danger" : "primary"}
-        onClick={enviado ? handleCancelarClick : handleSolicitarClick}
-      >
-        {enviado ? "Cancelar sitio de parqueo" : "Solicitar sitio de parqueo"}
-      </Button>
+    {/* Renderizar el botón correspondiente según el estado enviado */}
+    <Button
+      variant={enviado ? "danger" : "primary"}
+      onClick={enviado ? handleCancelarClick : handleSolicitarClick}
+    >
+      {enviado ? "Cancelar solicitud" : "Solicitar sitio de parqueo"}
+    </Button>
 
       <Modal show={mostrarCancelModal} onHide={handleCancelarCancel}>
         <Modal.Header closeButton>
@@ -125,6 +160,19 @@ function SolicitarEspacio() {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleSolicitudEnviadaModal}>
             ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={mostrarFechaNoVigenteModal} onHide={handleFechaNoVigenteModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Fecha de convocatoria no vigente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          La fecha de convocatoria ya no está vigente. No se puede realizar la solicitud.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleFechaNoVigenteModal}>
+            Cerrar
           </Button>
         </Modal.Footer>
       </Modal>
