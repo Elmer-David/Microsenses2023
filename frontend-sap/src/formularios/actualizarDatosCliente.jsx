@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
 import configure from '../config/configure';
+import {subirImagen} from '../firebase/config';
 
 const cookies = new Cookies();
 
@@ -171,30 +172,52 @@ const ActuliazarDatos = () => {
     setErrorCorreoElectronico(errorCorreoElectronico);
 
     if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
-      console.log("El formulario se envió correctamente",Departamento, cargo,miId,sitioa,id_zonaa,image);
-      const fd = new FormData();
-      fd.append('file', archivo.file);
-      await axios.post(URL_IMAGENSTORAGE, fd)
-      .then(response=>{ 
-          var urli= response.data.urlimagen;
-          var auxi = `${BASIC_URL}${urli}`;
-      axios.put(`${URL_USER}/${miId}`, {
-      name: nombre,
-      apellido: apellido,
-      dni: CI,
-      foto_perfil:auxi,
-      telefono: telefono,
-      direccion: direccion,
-      email: correoElectronico,
-      password: contraseña,
-      password_confirmed: confirmarContraseña,
-      tipo_usuario: 4,
-      cargo: cargo,
-      departamento: Departamento,
-      sitio: sitioa,
-      id_zona: id_zonaa,
-      })
-      })
+     
+      try {
+        const url = await subirImagen(archivo.file);
+        axios.put(`${URL_USER}/${miId}`, {
+          name: nombre,
+          apellido: apellido,
+          dni: CI,
+          foto_perfil:url,
+          telefono: telefono,
+          direccion: direccion,
+          email: correoElectronico,
+          password: contraseña,
+          password_confirmed: confirmarContraseña,
+          tipo_usuario: 4,
+          cargo: cargo,
+          departamento: Departamento,
+          sitio: sitioa,
+          id_zona: id_zonaa,
+          })
+      } catch (error) {
+        console.error(error);
+      }
+      // console.log("El formulario se envió correctamente",Departamento, cargo,miId,sitioa,id_zonaa,image);
+      // const fd = new FormData();
+      // fd.append('file', archivo.file);
+      // await axios.post(URL_IMAGENSTORAGE, fd)
+      // .then(response=>{ 
+      //     var urli= response.data.urlimagen;
+      //     var auxi = `${BASIC_URL}${urli}`;
+      // axios.put(`${URL_USER}/${miId}`, {
+      // name: nombre,
+      // apellido: apellido,
+      // dni: CI,
+      // foto_perfil:auxi,
+      // telefono: telefono,
+      // direccion: direccion,
+      // email: correoElectronico,
+      // password: contraseña,
+      // password_confirmed: confirmarContraseña,
+      // tipo_usuario: 4,
+      // cargo: cargo,
+      // departamento: Departamento,
+      // sitio: sitioa,
+      // id_zona: id_zonaa,
+      // })
+      // })
       resetForm();
       actualizarCookies();
       notificacion();

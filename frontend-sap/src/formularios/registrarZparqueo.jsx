@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
 import configure from "../config/configure";
+import {subirImagen} from '../firebase/config';
 
 const ZONA_URL = configure.ZONAS_API_URL;
 const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
@@ -77,22 +78,35 @@ const RegistroZonasParqueo = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const fd = new FormData();
-    fd.append('file', archivo.file);
-    await axios.post(URL_IMAGENSTORAGE, fd)
-    .then(response=>{ 
-        var urli= response.data.urlimagen;
-        var auxi = `${BASIC_URL}${urli}`;
-        console.log(auxi);
-    axios.post(ZONA_URL, {
-      nombre: nombre,
-      nro_sitios:numSitios,
-      sitios: sitios,
-      direccion: direccion,
-      imagen: auxi,
-      descripcion: descripcion
-    })
-  })
+    try {
+      const url = await subirImagen(archivo.file);
+      axios.post(ZONA_URL, {
+            nombre: nombre,
+            nro_sitios:numSitios,
+            sitios: sitios,
+            direccion: direccion,
+            imagen: url,
+            descripcion: descripcion
+          })
+    } catch (error) {
+      console.error(error);
+    }
+  //   const fd = new FormData();
+  //   fd.append('file', archivo.file);
+  //   await axios.post(URL_IMAGENSTORAGE, fd)
+  //   .then(response=>{ 
+  //       var urli= response.data.urlimagen;
+  //       var auxi = `${BASIC_URL}${urli}`;
+  //       console.log(auxi);
+  //   axios.post(ZONA_URL, {
+  //     nombre: nombre,
+  //     nro_sitios:numSitios,
+  //     sitios: sitios,
+  //     direccion: direccion,
+  //     imagen: auxi,
+  //     descripcion: descripcion
+  //   })
+  // })
     resetForm();
     notificacion();
     

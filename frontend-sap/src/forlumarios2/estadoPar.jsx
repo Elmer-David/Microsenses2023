@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
 import configure from '../config/configure';
-
+import {subirImagen} from '../firebase/config';
 
 const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
 const URL_CONVOCATARIA = configure.CONVOCATORIA_API_URL;
@@ -195,32 +195,55 @@ function RequestForm() {
       return; // Se detiene la ejecución del formulario
     }
 
-    const fd = new FormData();
-    fd.append('file', archivo.file);
-    await axios.post(URL_IMAGENSTORAGE, fd)
-    .then(response=>{ 
-        var urli= response.data.urlimagen;
-        var auxi = `${BASIC_URL}${urli}`;
+    try {
+      const url = await subirImagen(archivo.file);
+      axios.post(URL_PARQUEO, 
+          {
+            nombre: nombreParqueo,
+            descripcion: "Descripcion",
+            imagen: url,
+            fecha_ini_solicitud: startDate,
+            fecha_fin_solicitud: endDate,
+            fecha_ini_pago: null,
+            fecha_fin_pago: null,
+            precio_mensual: precio,
+            descuento3meses: descuento,
+            descuento6meses: 0,
+            descuento12meses: descuentoAño,
+            multa: multa,
+            cuenta_banco: numeroCuenta,
+            nombre_banco: nombre
+          })
+    } catch (error) {
+      console.error(error);
+    }
 
-    axios.post(URL_PARQUEO, 
-      {
-        nombre: nombreParqueo,
-        descripcion: "Descripcion",
-        imagen: auxi,
-        fecha_ini_solicitud: startDate,
-        fecha_fin_solicitud: endDate,
-        fecha_ini_pago: null,
-        fecha_fin_pago: null,
-        precio_mensual: precio,
-        descuento3meses: descuento,
-        descuento6meses: 0,
-        descuento12meses: descuentoAño,
-        multa: multa,
-        cuenta_banco: numeroCuenta,
-        nombre_banco: nombre
-      })
+    // const fd = new FormData();
+    // fd.append('file', archivo.file);
+    // await axios.post(URL_IMAGENSTORAGE, fd)
+    // .then(response=>{ 
+    //     var urli= response.data.urlimagen;
+    //     var auxi = `${BASIC_URL}${urli}`;
 
-    })
+    // axios.post(URL_PARQUEO, 
+    //   {
+    //     nombre: nombreParqueo,
+    //     descripcion: "Descripcion",
+    //     imagen: auxi,
+    //     fecha_ini_solicitud: startDate,
+    //     fecha_fin_solicitud: endDate,
+    //     fecha_ini_pago: null,
+    //     fecha_fin_pago: null,
+    //     precio_mensual: precio,
+    //     descuento3meses: descuento,
+    //     descuento6meses: 0,
+    //     descuento12meses: descuentoAño,
+    //     multa: multa,
+    //     cuenta_banco: numeroCuenta,
+    //     nombre_banco: nombre
+    //   })
+
+    // })
     // await axios.get(URL_PARQUEO)
     // .then(response=>{
     //   if(response.data[0] != null){

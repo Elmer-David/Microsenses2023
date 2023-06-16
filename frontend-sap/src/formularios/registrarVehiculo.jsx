@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
 import configure from "../config/configure";
+import {subirImagen} from '../firebase/config';
 
 const cookies = new Cookies();
 const URL_VEHICULOS = configure.VEHICULOS_API_URL;
@@ -71,22 +72,33 @@ const RegistroVehiculo = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const url = await subirImagen(archivo.file);
+      axios.post(URL_VEHICULOS, {
+          modelo: nombre,
+          foto: url,
+          nro_placa: numPlaca,
+          descripcion: descripcion,
+          id_user: iduser
+          })
+    } catch (error) {
+      console.error(error);
+    }
+    // const fd = new FormData();
+    // fd.append('file', archivo.file);
+    // await axios.post(URL_IMAGENSTORAGE, fd)
+    // .then(response=>{ 
+    //     var urli= response.data.urlimagen;
+    //     var auxi = `${BASIC_URL}${urli}`;
 
-    const fd = new FormData();
-    fd.append('file', archivo.file);
-    await axios.post(URL_IMAGENSTORAGE, fd)
-    .then(response=>{ 
-        var urli= response.data.urlimagen;
-        var auxi = `${BASIC_URL}${urli}`;
-
-    axios.post(URL_VEHICULOS, {
-      modelo: nombre,
-      foto: auxi,
-      nro_placa: numPlaca,
-      descripcion: descripcion,
-      id_user: iduser
-      })
-    })
+    // axios.post(URL_VEHICULOS, {
+    //   modelo: nombre,
+    //   foto: auxi,
+    //   nro_placa: numPlaca,
+    //   descripcion: descripcion,
+    //   id_user: iduser
+    //   })
+    // })
     resetForm();
     notificacion();
     // Aquí puedes enviar los datos del formulario a tu backend o hacer lo que necesites con ellos
