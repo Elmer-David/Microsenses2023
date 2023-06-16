@@ -5,8 +5,11 @@ import { Form, FormGroup, FormLabel, FormControl, Button, Alert } from 'react-bo
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginForm.css'; //
 import Cookies from 'universal-cookie';
+import configure from './config/configure';
 
 const cookies = new Cookies();
+// const URL_USER ='http://localhost:8000/api/auth/login';
+const URL_USER =configure.LOGIN_API_URL;
 
 function LoginForm(){
   const [username, setUsername] = useState('');
@@ -33,7 +36,6 @@ function LoginForm(){
 
 
 
-  const URL_USER ='http://localhost:8000/api/auth/login';
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
