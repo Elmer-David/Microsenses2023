@@ -3,8 +3,11 @@ import { Button, Modal } from "react-bootstrap";
 import axios from 'axios'
 import configData from '../config/config.json'
 import Cookies from "universal-cookie";
+import configure from "../config/configure";
 const cookies = new Cookies();
-const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
+
+const URL_CONVOCATARIA = configure.CONVOCATORIA_API_URL;
+const USER_URL = configure.CUSER_API_URL;
 
 function SolicitarEspacio() {
 
@@ -60,7 +63,7 @@ function SolicitarEspacio() {
         id_zona: null,
         id_horario: null
       };
-      axios.put(`http://localhost:8000/api/users/${id}`, data)
+      axios.put(`${USER_URL}/${id}`, data)
         .then(response => {
           console.log("Datos enviados:", data);
         })
@@ -112,7 +115,7 @@ function SolicitarEspacio() {
       id_zona: null,
       id_horario: null
     };
-    axios.put(`http://localhost:8000/api/users/${id}`, data)
+    axios.put(`${USER_URL}/${id}`, data)
       .then(response => {
         console.log("Datos enviados:", data);
         setEnviado(false);

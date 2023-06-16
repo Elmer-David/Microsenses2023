@@ -3,12 +3,13 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import configData from '../config/config.json'
 import Cookies from 'universal-cookie';
+import configure from '../config/configure';
 
 const cookies = new Cookies();
 
-const API_URL_USERS = configData.MENSGUARDIA_API_URL;
-const API_URL_GLOBAL = configData.MENSGLOBAL_API_URL;
-const API_URL_INDI = configData.MENSCLIENTE_API_URL;
+const API_URL_USERS = configure.MENSGUARDIA_API_URL;
+const API_URL_GLOBAL = configure.MENSGLOBAL_API_URL;
+const API_URL_INDI = configure.MENSCLIENTE_API_URL;
 
 const TablaMensajeGuardia = () => {
     const [users, setUsers] = useState( [] );

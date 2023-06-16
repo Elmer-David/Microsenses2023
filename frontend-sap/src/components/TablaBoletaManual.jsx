@@ -5,11 +5,12 @@ import Cookies from 'universal-cookie';
 import VistaComprobanteManual from './VistaComprobanteManual';
 import ComprobantePdfManual from './ComprobantePdfManual';
 import { PDFViewer } from '@react-pdf/renderer';
+import configure from '../config/configure';
 
 const cookies = new Cookies();
 
-const API_URL_BOLETAS = configData.BOLETAMANUAL_API_URL;
-const API_URL_BOLETAS2 = configData.BOLETACLIENTE_API_URL;
+const API_URL_BOLETAS = configure.BOLETAMANUAL_API_URL;
+const API_URL_BOLETAS2 = configure.BOLETACLIENTE_API_URL;
 
 const TablaBoletaManual = () => {
     const [boletas, setBoletas] = useState( [] );

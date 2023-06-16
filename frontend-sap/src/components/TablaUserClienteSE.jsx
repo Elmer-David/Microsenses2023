@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import configData from '../config/config.json'
+import configure from '../config/configure';
 
-const API_URL_USERS = configData.SOLOCLIENTE_API_URL;
-const CAPI_URL_USERS = configData.CUSER_API_URL;
+const API_URL_USERS = configure.SOLOCLIENTE_API_URL;
+const CAPI_URL_USERS = configure.CUSER_API_URL;
 
 const TablaUserClienteSE = () => {
     const [users, setUsers] = useState( [] );

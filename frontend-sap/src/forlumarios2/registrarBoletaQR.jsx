@@ -6,11 +6,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //import {subirImagen} from '../firebase/config';
 import configData from '../config/config.json';
+import configure from '../config/configure';
 
 const cookies = new Cookies();
-const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
-const URL_BOLETA = configData.BOLETAS_API_URL;
-const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
+const URL_CONVOCATARIA = configure.CONVOCATORIA_API_URL;
+const URL_BOLETA = configure.BOLETAS_API_URL;
+const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
+const BASIC_URL = configure.BASIC_API_URL;
 
 function BoletaFormQR() {
   const [formData, setFormData] = useState({
@@ -130,7 +132,7 @@ function BoletaFormQR() {
     await axios.post(URL_IMAGENSTORAGE, fd)
     .then(response=>{ 
         var urli= response.data.urlimagen;
-        var auxi = `http://localhost:8000/${urli}`;
+        var auxi = `${BASIC_URL}${urli}`;
         axios.post(URL_BOLETA, 
         {
           mensualidad: formData.mesesPagar,

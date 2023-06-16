@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ListGroup, Button, Modal } from 'react-bootstrap';
+import configure from '../config/configure';
+
+const USER_URL = configure.CUSER_API_URL;
+const ZONAS_URL = configure.ZONAS_API_URL;
 
 function AsignarSitiosParqueo() {
   const [users, setUsers] = useState([]);
@@ -20,7 +24,7 @@ function AsignarSitiosParqueo() {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/users')
+    axios.get(USER_URL)
       .then(response => {
         const filteredUsers = response.data.filter(user => user.solicitud_parqueo === 1);
         setUsers(filteredUsers);
@@ -32,7 +36,7 @@ function AsignarSitiosParqueo() {
         console.error(error);
       });
 
-      axios.get('http://localhost:8000/api/zonas')
+      axios.get(ZONAS_URL)
       .then(response => {
         const zonesData = response.data
           .map(zona => ({
@@ -93,7 +97,7 @@ function AsignarSitiosParqueo() {
 
       // Actualizar la base de datos
       const updatedSitesString = updatedSites.length > 0 ? updatedSites.join(',') : null;
-      axios.put(`http://localhost:8000/api/zonas/${randomZone.id}`, { sitios: updatedSitesString, nro_sitios: updatedSites.length })
+      axios.put(`${ZONAS_URL}/${randomZone.id}`, { sitios: updatedSitesString, nro_sitios: updatedSites.length })
         .then(response => {
           console.log('Sitios disponibles actualizados en la base de datos:', response.data);
         })
@@ -105,7 +109,7 @@ function AsignarSitiosParqueo() {
         const user = users.find((user) => user.id === userId);
 
         axios
-          .put(`http://localhost:8000/api/users/${userId}`, {
+          .put(`${USER_URL}/${userId}`, {
             name: user.name,
             apellido: user.apellido,
             dni: user.dni,
@@ -182,7 +186,7 @@ function AsignarSitiosParqueo() {
       // Actualizar la base de datos
       const updatedSitesString = updatedSites.length > 0 ? updatedSites.join(',') : null;
       axios
-        .put(`http://localhost:8000/api/zonas/${zoneId}`, { sitios: updatedSitesString, nro_sitios: updatedSites.length })
+        .put(`${ZONAS_URL}/${zoneId}`, { sitios: updatedSitesString, nro_sitios: updatedSites.length })
         .then((response) => {
           console.log('Sitios disponibles actualizados en la base de datos:', response.data);
         })
@@ -195,7 +199,7 @@ function AsignarSitiosParqueo() {
         const user = users.find((user) => user.id === selectedUserId);
         console.log(user.sitioAsignado);
         axios
-          .put(`http://localhost:8000/api/users/${selectedUserId}`, {
+          .put(`${USER_URL}/${selectedUserId}`, {
             name: user.name,
             apellido: user.apellido,
             dni: user.dni,

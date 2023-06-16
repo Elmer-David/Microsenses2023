@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
+import configure from '../config/configure';
+
+const USER_API = configure.CUSER_API_URL;
 
 function ListaUsuarios() {
     const [boletas, setBoletas] = useState([]);
   
     useEffect(() => {
       axios
-        .get("http://localhost:8000/api/users")
+        .get(USER_API)
         .then((response) => {
           setBoletas(response.data);
         })
@@ -18,7 +21,7 @@ function ListaUsuarios() {
   
     const handleEliminarClick = (id) => {
       axios
-        .delete(`http://localhost:8000/api/users/${id}`)
+        .delete(`${USER_API}/${id}`)
         .then((response) => {
           // Eliminar el cliente de la lista
           const newBoletas = boletas.filter((boleta) => boleta.id !== id);

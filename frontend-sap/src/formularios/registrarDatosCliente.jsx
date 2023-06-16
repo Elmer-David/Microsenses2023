@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
 import axios from 'axios';
+import configure from '../config/configure';
 
+const RUSER_URL = configure.USER_API_URL;
 const regexSoloLetras = /^[a-zA-Z]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
@@ -141,7 +143,7 @@ const FormularioRegistroCli = () => {
     if (!errorNombre && !errorDepartamento && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
       console.log("El formulario se envió correctamente",Departamento, cargo);
 
-      await axios.post('http://localhost:8000/api/auth/register', {
+      await axios.post(RUSER_URL, {
     
       name: nombre,
       apellido: apellido,

@@ -8,8 +8,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-const cookies = new Cookies();
+import configure from '../config/configure';
 
+const ZONA_URL = configure.ZONAS_API_URL;
+const cookies = new Cookies();
 
 function NavBarOffCliente() {
 
@@ -24,7 +26,7 @@ function NavBarOffCliente() {
 
   useEffect(() => {
     axios
-    .get(`http://localhost:8000/api/zonas/${idParqueo}`)
+    .get(`${ZONA_URL}/${idParqueo}`)
       .then((response) => {
         setNombreZona(response.data.nombre);
       })

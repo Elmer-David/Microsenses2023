@@ -5,10 +5,11 @@ import Cookies from 'universal-cookie';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configure from "../config/configure";
 
 const cookies = new Cookies();
-const MENSAJES_API_URL = configData.MENSAJES_API_URL;
-const CLIENTES_API_URL = configData.SOLOGUARDIA_API_URL;
+const MENSAJES_API_URL = configure.MENSAJES_API_URL;
+const CLIENTES_API_URL = configure.SOLOGUARDIA_API_URL;
 
 function MensajeAGuardia() {
 

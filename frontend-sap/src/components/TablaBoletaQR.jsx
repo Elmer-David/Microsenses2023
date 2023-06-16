@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import configData from '../config/config.json'
+import configure from '../config/configure';
 
-const API_URL_BOLETAS = configData.BOLETAQRS_API_URL;
-const API_URL_BOLETAS2 = configData.BOLETAS_API_URL;
+const API_URL_BOLETAS = configure.BOLETAQRS_API_URL;
+const API_URL_BOLETAS2 = configure.BOLETAS_API_URL;
 
 const TablaBoletaQR = () => {
     const [boletas, setBoletas] = useState( [] );

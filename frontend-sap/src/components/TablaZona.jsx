@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import configData from '../config/config.json'
+import configure from '../config/configure';
 
-const API_URL_USERS = configData.ZONAS_API_URL;
+const API_URL_USERS = configure.ZONAS_API_URL;
 
 const TablaZona = () => {
     const [users, setUsers] = useState( [] );

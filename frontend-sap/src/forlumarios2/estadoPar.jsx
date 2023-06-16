@@ -4,10 +4,13 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
+import configure from '../config/configure';
 
 
-const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
-const URL_CONVOCATARIA = configData.CONVOCATORIA_API_URL;
+const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
+const URL_CONVOCATARIA = configure.CONVOCATORIA_API_URL;
+const URL_PARQUEO = configure.CONVOCATORIA_API_URL;
+const BASIC_URL = configure.BASIC_API_URL;
 
 function RequestForm() {
   const [startDate, setStartDate] = useState('');
@@ -20,7 +23,6 @@ function RequestForm() {
   const [nombre, setNombre] = useState('');
   const [numeroCuenta, setNumeroCuenta] = useState('');
   const [nombreParqueo, setNombreParqueo] = useState('');
-  const URL_PARQUEO = 'http://localhost:8000/api/parqueos/';
 
   const [ultimaConv, setUltimaConv] = useState(null); // Inicialmente se establece como null
 
@@ -198,7 +200,7 @@ function RequestForm() {
     await axios.post(URL_IMAGENSTORAGE, fd)
     .then(response=>{ 
         var urli= response.data.urlimagen;
-        var auxi = `http://localhost:8000/${urli}`;
+        var auxi = `${BASIC_URL}${urli}`;
 
     axios.post(URL_PARQUEO, 
       {

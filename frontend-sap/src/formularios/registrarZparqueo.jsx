@@ -5,9 +5,11 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
+import configure from "../config/configure";
 
-const ZONA_URL = configData.ZONAS_API_URL;
-const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
+const ZONA_URL = configure.ZONAS_API_URL;
+const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
+const BASIC_URL = configure.BASIC_API_URL;
 
 const RegistroZonasParqueo = () => {
   
@@ -80,7 +82,7 @@ const RegistroZonasParqueo = () => {
     await axios.post(URL_IMAGENSTORAGE, fd)
     .then(response=>{ 
         var urli= response.data.urlimagen;
-        var auxi = `http://localhost:8000/${urli}`;
+        var auxi = `${BASIC_URL}${urli}`;
         console.log(auxi);
     axios.post(ZONA_URL, {
       nombre: nombre,

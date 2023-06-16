@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
+import configure from '../config/configure';
+
+const USER_URL = configure.CUSER_API_URL;
+const ZONAS_URL = configure.ZONAS_API_URL;
 
 function ListaUsuariosParqueo() {
     const [boletas, setBoletas] = useState([]);
@@ -8,11 +12,11 @@ function ListaUsuariosParqueo() {
     useEffect(() => {
         const fetchUserData = async () => {
           try {
-            const response = await axios.get("http://localhost:8000/api/users");
+            const response = await axios.get(USER_URL);
             const filteredUsers = response.data.filter((user) => user.id_zona !== null);
       
             for (const user of filteredUsers) {
-              const zonaUrl = `http://localhost:8000/api/zonas/${user.id_zona}`;
+              const zonaUrl = `${ZONAS_URL}/${user.id_zona}`;
               const zonaResponse = await axios.get(zonaUrl);
               const zonaName = zonaResponse.data.nombre;
               user.zonaName = zonaName;
@@ -29,7 +33,7 @@ function ListaUsuariosParqueo() {
   
     const handleEliminarClick = (id) => {
       axios
-        .delete(`http://localhost:8000/api/users/${id}`)
+        .delete(`${USER_URL}/${id}`)
         .then((response) => {
           // Eliminar el cliente de la lista
           const newBoletas = boletas.filter((boleta) => boleta.id !== id);

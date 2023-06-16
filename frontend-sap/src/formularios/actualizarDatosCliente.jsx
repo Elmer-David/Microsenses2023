@@ -5,14 +5,16 @@ import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configData from '../config/config.json';
+import configure from '../config/configure';
 
 const cookies = new Cookies();
 
 const regexSoloLetras = /^[a-zA-Z ]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
-const URL_USER = configData.CUSER_API_URL;
-const URL_IMAGENSTORAGE = configData.IMAGENSTORAGE_API_URL;
+const URL_USER = configure.CUSER_API_URL;
+const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
+const BASIC_URL = configure.BASIC_API_URL;
 
 const ActuliazarDatos = () => {
 
@@ -175,7 +177,7 @@ const ActuliazarDatos = () => {
       await axios.post(URL_IMAGENSTORAGE, fd)
       .then(response=>{ 
           var urli= response.data.urlimagen;
-          var auxi = `http://localhost:8000/${urli}`;
+          var auxi = `${BASIC_URL}${urli}`;
       axios.put(`${URL_USER}/${miId}`, {
       name: nombre,
       apellido: apellido,

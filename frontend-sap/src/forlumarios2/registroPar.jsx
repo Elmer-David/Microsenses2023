@@ -3,6 +3,9 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configure from '../config/configure';
+
+const URL_HORARIOPARQUEO =configure.HORARIOPARQUEO_API_URL;
 
 function ParqueoForm() {
   const [horasAbierto, setHorasAbierto] = useState({
@@ -27,8 +30,6 @@ function ParqueoForm() {
     { value: 'Sabado', label: 'Sábado' },
     { value: 'Domingo', label: 'Domingo' }
   ];
-
-  const URL_HORARIOPARQUEO ='http://localhost:8000/api/horarioparqueos';
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -58,7 +59,7 @@ function ParqueoForm() {
   }  
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/horarioparqueos')
+    axios.get(URL_HORARIOPARQUEO)
       .then(response => {
         const newShifts = response.data.map(shift => ({
           horaAbre: shift.hora_ini,

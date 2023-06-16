@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import configure from '../config/configure';
+
+const CON_URL = configure.CONVOCATORIA_API_URL;
 
 function InfoConvocatoria() {
 
     const [boletas, setBoletas] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/parqueos")
+      .get(CON_URL)
       .then((response) => {
         var ult = response.data[response.data.length -1];
         setBoletas(ult);

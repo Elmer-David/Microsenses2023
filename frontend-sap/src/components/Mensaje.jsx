@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import configure from "../config/configure";
 
 const cookies = new Cookies();
 
@@ -13,7 +14,8 @@ function FormDisabledInputExample() {
     const [asunto, setAsunto] = useState('');
     const [mensaje, setMensaje] = useState('');
     const [receptor, setReceptor] = useState(1);
-    const MENSAJES_API_URL = configData.MENSAJES_API_URL;
+
+    const MENSAJES_API_URL = configure.MENSAJES_API_URL;
 
     const handleAsuntoChange = (event) => {
         setAsunto(event.target.value);

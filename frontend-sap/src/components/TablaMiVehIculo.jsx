@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import configData from '../config/config.json';
 import Cookies from 'universal-cookie';
+import configure from '../config/configure';
 
 const cookies = new Cookies();
 
@@ -10,7 +11,7 @@ const cookies = new Cookies();
 
 const TablaMiVehiculo = () => {
     const [vehiculos, setVehiculos] = useState( [] );
-    const API_URL_VEHICULOS = configData.VEHICLIS_API_URL;
+    const API_URL_VEHICULOS = configure.VEHICLIS_API_URL;
     const miId = cookies.get('id');
 
     useEffect(()=>{

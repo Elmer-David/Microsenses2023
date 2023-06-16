@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Form, Button, Col, Row,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import configData from '../config/config.json';
+import configure from '../config/configure';
 
-
-
+const User_Api_Url = configure.USER_API_URL;
 const regexSoloLetras = /^[a-zA-Z ]+$/;
 const regexSoloNumeros = /^[0-9]+$/;
 
@@ -42,7 +42,6 @@ function resetForm() {
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
   const [correoElectronico, setCorreoElectronico] = useState('');
 
-  const User_Api_Url = configData.USER_API_URL;
 
   const [errorNombre, setErrorNombre] = useState('');
   const [errorApellido, setErrorApellido] = useState('');
