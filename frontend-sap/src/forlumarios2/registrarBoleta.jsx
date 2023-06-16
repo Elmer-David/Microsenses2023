@@ -4,7 +4,7 @@ import axios from 'axios'
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//import {subirImagen} from '../firebase/config';
+import {subirImagen} from '../firebase/config';
 import configData from '../config/config.json';
 import configure from '../config/configure';
 
@@ -115,37 +115,49 @@ function BoletaForm() {
   }
   const [archivo, setArchivo] = useState(initialValues);
   //fin subida imagen
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     //firebase
-    // try {
-    //   const url = await subirImagen(file);
-    //   setFileUrl(url);
-    //   console.log(url);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    //localstorage
-    const fd = new FormData();
-    fd.append('file', archivo.file);
-    await axios.post(URL_IMAGENSTORAGE, fd)
-    .then(response=>{ 
-        var urli= response.data.urlimagen;
-        var auxi = `${BASIC_URL}${urli}`;
-        axios.post(URL_BOLETA, 
+    try {
+      const url = await subirImagen(archivo.file);
+      axios.post(URL_BOLETA, 
         {
           mensualidad: formData.mesesPagar,
           monto: formData.costoMensualida,
           nro_transaccion: formData.numeroTransaccion,
           fecha_deposito: formData.fecha,
-          foto_comprobante: auxi,
+          foto_comprobante: url,
           estado: 0,
           nro_factura: nfactura,
           id_user: iduser
         })
-    })
+      setFileUrl(url);
+      console.log(url);
+    } catch (error) {
+      console.error(error);
+    }
+
+    //localstorage
+    // const fd = new FormData();
+    // fd.append('file', archivo.file);
+    // await axios.post(URL_IMAGENSTORAGE, fd)
+    // .then(response=>{ 
+    //     var urli= response.data.urlimagen;
+    //     var auxi = `${BASIC_URL}${urli}`;
+    //     axios.post(URL_BOLETA, 
+    //     {
+    //       mensualidad: formData.mesesPagar,
+    //       monto: formData.costoMensualida,
+    //       nro_transaccion: formData.numeroTransaccion,
+    //       fecha_deposito: formData.fecha,
+    //       foto_comprobante: auxi,
+    //       estado: 0,
+    //       nro_factura: nfactura,
+    //       id_user: iduser
+    //     })
+    // })
     resetFormData();
     notificacion();
 
