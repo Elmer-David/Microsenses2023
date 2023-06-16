@@ -5,6 +5,7 @@ import configData from '../config/config.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import configure from '../config/configure';
+import {subirImagen} from '../firebase/config';
 
 const User_Api_Url = configure.USER_API_URL;
 const URL_IMAGENSTORAGE = configure.IMAGENSTORAGE_API_URL;
@@ -165,33 +166,59 @@ const FormularioRegistroPerso = () => {
     setErrorCorreoElectronico(errorCorreoElectronico);
 
     if (!errorNombre && !errorTelefono && !errorCI && !errorContraseña && !errorConfirmarContraseña && !errorCorreoElectronico && !errorApellido) {
-      console.log("El formulario se envió correctamente");
-      const fd = new FormData();
-      fd.append('file', archivo.file);
-      await axios.post(URL_IMAGENSTORAGE, fd)
-      .then(response=>{ 
-          var urli= response.data.urlimagen;
-          var auxi = `${BASIC_URL}${urli}`;
-      axios.post(User_Api_Url,{
-      name: nombre,
-      apellido: apellido,
-      dni: CI,
-      foto_perfil: auxi,
-      telefono: telefono,
-      direccion: null,
-      email: correoElectronico,
-      password: contraseña,
-      password_confirmed: confirmarContraseña,
-      tipo_usuario: tipoUsuario,
-      cargo: cargo,
-      departamento: null,
-      sitio: null,
-      primer_ini_sesion: 1,
-      solicitud_parqueo: 0,
-      id_zona: null,
-      id_horario: horarioTrabajo
-      })
-    })
+      try {
+        const url = await subirImagen(archivo.file);
+        axios.post(User_Api_Url,{
+            name: nombre,
+            apellido: apellido,
+            dni: CI,
+            foto_perfil: url,
+            telefono: telefono,
+            direccion: null,
+            email: correoElectronico,
+            password: contraseña,
+            password_confirmed: confirmarContraseña,
+            tipo_usuario: tipoUsuario,
+            cargo: cargo,
+            departamento: null,
+            sitio: null,
+            primer_ini_sesion: 1,
+            solicitud_parqueo: 0,
+            id_zona: null,
+            id_horario: horarioTrabajo
+            })
+        // setFileUrl(url);
+        // console.log(url);
+      } catch (error) {
+        console.error(error);
+      }
+      //   console.log("El formulario se envió correctamente");
+    //   const fd = new FormData();
+    //   fd.append('file', archivo.file);
+    //   await axios.post(URL_IMAGENSTORAGE, fd)
+    //   .then(response=>{ 
+    //       var urli= response.data.urlimagen;
+    //       var auxi = `${BASIC_URL}${urli}`;
+    //   axios.post(User_Api_Url,{
+    //   name: nombre,
+    //   apellido: apellido,
+    //   dni: CI,
+    //   foto_perfil: auxi,
+    //   telefono: telefono,
+    //   direccion: null,
+    //   email: correoElectronico,
+    //   password: contraseña,
+    //   password_confirmed: confirmarContraseña,
+    //   tipo_usuario: tipoUsuario,
+    //   cargo: cargo,
+    //   departamento: null,
+    //   sitio: null,
+    //   primer_ini_sesion: 1,
+    //   solicitud_parqueo: 0,
+    //   id_zona: null,
+    //   id_horario: horarioTrabajo
+    //   })
+    // })
       resetForm();
       notificacion();
       // Aquí podrías enviar los datos del formulario al servidor

@@ -133,8 +133,6 @@ function BoletaForm() {
           nro_factura: nfactura,
           id_user: iduser
         })
-      setFileUrl(url);
-      console.log(url);
     } catch (error) {
       console.error(error);
     }
