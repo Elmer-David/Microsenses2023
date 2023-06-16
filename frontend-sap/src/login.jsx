@@ -18,17 +18,17 @@ function LoginForm(){
 
 
 
-  const [boletas, setBoletas] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/parqueos")
-      .then((response) => {
-        setBoletas(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // const [boletas, setBoletas] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/api/parqueos")
+  //     .then((response) => {
+  //       setBoletas(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
 
 
