@@ -24,6 +24,50 @@ function PagoEfectivo() {
   const [clientes, setClientes] = useState( [] );
   const [idAc, setIdAc] = useState('');
 
+  const [showModalP, setShowModalP] = useState(false);
+  const [sumaMesesAceptados, setSumaMesesAceptados] = useState(0);
+  const [sumaMesesPendientes, setSumaMesesPendientes] = useState(0);
+  
+  const fetchData = () => {
+    axios
+      .get(BOLETAS_API_URL)
+      .then((response) => {
+        const boletas = response.data.filter((boleta) => boleta.id_user == idAc);
+  
+        const boletasAceptadas = boletas.filter((boleta) => [1, 3, 5].includes(boleta.estado));
+        const boletasPendientes = boletas.filter((boleta) => [0, 4].includes(boleta.estado));
+  
+        const sumaMesesAceptados = boletasAceptadas.reduce((total, boleta) => total + boleta.mensualidad, 0);
+        const sumaMesesPendientes = boletasPendientes.reduce((total, boleta) => total + boleta.mensualidad, 0);
+  
+  
+        setSumaMesesAceptados(sumaMesesAceptados);
+        setSumaMesesPendientes(sumaMesesPendientes);
+  
+  
+        if (sumaMesesAceptados >= 12 || sumaMesesPendientes + sumaMesesAceptados >= 12) {
+          setShowModalP(true);
+        }
+        console.log(sumaMesesPendientes,sumaMesesAceptados);
+  
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  useEffect(() => {
+    fetchData();
+    const calcular = 12 - (sumaMesesPendientes + sumaMesesAceptados);
+    const opcionesArray = Array.from({ length: calcular }, (_, index) => index + 1);
+  }, [idAc]);
+  
+  
+  const calcular =12-(sumaMesesPendientes + sumaMesesAceptados) ;
+  const opcionesArray = Array.from({ length: calcular }, (_, index) => index + 1);
+
+
+
+
   useEffect(()=>{
     getAllClientes()
   }, [])
@@ -31,11 +75,17 @@ function PagoEfectivo() {
   const getAllClientes=async()=>{
     const response = await axios.get(CLIENTES_API_URL)
     setClientes(response.data)
+
+    
   }
 
   const handleReceptorChange = (event) => {
     setIdAc(event.target.value);
+
+    
   };
+
+  
 
   const min = 111111111;
   const max = 999999999;
@@ -108,7 +158,11 @@ function PagoEfectivo() {
   };
 
   const handleSubmit = async (event) => {
+
+
+
     event.preventDefault();
+   
 
     await axios.post(BOLETAS_API_URL, 
       {
@@ -186,29 +240,21 @@ function PagoEfectivo() {
       </Form.Group>
 
 
-        <Form.Group controlId="mesesPagar">
+      <Form.Group controlId="mesesPagar">
             <Form.Label>Cantidad de meses a pagar</Form.Label>
             <Form.Control
               as="select"
               name="mesesPagar"
               value={formData.mesesPagar || ''}
               onChange={handleMesesPagarChange}
+              required
             >
-              <option value="">Selecciona una opción</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-
-             
+              <option value="">Cantidad de meses a Pagar</option>
+              {opcionesArray.map((opcion) => (
+                <option key={opcion} value={opcion}>
+                  {opcion}
+                </option>
+              ))}
             </Form.Control>
           </Form.Group>
 
@@ -268,6 +314,25 @@ function PagoEfectivo() {
           </Button>
         </div>
       </Form>
+
+
+      <Modal show={showModalP} onHide={() => setShowModalP(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Información</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Ya has pagado un año entero. No es necesario realizar más pagos, revise sus boletas
+        </Modal.Body>
+        <Modal.Footer>
+        <Button variant="primary" onClick={() => {
+            setShowModalP(false);
+            resetFormData();
+          
+          }}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <ToastContainer />
 
     </div>
